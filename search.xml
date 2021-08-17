@@ -4,6 +4,12 @@
     <title>Github的個人網頁</title>
     <url>/2021/04/05/Github%E7%9A%84%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/</url>
     <content><![CDATA[<h3 id="寫程式卡在邏輯問題的我-👇"><a href="#寫程式卡在邏輯問題的我-👇" class="headerlink" title="寫程式卡在邏輯問題的我 👇"></a>寫程式卡在邏輯問題的我 👇</h3><img src="/images/cat.jpg"  width="500" height="500">]]></content>
+      <categories>
+        <category>日記</category>
+      </categories>
+      <tags>
+        <tag>日常廢文</tag>
+      </tags>
   </entry>
   <entry>
     <title>Markdown語法筆記</title>
@@ -49,5 +55,11 @@
 <p>參考資料：</p>
 <p><a href="https://markdown.tw/">Markdown語法說明</a></p>
 ]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
   </entry>
 </search>
