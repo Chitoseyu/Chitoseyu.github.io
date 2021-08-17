@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Github的個人網頁</title>
+    <url>/2021/04/05/Github%E7%9A%84%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/</url>
+    <content><![CDATA[<h3 id="寫程式卡在邏輯問題的我-👇"><a href="#寫程式卡在邏輯問題的我-👇" class="headerlink" title="寫程式卡在邏輯問題的我 👇"></a>寫程式卡在邏輯問題的我 👇</h3><img src="/images/cat.jpg"  width="500" height="500">]]></content>
+  </entry>
+  <entry>
+    <title>Markdown語法筆記</title>
+    <url>/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/</url>
+    <content><![CDATA[<p>作個紀錄</p>
+<h1 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h1><p><strong>#當標題使用，越少字越大，最多6個</strong></p>
+<pre><code>## 第二段 (H2)
+### 第三段(H3)
+</code></pre>
+<p>效果如下</p>
+<h2 id="第二段-H2"><a href="#第二段-H2" class="headerlink" title="第二段 (H2)"></a>第二段 (H2)</h2><h3 id="第三段-H3"><a href="#第三段-H3" class="headerlink" title="第三段(H3)"></a>第三段(H3)</h3><span id="more"></span>
+
+
+<h1 id="刪除線"><a href="#刪除線" class="headerlink" title="刪除線"></a>刪除線</h1><p><strong>句子前後都加 ~~ 會有刪除線效果</strong></p>
+<pre><code>~~我是刪除線~~
+</code></pre>
+<p>效果如下</p>
+<p><del>我是刪除線</del></p>
+<h1 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h1><p><strong>前面一個 * 當一般清單(就是沒有1.、2.、3.、…etc)</strong></p>
+<pre><code>* 第一個
+ * 第二個
+* 第三個
+</code></pre>
+<p>效果如下</p>
+<ul>
+<li>第一個</li>
+<li>第二個</li>
+<li>第三個</li>
+</ul>
+<h1 id="文字大區塊"><a href="#文字大區塊" class="headerlink" title="文字大區塊"></a>文字大區塊</h1><p><strong>要用大區塊將文字包起來可以按四個空白或是一個Tab</strong></p>
+<pre><code>echo &quot;Hello World!&quot;
+</code></pre>
+<h1 id="文字小區塊"><a href="#文字小區塊" class="headerlink" title="文字小區塊"></a>文字小區塊</h1><p><strong>要用小區塊將文字包起來前後都加上 ` 反引號</strong></p>
+<p><code>echo &quot;Hello World!&quot;</code></p>
+<h1 id="程式碼區塊"><a href="#程式碼區塊" class="headerlink" title="程式碼區塊"></a>程式碼區塊</h1><p><strong>程式碼區塊在開頭結尾加上```可以顯示</strong></p>
+<p>要加上Highlight  以JS為例就是 js 或 javascript 在前面的 ``` 加上 js 或 javascript 就有囉</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">&quot;歡迎光臨&quot;</span>) </span><br></pre></td></tr></table></figure>
+<h1 id="超連結"><a href="#超連結" class="headerlink" title="超連結"></a>超連結</h1><p><strong>需要超連結的格式</strong></p>
+<p><code>[要顯示的名稱](網址)</code></p>
+<h1 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h1><p><code>![若圖片顯示不出來的文字](圖片連結位置或網址)</code></p>
+<p>效果如下，用原生的沒辦法設定大小，可以改用HTML的　img　標籤來設定　</p>
+<p><img src="https://i.imgur.com/8Kwd2ko.jpg" alt="沒錯原生圖檔就這麼大"></p>
+<p>參考資料：</p>
+<p><a href="https://markdown.tw/">Markdown語法說明</a></p>
+]]></content>
+  </entry>
+</search>
