@@ -312,7 +312,15 @@
 
 
 
-<script src="/js/comments.js"></script>
+
+<script src="https://utteranc.es/client.js"
+        repo="Chitoseyu / Chitoseyu.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+    <div class="comments utterances-container"></div><script src="/js/comments.js"></script>
 </div>
   </main>
 
@@ -333,7 +341,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="總字數">0k</span>
+    <span title="總字數">1k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
@@ -367,6 +375,19 @@
 
     <div class="pjax">
 
+
+<script>
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "Chitoseyu/Chitoseyu.github.io");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "github-dark-orange");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
+});
+</script>
 
     </div>
 </body>

@@ -1329,10 +1329,6 @@ pre code {
   max-width: 120px;
   padding: 2px;
   border-radius: 50%;
-  transition: transform 1s ease-out;
-}
-.site-author-image:hover {
-  transform: rotateZ(360deg);
 }
 .site-author-name {
   color: var(--text-color);
@@ -2459,6 +2455,9 @@ ul.breadcrumb li:last-child {
 .tag-cloud-10 {
   border-bottom-color: #111;
   color: #111;
+}
+.utterances {
+  max-width: unset;
 }
 .search-active {
   overflow: hidden;

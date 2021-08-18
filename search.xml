@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Github的個人網頁</title>
+    <url>/2021/04/05/Github%E7%9A%84%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/</url>
+    <content><![CDATA[<h3 id="寫程式卡在邏輯問題的我-👇"><a href="#寫程式卡在邏輯問題的我-👇" class="headerlink" title="寫程式卡在邏輯問題的我 👇"></a>寫程式卡在邏輯問題的我 👇</h3><img src="/images/cat.jpg"  width="500" height="500">]]></content>
+      <categories>
+        <category>日記</category>
+      </categories>
+      <tags>
+        <tag>日常廢文</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown語法筆記</title>
     <url>/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/</url>
-    <content><![CDATA[<p>作個紀錄</p>
+    <content><![CDATA[<p>整理一些比較常用的語法紀錄</p>
+<hr>
 <h1 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h1><p><strong>#當標題使用，越少字越大，最多6個</strong></p>
 <pre><code>## 第二段 (H2)
 ### 第三段(H3)
@@ -17,7 +29,44 @@
 </code></pre>
 <p>效果如下</p>
 <p><del>我是刪除線</del></p>
-<h1 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h1><p><strong>前面一個 * 當一般清單(就是沒有1.、2.、3.、…etc)</strong></p>
+<h1 id="常用文字效果"><a href="#常用文字效果" class="headerlink" title="常用文字效果"></a>常用文字效果</h1><h2 id="粗體"><a href="#粗體" class="headerlink" title="粗體"></a>粗體</h2><pre><code>**Bold**  or __Bold__
+</code></pre>
+<p>效果如下</p>
+<p><strong>Bold</strong></p>
+<h2 id="斜體"><a href="#斜體" class="headerlink" title="斜體"></a>斜體</h2><pre><code>*Italic*  or _Italic_
+</code></pre>
+<p>效果如下</p>
+<p><em>Italic</em></p>
+<h2 id="特殊符號"><a href="#特殊符號" class="headerlink" title="特殊符號"></a>特殊符號</h2><p>**如果需要打特殊符號但跟前面的有重複到，記得在符號前加上反斜線 \ ，特殊符號如下 **</p>
+<pre><code>*
+!
++
+-
+[]
+&#123;&#125;
+#
+!
+</code></pre>
+<h2 id="區塊引言"><a href="#區塊引言" class="headerlink" title="區塊引言"></a>區塊引言</h2><p>** 在每行前面 加上 &gt; 或是在區塊的第一行加上 &gt; **</p>
+<pre><code>&gt; 哈哈
+&gt; 區塊引言
+&gt; &gt; 多加就會換行
+</code></pre>
+<p>效果如下</p>
+<blockquote>
+<p>哈哈<br>區塊引言</p>
+<blockquote>
+<p>多加就會換行</p>
+</blockquote>
+</blockquote>
+<h2 id="分隔線"><a href="#分隔線" class="headerlink" title="分隔線"></a>分隔線</h2><p><strong>分隔線的部分就很自由了，只要有三個以上的 * or _ or - 都會出來，不管中間有沒有空格</strong> </p>
+<pre><code>***
+_ _ _ _ _
+------------
+</code></pre>
+<p>效果如下</p>
+<hr>
+<h1 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h1><p><strong>前面一個 * or + or - 當一般清單(就是沒有1.、2.、3.、…etc)</strong></p>
 <pre><code>* 第一個
  * 第二個
 * 第三個
@@ -28,6 +77,15 @@
 <li>第二個</li>
 <li>第三個</li>
 </ul>
+<p><strong>想要有序清單就正常打</strong></p>
+<pre><code>1. 第一個
+2. 第二個
+</code></pre>
+<p>效果如下   </p>
+<ol>
+<li>第一個</li>
+<li>第二個</li>
+</ol>
 <h1 id="文字大區塊"><a href="#文字大區塊" class="headerlink" title="文字大區塊"></a>文字大區塊</h1><p><strong>要用大區塊將文字包起來可以按四個空白或是一個Tab</strong></p>
 <pre><code>echo &quot;Hello World!&quot;
 </code></pre>
@@ -39,27 +97,18 @@
 <h1 id="超連結"><a href="#超連結" class="headerlink" title="超連結"></a>超連結</h1><p><strong>需要超連結的格式</strong></p>
 <p><code>[要顯示的名稱](網址)</code></p>
 <h1 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h1><p><code>![若圖片顯示不出來的文字](圖片連結位置或網址)</code></p>
-<p>效果如下，用原生的沒辦法設定大小，可以改用HTML的　img　標籤來設定　</p>
-<p><img src="https://i.imgur.com/8Kwd2ko.jpg" alt="沒錯原生圖檔就這麼大"></p>
-<p>參考資料：</p>
-<p><a href="https://markdown.tw/">Markdown語法說明</a></p>
+<p>效果如下，用原生的沒辦法設定大小，可以改用HTML的　img　標籤來設定</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;圖片網誌或存放路徑&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML的img做出來的效果"><a href="#HTML的img做出來的效果" class="headerlink" title="HTML的img做出來的效果"></a>HTML的img做出來的效果</h2><img src="https://i.imgur.com/8Kwd2ko.jpg"  width="300" height="300">
+
+<h2 id="Markdown做出來的效果"><a href="#Markdown做出來的效果" class="headerlink" title="Markdown做出來的效果"></a>Markdown做出來的效果</h2><p><img src="https://i.imgur.com/8Kwd2ko.jpg" alt="沒錯原生圖檔就這麼大"></p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://markdown.tw/">Markdown語法說明</a></p>
 ]]></content>
       <categories>
         <category>技術筆記</category>
       </categories>
       <tags>
         <tag>Markdown</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Github的個人網頁</title>
-    <url>/2021/04/05/Github%E7%9A%84%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/</url>
-    <content><![CDATA[<h3 id="寫程式卡在邏輯問題的我-👇"><a href="#寫程式卡在邏輯問題的我-👇" class="headerlink" title="寫程式卡在邏輯問題的我 👇"></a>寫程式卡在邏輯問題的我 👇</h3><img src="/images/cat.jpg"  width="500" height="500">]]></content>
-      <categories>
-        <category>日記</category>
-      </categories>
-      <tags>
-        <tag>日常廢文</tag>
       </tags>
   </entry>
 </search>
