@@ -2094,6 +2094,9 @@ pre code {
     display: none;
   }
 }
+#busuanzi_container_page_pv {
+  display: none;
+}
 .post-nav {
   border-top: 1px solid #eee;
   display: flex;
