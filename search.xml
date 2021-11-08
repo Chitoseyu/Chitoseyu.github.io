@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>155. Min Stack javascript解題</title>
+    <url>/2021/11/08/155-Min-Stack-javascript/</url>
+    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
+<p>Implement the MinStack class:</p>
+<ul>
+<li>MinStack() initializes the stack object.</li>
+<li>void push(int val) pushes the element val onto the stack.</li>
+<li>void pop() removes the element on the top of the stack.</li>
+<li>int top() gets the top element of the stack.</li>
+<li>int getMin() retrieves the minimum element in the stack.</li>
+</ul>
+<span id="more"></span>
+
+<p>Input / Output(測試資料輸入/輸出):</p>
+<pre><code>參考leetcode
+</code></pre>
+<p>Explanation(使用範例):</p>
+<pre><code>MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+</code></pre>
+<p>Constraints(參數限制):</p>
+<ul>
+<li>-231 &lt;= val &lt;= 231 - 1</li>
+<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
+<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
+</ul>
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
+<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
+<p>所以 min 最底層永遠是最小值</p>
+<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
+<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>解題紀錄</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>關於網站作者</title>
     <url>/2021/04/05/Github%E7%9A%84%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="毫無反應，就只是一隻腦袋當機貓"><a href="#毫無反應，就只是一隻腦袋當機貓" class="headerlink" title="毫無反應，就只是一隻腦袋當機貓"></a>毫無反應，就只是一隻腦袋當機貓</h2><img src="/images/cat.jpg"  width="500" height="500">
