@@ -72,6 +72,194 @@ minStack.getMin(); // return -2
       </tags>
   </entry>
   <entry>
+    <title>Linux常用語法</title>
+    <url>/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>開始整理大學時期研究的筆記</p>
+<p>也替自己的學習做一點紀錄</p>
+<p>放個Linux吉祥物做開頭吧</p>
+<p><img src="/images/Linux_icon.png"></p>
+<p>Linux作業系統有發行很多種版本</p>
+<p>例如：CentOS、Ubuntu…等都算是Linux的一種</p>
+<p>但終端機用的指令通常都大同小異</p>
+<p>也藉由這文章做個整理</p>
+<span id="more"></span>
+
+<h1 id="Linux語法"><a href="#Linux語法" class="headerlink" title="Linux語法"></a>Linux語法</h1><p>以下依照功能用途來區分常用指令</p>
+<h2 id="系統操作"><a href="#系統操作" class="headerlink" title="系統操作"></a>系統操作</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lsb_release</td>
+<td>查看目前ubuntu版本</td>
+<td>lsb_release -a</td>
+</tr>
+<tr>
+<td>dpkg</td>
+<td>列出安裝套件</td>
+<td>dpkg -l  grep php</td>
+</tr>
+<tr>
+<td>route</td>
+<td>查看路由表</td>
+<td>route -n</td>
+</tr>
+</tbody></table>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+<th align="left">用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ls</td>
+<td>查看目前所在位置的所有檔案</td>
+<td align="left">ls</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>建立新資料夾</td>
+<td align="left">mkdir html</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>移動到該資料夾下</td>
+<td align="left">cd html</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>使用者更改自己帳號的密碼</td>
+<td align="left">Passwd</td>
+</tr>
+<tr>
+<td>apt update</td>
+<td>更新系統</td>
+<td align="left">sudo apt update</td>
+</tr>
+<tr>
+<td>apt upgrade</td>
+<td>更新系統現有套件</td>
+<td align="left">sudo apt upgrade</td>
+</tr>
+<tr>
+<td>apt dist-upgrade</td>
+<td>更新系統套件相依性</td>
+<td align="left">sudo apt dist-upgrade</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>系統關機(-c 取消關機 -r重新開機)</td>
+<td align="left">sudo shutdown -h now</td>
+</tr>
+</tbody></table>
+<h2 id="檔案處理"><a href="#檔案處理" class="headerlink" title="檔案處理"></a>檔案處理</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+<th align="left">用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nano(vi)</td>
+<td>編輯器新增或編輯檔案(nano或vi 看使用者習慣)</td>
+<td align="left">nano  index.html</td>
+</tr>
+<tr>
+<td>mv</td>
+<td>檔案改名或移動到特定位置</td>
+<td align="left">mv index.html newIndex.html</td>
+</tr>
+<tr>
+<td>find</td>
+<td>尋找檔案(可在檔案名稱變化：?單字元、*多字元)</td>
+<td align="left">find / -name newIndex.*</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>複製檔案</td>
+<td align="left">cp newIndex.html index.txt</td>
+</tr>
+</tbody></table>
+<p>這邊說明檔案權限的區分規則</p>
+<p>主要有三個用戶  User(個人) / Group(群組) / Other(其他) 順序排列</p>
+<p><code>r :  可讀權限, 數字是 4</code></p>
+<p><code>w : 寫入權限, 數字是 2</code></p>
+<p><code>x :  執行權限, 數字是 1</code></p>
+<p><code>-:  刪除權限, 數字是 0</code></p>
+<p><strong>通常會是三個一組，採加法可得出數字</strong></p>
+<p><code>7 = 4 (讀) + 2 (寫) + 1 (執行)</code></p>
+<p><code>5 = 4 (讀) + 1 (執行)</code></p>
+<p><code>4 = 4 (讀)</code></p>
+<p>舉個例子</p>
+<p>要使 index.html 個人可以讀寫執、群組讀寫、其他讀：</p>
+<p>chmod rwx,rx,r index.html    </p>
+<p>也等於</p>
+<p>chmod 754 index.html</p>
+<h2 id="使用者管理"><a href="#使用者管理" class="headerlink" title="使用者管理"></a>使用者管理</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+<th align="left">用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cat</td>
+<td>預覽檔案全部內容並印出</td>
+<td align="left">cat index.html</td>
+</tr>
+<tr>
+<td>/etc/group</td>
+<td>目前系統存在的群組</td>
+<td align="left">cat /etc/group</td>
+</tr>
+<tr>
+<td>groups</td>
+<td>查看帳號群組</td>
+<td align="left">groups</td>
+</tr>
+<tr>
+<td>groupadd</td>
+<td>新增群組(G_ID:不重複的五位數 G_NAME:群組名稱)</td>
+<td align="left">groupadd -g G_ID G_Name</td>
+</tr>
+<tr>
+<td>/etc/passwd</td>
+<td>目前系統存在的帳號</td>
+<td align="left">cat /etc/passwd</td>
+</tr>
+<tr>
+<td>useradd</td>
+<td>新增使用者帳號(U_ID:不重複的數字 G:加入的群組 -m:建立目錄 U_N:使用者帳號）</td>
+<td align="left">useradd -u U_ID -g G -m U_N</td>
+</tr>
+<tr>
+<td>userdel</td>
+<td>刪除使用者帳號(-r:連家目錄一起刪除)</td>
+<td align="left">userdel -r U_N</td>
+</tr>
+<tr>
+<td>su</td>
+<td>管理帳號與使用者帳號切換</td>
+<td align="left">su -l U_N</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown語法筆記</title>
     <url>/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/</url>
     <content><![CDATA[<p>整理一些比較常用的語法紀錄</p>
@@ -608,194 +796,6 @@ find_element_by_css_selector
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux常用語法</title>
-    <url>/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>開始整理大學時期研究的筆記</p>
-<p>也替自己的學習做一點紀錄</p>
-<p>放個Linux吉祥物做開頭吧</p>
-<p><img src="/images/Linux_icon.png"></p>
-<p>Linux作業系統有發行很多種版本</p>
-<p>例如：CentOS、Ubuntu…等都算是Linux的一種</p>
-<p>但終端機用的指令通常都大同小異</p>
-<p>也藉由這文章做個整理</p>
-<span id="more"></span>
-
-<h1 id="Linux語法"><a href="#Linux語法" class="headerlink" title="Linux語法"></a>Linux語法</h1><p>以下依照功能用途來區分常用指令</p>
-<h2 id="系統操作"><a href="#系統操作" class="headerlink" title="系統操作"></a>系統操作</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th>用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>lsb_release</td>
-<td>查看目前ubuntu版本</td>
-<td>lsb_release -a</td>
-</tr>
-<tr>
-<td>dpkg</td>
-<td>列出安裝套件</td>
-<td>dpkg -l  grep php</td>
-</tr>
-<tr>
-<td>route</td>
-<td>查看路由表</td>
-<td>route -n</td>
-</tr>
-</tbody></table>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ls</td>
-<td>查看目前所在位置的所有檔案</td>
-<td align="left">ls</td>
-</tr>
-<tr>
-<td>mkdir</td>
-<td>建立新資料夾</td>
-<td align="left">mkdir html</td>
-</tr>
-<tr>
-<td>cd</td>
-<td>移動到該資料夾下</td>
-<td align="left">cd html</td>
-</tr>
-<tr>
-<td>passwd</td>
-<td>使用者更改自己帳號的密碼</td>
-<td align="left">Passwd</td>
-</tr>
-<tr>
-<td>apt update</td>
-<td>更新系統</td>
-<td align="left">sudo apt update</td>
-</tr>
-<tr>
-<td>apt upgrade</td>
-<td>更新系統現有套件</td>
-<td align="left">sudo apt upgrade</td>
-</tr>
-<tr>
-<td>apt dist-upgrade</td>
-<td>更新系統套件相依性</td>
-<td align="left">sudo apt dist-upgrade</td>
-</tr>
-<tr>
-<td>shutdown</td>
-<td>系統關機(-c 取消關機 -r重新開機)</td>
-<td align="left">sudo shutdown -h now</td>
-</tr>
-</tbody></table>
-<h2 id="檔案處理"><a href="#檔案處理" class="headerlink" title="檔案處理"></a>檔案處理</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>nano(vi)</td>
-<td>編輯器新增或編輯檔案(nano或vi 看使用者習慣)</td>
-<td align="left">nano  index.html</td>
-</tr>
-<tr>
-<td>mv</td>
-<td>檔案改名或移動到特定位置</td>
-<td align="left">mv index.html newIndex.html</td>
-</tr>
-<tr>
-<td>find</td>
-<td>尋找檔案(可在檔案名稱變化：?單字元、*多字元)</td>
-<td align="left">find / -name newIndex.*</td>
-</tr>
-<tr>
-<td>cp</td>
-<td>複製檔案</td>
-<td align="left">cp newIndex.html index.txt</td>
-</tr>
-</tbody></table>
-<p>這邊說明檔案權限的區分規則</p>
-<p>主要有三個用戶  User(個人) / Group(群組) / Other(其他) 順序排列</p>
-<p><code>r :  可讀權限, 數字是 4</code></p>
-<p><code>w : 寫入權限, 數字是 2</code></p>
-<p><code>x :  執行權限, 數字是 1</code></p>
-<p><code>-:  刪除權限, 數字是 0</code></p>
-<p><strong>通常會是三個一組，採加法可得出數字</strong></p>
-<p><code>7 = 4 (讀) + 2 (寫) + 1 (執行)</code></p>
-<p><code>5 = 4 (讀) + 1 (執行)</code></p>
-<p><code>4 = 4 (讀)</code></p>
-<p>舉個例子</p>
-<p>要使 index.html 個人可以讀寫執、群組讀寫、其他讀：</p>
-<p>chmod rwx,rx,r index.html    </p>
-<p>也等於</p>
-<p>chmod 754 index.html</p>
-<h2 id="使用者管理"><a href="#使用者管理" class="headerlink" title="使用者管理"></a>使用者管理</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>cat</td>
-<td>預覽檔案全部內容並印出</td>
-<td align="left">cat index.html</td>
-</tr>
-<tr>
-<td>/etc/group</td>
-<td>目前系統存在的群組</td>
-<td align="left">cat /etc/group</td>
-</tr>
-<tr>
-<td>groups</td>
-<td>查看帳號群組</td>
-<td align="left">groups</td>
-</tr>
-<tr>
-<td>groupadd</td>
-<td>新增群組(G_ID:不重複的五位數 G_NAME:群組名稱)</td>
-<td align="left">groupadd -g G_ID G_Name</td>
-</tr>
-<tr>
-<td>/etc/passwd</td>
-<td>目前系統存在的帳號</td>
-<td align="left">cat /etc/passwd</td>
-</tr>
-<tr>
-<td>useradd</td>
-<td>新增使用者帳號(U_ID:不重複的數字 G:加入的群組 -m:建立目錄 U_N:使用者帳號）</td>
-<td align="left">useradd -u U_ID -g G -m U_N</td>
-</tr>
-<tr>
-<td>userdel</td>
-<td>刪除使用者帳號(-r:連家目錄一起刪除)</td>
-<td align="left">userdel -r U_N</td>
-</tr>
-<tr>
-<td>su</td>
-<td>管理帳號與使用者帳號切換</td>
-<td align="left">su -l U_N</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>技術筆記</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
 </search>
