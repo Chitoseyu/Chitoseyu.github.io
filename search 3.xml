@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>155. Min Stack javascript解題</title>
+    <url>/2021/11/08/155-Min-Stack-javascript/</url>
+    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
+<p>Implement the MinStack class:</p>
+<ul>
+<li>MinStack() initializes the stack object.</li>
+<li>void push(int val) pushes the element val onto the stack.</li>
+<li>void pop() removes the element on the top of the stack.</li>
+<li>int top() gets the top element of the stack.</li>
+<li>int getMin() retrieves the minimum element in the stack.</li>
+</ul>
+<span id="more"></span>
+
+<p>Input / Output(測試資料輸入/輸出):</p>
+<pre><code>參考leetcode
+</code></pre>
+<p>Explanation(使用範例):</p>
+<pre><code>MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+</code></pre>
+<p>Constraints(參數限制):</p>
+<ul>
+<li>-231 &lt;= val &lt;= 231 - 1</li>
+<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
+<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
+</ul>
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
+<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
+<p>所以 min 最底層永遠是最小值</p>
+<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
+<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>解題紀錄</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>關於網站作者</title>
+    <url>/2021/04/05/Github%E7%9A%84%E5%80%8B%E4%BA%BA%E7%B6%B2%E9%A0%81/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="毫無反應，就只是一隻腦袋當機貓"><a href="#毫無反應，就只是一隻腦袋當機貓" class="headerlink" title="毫無反應，就只是一隻腦袋當機貓"></a>毫無反應，就只是一隻腦袋當機貓</h2><img src="/images/cat.jpg"  width="500" height="500">
+
+<p><font color="#0072E3" size="5"><center>覺得人生苦不如就看貓吧</center></font></p>
+<span id="more"></span>
+
+<p>不常寫長文，不定時更新文章內容</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>公立大學資訊工程系畢業</p>
+<p>科技不斷在變，不吸收各類新科技的工程師真的很難活啊</p>
+<p>目前在服兵役中</p>
+<p>每天看其他社群大神的各種教學文</p>
+<p>希望有天也能回饋廣大網路社會才開始更新自己的技術筆記</p>
+<p>整理自己研究過的技術，順便再複習相關概念</p>
+]]></content>
+      <categories>
+        <category>日記</category>
+      </categories>
+      <tags>
+        <tag>日常廢文</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown語法筆記</title>
+    <url>/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/</url>
+    <content><![CDATA[<p>整理一些比較常用的語法紀錄</p>
+<hr>
+<h1 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h1><p><strong>#當標題使用，越少字越大，最多6個</strong></p>
+<pre><code>## 第二段 (H2)
+### 第三段(H3)
+</code></pre>
+<p>效果如下</p>
+<h2 id="第二段-H2"><a href="#第二段-H2" class="headerlink" title="第二段 (H2)"></a>第二段 (H2)</h2><h3 id="第三段-H3"><a href="#第三段-H3" class="headerlink" title="第三段(H3)"></a>第三段(H3)</h3><span id="more"></span>
+
+
+<h1 id="刪除線"><a href="#刪除線" class="headerlink" title="刪除線"></a>刪除線</h1><p><strong>句子前後都加 ~~ 會有刪除線效果</strong></p>
+<pre><code>~~我是刪除線~~
+</code></pre>
+<p>效果如下</p>
+<p><del>我是刪除線</del></p>
+<h1 id="常用文字效果"><a href="#常用文字效果" class="headerlink" title="常用文字效果"></a>常用文字效果</h1><h2 id="粗體"><a href="#粗體" class="headerlink" title="粗體"></a>粗體</h2><pre><code>**Bold**  or __Bold__
+</code></pre>
+<p>效果如下</p>
+<p><strong>Bold</strong></p>
+<h2 id="斜體"><a href="#斜體" class="headerlink" title="斜體"></a>斜體</h2><pre><code>*Italic*  or _Italic_
+</code></pre>
+<p>效果如下</p>
+<p><em>Italic</em></p>
+<h2 id="字體顏色"><a href="#字體顏色" class="headerlink" title="字體顏色"></a>字體顏色</h2><p>這部分可以直接套用HTML語法，顏色可以參考<a href="https://www.ifreesite.com/color/">網頁色碼表</a></p>
+<pre><code>* &lt;font color = &quot;#FF0000&quot;&gt;紅色文字&lt;/font&gt;
+* &lt;font color = &quot;00A600&quot;&gt;綠色文字&lt;/font&gt;
+* &lt;font color = &quot;#0000C6&quot;&gt;藍色文字&lt;/font&gt;
+</code></pre>
+<p>效果如下 </p>
+<ul>
+<li><font color = "#FF0000">紅色文字</font></li>
+<li><font color = "00A600">綠色文字</font></li>
+<li><font color = "#0000C6">藍色文字</font></li>
+</ul>
+<h2 id="特殊符號"><a href="#特殊符號" class="headerlink" title="特殊符號"></a>特殊符號</h2><p>**如果需要打特殊符號但跟前面的有重複到，記得在符號前加上反斜線 \ ，特殊符號如下 **</p>
+<pre><code>*
+!
++
+-
+[]
+&#123;&#125;
+#
+!
+</code></pre>
+<h2 id="區塊引言"><a href="#區塊引言" class="headerlink" title="區塊引言"></a>區塊引言</h2><p>** 在每行前面 加上 &gt; 或是在區塊的第一行加上 &gt; **</p>
+<pre><code>&gt; 哈哈
+&gt; 區塊引言
+&gt; &gt; 多加就會換行
+</code></pre>
+<p>效果如下</p>
+<blockquote>
+<p>哈哈<br>區塊引言</p>
+<blockquote>
+<p>多加就會換行</p>
+</blockquote>
+</blockquote>
+<h2 id="分隔線"><a href="#分隔線" class="headerlink" title="分隔線"></a>分隔線</h2><p><strong>分隔線的部分就很自由了，只要有三個以上的 * or _ or - 都會出來，不管中間有沒有空格</strong> </p>
+<pre><code>***
+_ _ _ _ _
+------------
+</code></pre>
+<p>效果如下</p>
+<hr>
+<h1 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h1><p><strong>前面一個 * or + or - 當一般清單(就是沒有1.、2.、3.、…etc)</strong></p>
+<pre><code>* 第一個
+ * 第二個
+* 第三個
+</code></pre>
+<p>效果如下</p>
+<ul>
+<li>第一個</li>
+<li>第二個</li>
+<li>第三個</li>
+</ul>
+<p><strong>想要有序清單就正常打</strong></p>
+<pre><code>1. 第一個
+2. 第二個
+</code></pre>
+<p>效果如下   </p>
+<ol>
+<li>第一個</li>
+<li>第二個</li>
+</ol>
+<h1 id="文字大區塊"><a href="#文字大區塊" class="headerlink" title="文字大區塊"></a>文字大區塊</h1><p><strong>要用大區塊將文字包起來可以按四個空白或是一個Tab</strong></p>
+<pre><code>echo &quot;Hello World!&quot;
+</code></pre>
+<h1 id="文字小區塊"><a href="#文字小區塊" class="headerlink" title="文字小區塊"></a>文字小區塊</h1><p><strong>要用小區塊將文字包起來前後都加上 ` 反引號</strong></p>
+<p><code>echo &quot;Hello World!&quot;</code></p>
+<h1 id="程式碼區塊"><a href="#程式碼區塊" class="headerlink" title="程式碼區塊"></a>程式碼區塊</h1><p><strong>程式碼區塊在開頭結尾加上```可以顯示</strong></p>
+<p>要加上Highlight  以JS為例就是 js 或 javascript 在前面的 ``` 加上 js 或 javascript 就有囉</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">&quot;歡迎光臨&quot;</span>) </span><br></pre></td></tr></table></figure>
+<h1 id="超連結"><a href="#超連結" class="headerlink" title="超連結"></a>超連結</h1><p><strong>需要超連結的格式</strong></p>
+<p><code>[要顯示的名稱](網址)</code></p>
+<h1 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h1><p><code>![若圖片顯示不出來的文字](圖片連結位置或網址)</code></p>
+<p>效果如下，用原生的沒辦法設定大小，可以改用HTML的　img　標籤來設定</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;圖片網誌或存放路徑&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML的img做出來的效果"><a href="#HTML的img做出來的效果" class="headerlink" title="HTML的img做出來的效果"></a>HTML的img做出來的效果</h2><img src="https://i.imgur.com/8Kwd2ko.jpg"  width="300" height="300">
+
+<h2 id="Markdown做出來的效果"><a href="#Markdown做出來的效果" class="headerlink" title="Markdown做出來的效果"></a>Markdown做出來的效果</h2><p><img src="https://i.imgur.com/8Kwd2ko.jpg" alt="沒錯原生圖檔就這麼大"></p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://markdown.tw/">Markdown語法說明</a></p>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MongoDB入門手冊</title>
+    <url>/2021/08/19/MongoDB%E5%85%A5%E9%96%80%E6%89%8B%E5%86%8A/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>照慣例在文章開頭放個圖片</p>
+<p><img src="/images/mongodb.png"></p>
+<p>作為近幾年開始熱門討論的 NoSQL資料庫，有非常強大的社群及網路討論聲量，本身也有分成安裝版跟免安裝版本，大部分網路上教學都是安裝版，因為有安裝就會有預設路徑 = 少做路徑設定</p>
+<p>對於第一次操作的人可能都會是這個表情，這就是學習新技術痛苦的地方啊…<br><img src="/images/cat.jpg"  width="300" height="300"></p>
+<p>我在操作時使用免安裝版，優點就是可以隨時帶著走，但路徑出錯直接運作不起來</p>
+<p>這部分就交給讀者自行選擇版本囉 ~ </p>
+<p>在學習途中做個資料整理，提供正在學的人能避免做無用功浪費時間，有錯誤歡迎留言指正！</p>
+<span id="more"></span>
+<hr>
+<h1 id="MongoDB設定細節"><a href="#MongoDB設定細節" class="headerlink" title="MongoDB設定細節"></a>MongoDB設定細節</h1><h2 id="安裝本機背景服務設定-Windows環境下-："><a href="#安裝本機背景服務設定-Windows環境下-：" class="headerlink" title="安裝本機背景服務設定(Windows環境下)："></a>安裝本機背景服務設定(Windows環境下)：</h2><p>讓MongoDB可以在背景啟動，mongodb.cfg是設定檔，寫法可參考下文所寫格式</p>
+<p><code>mongod --config &quot;C:\你的安裝路徑\bin\mongodb.cfg&quot; --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --install</code></p>
+<p>在安裝的時候一起把設定檔讀入就不需要打前面那一大串了</p>
+<p>讀取設定檔語法可以參照下面寫的 把設定路徑的部分改成讀取設定檔也行</p>
+<p>筆者目前資料夾分布有以下(可自由設定)</p>
+<pre><code>#資料庫存放的地方
+C:/mongodb/data/db              
+#備份存放的地方
+C:/mongodb/data/backup        
+#日誌檔存放的地方
+C:/mongodb/data/log            
+</code></pre>
+<p>安裝成功使用以下可以看到服務啟動的提示，如果沒反應可能有地方打錯就重新安裝一次吧</p>
+<h3 id="背景啟動指令："><a href="#背景啟動指令：" class="headerlink" title="背景啟動指令："></a>背景啟動指令：</h3><pre><code>net start MongoDB
+</code></pre>
+<h3 id="背景關閉指令："><a href="#背景關閉指令：" class="headerlink" title="背景關閉指令："></a>背景關閉指令：</h3><pre><code>net stop MongoDB
+</code></pre>
+<p>命令提示字元(Cmd)登入MongoDB：</p>
+<p>若今天要用 asd1234帳號登入mongoDB存取mongodb，27012是當初設定的port</p>
+<pre><code>mongo -u asd1234 -p zxc1234 --port 27012
+</code></pre>
+<p>以下指令可以在mongodb啟動時更改路徑</p>
+<p>資料庫存放路徑：</p>
+<p><code>mongod --dbpath=C:\mongodb\data</code>                       </p>
+<p>Log檔案存放路徑：</p>
+<p><code>mongod --logpath=C:\mongodb\log\mongod.log</code>    </p>
+<p>讀取設定檔案路徑：</p>
+<p><code>mongod --config &quot;C:\mongodb\bin\mongod.cfg&quot;</code>     </p>
+<h2 id="mongod-cfg格式-注意縮排與空格-："><a href="#mongod-cfg格式-注意縮排與空格-：" class="headerlink" title="mongod.cfg格式(注意縮排與空格)："></a>mongod.cfg格式(注意縮排與空格)：</h2><pre><code>  storage:           #DB存放設定
+      dbPath: C:\mongodb\data\db
+      journal:    
+        enabled: true
+  systemLog:           #日誌檔存放設定
+      destination: file
+      logAppend: true 
+      path: C:\mongodb\log\mongod.log
+  security:
+     authorization: enabled
+  net:
+     port: 27123        #綁定的PORT
+     bindIp : 0.0.0.0   #允許遠端的所有IP
+</code></pre>
+<h1 id="MongoDB指令整理"><a href="#MongoDB指令整理" class="headerlink" title="MongoDB指令整理"></a>MongoDB指令整理</h1><p><strong>&lt;&gt; 、{} =&gt; 表示名稱，省略不打</strong></p>
+<h2 id="資料庫操作"><a href="#資料庫操作" class="headerlink" title="資料庫操作"></a>資料庫操作</h2><pre><code>#顯示目前所在資料庫
+db                                                
+#檢視所有資料庫
+show  dbs                                    
+#檢視所有使用者
+show  users                                 
+#切換資料庫，原本沒有會自己新建一個，空DB不會顯示在檢視
+use &lt;DB名稱&gt;                             
+#檢視DB裡面的table，也能稱collection
+show tables/collections                
+#顯示table資料筆數
+db.&lt;table名稱&gt;.count()                
+</code></pre>
+<h2 id="插入資料"><a href="#插入資料" class="headerlink" title="插入資料"></a>插入資料</h2><pre><code>#創建table，不過直接在插入資料時直接寫也行
+db.createCollection(&quot;table名稱&quot;)  
+
+#AND語法
+db.&#123;collection名稱&#125;.find(&#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;, &quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;).pretty()
+#OR語法
+db.&#123;collection名稱&#125;.find(&#123;$or: [&#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;, &#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;]&#125;).pretty()
+#兩者組合
+db.&#123;collection名稱&#125;.find(&#123;&quot;欄位名稱&quot;:&#123;$gt:50&#125;,$or:[&#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;,&#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;]&#125;).pretty()
+</code></pre>
+<p>以下對 ({要插入的資料內容篩選條件}) 符號說明</p>
+<pre><code>#等於50
+&quot;by&quot;:&quot;50&quot;         
+#小於50
+&quot;欄位名稱&quot;:&#123;$lt:50&#125;    
+#小於等於50    
+&quot;欄位名稱&quot;:&#123;$lte:50&#125;  
+#大於50
+&quot;欄位名稱&quot;:&#123;$gt:50&#125;   
+ #大於等於50
+&quot;欄位名稱&quot;:&#123;$gte:50&#125; 
+ #不等於
+&quot;欄位名稱&quot;:&#123;$ne:50&#125;  
+</code></pre>
+<p>若碰上要一次插入多筆資料的情況</p>
+<p>[  ]  → 多筆資料包起來，每筆資料逗號分隔</p>
+<p>“  “  → 欄位名稱跟內容沒有也能插資料，通常是只有內容有 “ “ </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">db.pets.insertMany([</span><br><span class="line">  &#123;</span><br><span class="line"></span><br><span class="line">    &quot;name&quot; : &quot;Daisy&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;species&quot; : &quot;cat&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;breed&quot; : &quot;calico&quot;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;name&quot;:&quot;Bella&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;species&quot;:&quot;dog&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;breed&quot;:&quot;australian shepard&quot;</span><br><span class="line">  &#125;</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<h2 id="刪除資料庫"><a href="#刪除資料庫" class="headerlink" title="刪除資料庫"></a>刪除資料庫</h2><pre><code>#在DB底下操作才能刪除該資料庫
+db.dropDatabase()   
+#刪除table
+db.&lt;table名稱&gt;.drop()   
+#找到table有包含到該內容就刪除
+db.&lt;table名稱&gt;.remove(&#123;欄位名稱 : 欄位內容,...&#125;)  
+#全刪除
+db.&lt;table名稱&gt;.remove()   
+</code></pre>
+<h2 id="搜尋資料庫內容"><a href="#搜尋資料庫內容" class="headerlink" title="搜尋資料庫內容"></a>搜尋資料庫內容</h2><pre><code>#回傳第一筆資料
+db.&lt;table名稱&gt;.findOne()   
+#回傳全部資料，pretty是讓顯示有間距好看
+db.&lt;table名稱&gt;.find().pretty()  
+</code></pre>
+<h2 id="資料庫內容更新"><a href="#資料庫內容更新" class="headerlink" title="資料庫內容更新"></a>資料庫內容更新</h2><p><code>db.&lt;table名稱&gt;.update(&#123;name:&quot;MongoDB&quot;,其他欄位:欄位內容...&#125;,&#123;$set:&#123;name:&quot;Jack&quot;,其他欄位:欄位內容...&#125;&#125;,&#123;multi:true&#125;)</code></p>
+<pre><code>&#123;name:&quot;MongoDB&quot;,其他欄位:欄位內容...&#125;：要更新的資料
+&#123;$set:&#123;name:&quot;Jack&quot;,其他欄位:欄位內容...&#125;&#125;：從舊資料找符合內容的目標
+&#123;multi:true&#125;：若要一次更新多筆要true
+</code></pre>
+<h2 id="資料庫備份"><a href="#資料庫備份" class="headerlink" title="資料庫備份"></a>資料庫備份</h2><p>指令如下</p>
+<p><code>mongodump -h 127.0.0.1 --port 27120 -u root -p root1234 -d Number -o C:/mongodb/data/backup --authenticationDatabase admin</code></p>
+<p>參數說明：</p>
+<pre><code>#host,表示資料庫主機的IP位置或是電腦名稱
+-h        
+#user,登入的帳號
+-u         
+#password,登入的密碼
+-p         
+#指定port號
+--port     
+#database,備份資料庫的名稱
+-d         
+#collection,指定備份某一個Collection
+-c         
+ #output備份輸出的磁碟位置(Folder Path) 要備份在哪個磁碟要打不然會在奇怪地方
+-o        
+#開啟授權的資料庫需要加上否則無法使用
+--authenticationDatabase admin 
+</code></pre>
+<p><strong>備份前最好先移動到 mongoDB 的  admin 資料庫下面</strong></p>
+<p>使用以下指令<br>    #磁碟同步與上鎖<br>    db.runCommand({fsync:1,lock:1})<br>    #查看上鎖狀態 fsyncLock true 代表成功<br>    db.currentOp()<br>    #備份完成記得解鎖<br>    db.fsyncUnLock()</p>
+<h2 id="資料庫還原"><a href="#資料庫還原" class="headerlink" title="資料庫還原"></a>資料庫還原</h2><p>指令如下</p>
+<p><code>mongorestore -h 127.0.0.1 --port 27120 -d Number -u root -p root1234 --authenticationDatabase admin --dir C:/mongodb/data/backup/Number --drop</code></p>
+<pre><code>#host,表示資料庫主機的IP位置或是電腦名稱
+-h         
+#user,登入的帳號
+-u         
+#password,登入的密碼
+-p         
+#指定port號
+--port
+#database,備份資料庫的名稱
+-d        
+#備份DB的磁碟位置(Folder Path) 要備份在哪個磁碟要打不然會在奇怪地方
+-dir     
+ #開啟授權的資料庫需要加上否則無法使用
+--authenticationDatabase admin
+#若Server有相同DB會先刪除再還原回去(因有相同名稱不能還原)，小心使用    
+--drop  
+</code></pre>
+<h1 id="MongoDB遠端連線"><a href="#MongoDB遠端連線" class="headerlink" title="MongoDB遠端連線"></a>MongoDB遠端連線</h1><p><strong>沒有設定Auth沒辦法開放給其他電腦使用</strong></p>
+<h2 id="設定Auth步驟"><a href="#設定Auth步驟" class="headerlink" title="設定Auth步驟"></a>設定Auth步驟</h2><ol>
+<li><p>先移動到admin DB下操作</p>
+</li>
+<li><p>創建管理所有DB的管理帳號(最一開始需要的帳號)</p>
+</li>
+</ol>
+<p> <code>db.createUser(&#123;user: &quot;asd1234&quot;,pwd: &quot;zxc1234&quot;,roles: [&#123; role: &quot;root&quot;, db: &quot;admin&quot; &#125;]&#125;)</code></p>
+<ol start="3">
+<li>再啟動MongoDB時開啟認證</li>
+</ol>
+<p> <code>mongod --auth </code></p>
+<ol start="4">
+<li><p>之後使用mongo進去就看不到所有資料庫狀態了</p>
+<p> 一開始沒輸入帳號進去想登入管理者帳號就要移動到admin下使用語法：</p>
+</li>
+</ol>
+<p> <code>db.auth(&quot;root&quot;, &quot;PASSWORD&quot;) </code></p>
+<p>  在使用MongoDB的Shell開始就登入的語法：</p>
+<p>  <strong>連接Port預設27017,遠端開放要改</strong></p>
+<p>  <code>mongo -u 使用者帳號 -p 使用者密碼 --port 連接Port</code></p>
+<ol start="5">
+<li><p>能對不同資料庫增加不同使用者並設定權限</p>
+<p> <code>db.createUser(&#123;user: &quot;使用者名稱&quot;,pwd: &quot;密碼&quot;,roles: [&#123; role: &quot;root/readWrite/read&quot;, db: &quot;資料庫名稱&quot; &#125;]&#125;)</code></p>
+<ul>
+<li>root #最大  </li>
+<li>read #只能讀  </li>
+<li>readWrite #能讀寫</li>
+</ul>
+</li>
+</ol>
+<p>補充用戶設定的相關指令<br>     #更新用戶權限<br>    db.updateUser(user, writeConcern)<br>    #在DB的 test 下創使用者<br>    db.createUser({ user:”asd1234”, pwd:”zxc1234”, roles:[“readWrite”, “dbAdmin”] })<br>    #遠端連線( / 為二選一)<br>    mongo [IP] / [database] -u username -p password</p>
+<p>權限補充說明(部分)：</p>
+<pre><code>dbAdmin
+在指定DB中執行管理函數，如創建删除和查看資料表
+userAdmin
+可以在系統的users集合寫入，找指定DB創建删除和管理使用者
+clusterAdmin
+只在admin中可用，給使用者所有分片和複製集相關函數的管理權限
+readAnyDatabase
+只在admin中可用，給使用者所有DB的讀取權限
+readWriteAnyDatabase
+只在admin中可用，給使用者所有DB的讀寫權限 
+</code></pre>
+<h3 id="Auth可能會發生的問題"><a href="#Auth可能會發生的問題" class="headerlink" title="Auth可能會發生的問題"></a>Auth可能會發生的問題</h3><p><strong>若直接從設定檔開啟授權會導致無法遠端連線</strong></p>
+<p><strong>要針對個別DB設置使用者再透過指令授權連線</strong></p>
+<pre><code>#修改密碼
+db.changeUserPassword(&quot;user123&quot;,&quot;password456&quot;)           
+#刪除帳戶
+db.dropUser(&quot;user123&quot;)   
+</code></pre>
+<h2 id="遠端電腦連線mongoDB"><a href="#遠端電腦連線mongoDB" class="headerlink" title="遠端電腦連線mongoDB"></a>遠端電腦連線mongoDB</h2><p>指令如下</p>
+<pre><code>mongo &quot;mongodb://mongodb.test.com:連線的port&quot;
+mongo --host mongodb.test.com:連線的port
+mongo --host mongodb.test.com --port 連線的port
+</code></pre>
+<p>參數說明<br>    #連線地址(如mongodb.test.com ，也可以是 IP位置)<br>    –host <hostname></p>
+<p>舉個例子<br>，使用者 root連線至admin DB使用</p>
+<p>[  ]請依情況變化</p>
+<p><code>mongo --host [192.168.xx.xxx] --port [27120] -u [&quot;root&quot;]  -p --authenticationDatabase [&quot;admin&quot;]</code></p>
+<h1 id="MongoDB在-Centos-7環境操作"><a href="#MongoDB在-Centos-7環境操作" class="headerlink" title="MongoDB在 Centos 7環境操作"></a>MongoDB在 Centos 7環境操作</h1><p><strong>有時無法啟動檢查相關資料夾是否存在去看log檔案檢查是否為權限問題</strong></p>
+<h2 id="更改Port很容易出現的問題"><a href="#更改Port很容易出現的問題" class="headerlink" title="更改Port很容易出現的問題"></a>更改Port很容易出現的問題</h2><pre><code>#如果不存在才新增沒有的資料夾
+sudo mkdir /var/lib/mongodb                                
+#設定資料夾權限  mongo為使用者名稱
+sudo chown -R mongo:mongo /var/lib/mongodb   
+#重設權限給mongod  改port 後就好了
+sudo chown -R mongod:mongod /var/lib/mongo    
+</code></pre>
+<h2 id="沒設定授權用預設端口容易入侵被改內容"><a href="#沒設定授權用預設端口容易入侵被改內容" class="headerlink" title="沒設定授權用預設端口容易入侵被改內容"></a>沒設定授權用預設端口容易入侵被改內容</h2><pre><code>#啟動Mongodb
+sudo service mongod start  /   systemctl start mongod.service    
+#重啟Mongodb
+sudo service mongod restart
+#關閉Mongodb
+sudo service mongod stop      
+#查看目前狀態
+systemctl status mongod.service 
+</code></pre>
+<p>如何正確關閉mongoDB<br>    1. mongo<br>    2. use admin<br>    3. db.shutdownServer()</p>
+<p>如果以上指令還是無法解決就是重裝，重裝解決95%問題👌<br>    #卸載MongoDB<br>    sudo yum erase $(rpm -qa | grep mongodb-org)<br>    #刪除 log<br>    sudo rm -r /var/log/mongodb<br>    #對MongoDB設定檔修改<br>    nano  /etc/mongod.conf<br>     → 要開關帳號權限進去改完存檔重新啟動MongoDB</p>
+<p>開放對外的端口方法：<br>    #查看防火牆狀態<br>    systemctl status firewalld<br>    #防火牆重載<br>    firewall-cmd –reload<br>    #開放PORT狀態  YES成功<br>    firewall-cmd –zone=public –query-port=27017/tcp<br>    #開放MongoDB PORT<br>    firewall-cmd –zone=public –add-port=27017/tcp –permanent   </p>
+<h1 id="MongoDB-Cloud服務"><a href="#MongoDB-Cloud服務" class="headerlink" title="MongoDB  Cloud服務"></a>MongoDB  Cloud服務</h1><p>MongoDB Atlas 學術用512MB，官方近幾年在推的，我用過後覺得容量太小，有興趣可以參考</p>
+<p>網誌在這 → <a href="https://www.mongodb.com/cloud/atlas/lp/try2?utm_source=google&utm_campaign=gs_apac_taiwan_search_brand_atlas_desktop&utm_term=mongodb%20cloud&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=6498554090&gclid=CjwKCAjwgviIBhBkEiwA10D2j_c5k68hdbzBgb-OhwwLksgPAiIBf72pf4nfJskX6768fxCgt8OyIBoC7GIQAvD_BwE">MongoDB Atlas</a></p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">官方Centos7安裝文件</a></li>
+<li><a href="https://www.digitalocean.com/community/questions/mongo-cant-start-service">Mongo can not start service(權限問題)</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>MongoDB</tag>
+        <tag>NoSQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python地址轉換地圖經緯度</title>
+    <url>/2021/08/23/Python%E5%9C%B0%E5%9D%80%E8%BD%89%E6%8F%9B%E5%9C%B0%E5%9C%96%E7%B6%93%E7%B7%AF%E5%BA%A6/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在實作地圖的時候多少會遇到資料只有地址的情況</p>
+<p>以最常見的Google map來說，要標記一個地點就需要經緯度</p>
+<p>當然Google本身也有提出對應的API → Geocoding(地理編碼)服務</p>
+<p>簡單來說能直接把地址經查詢後轉經緯度回傳，當回傳次數一多就會有收費的問題了…</p>
+<p><strong>那這時候需要處理大量資料的工程師怎麼辦呢?</strong></p>
+<span id="more"></span>
+
+<ol>
+<li>台灣內政部有提供一個全國門牌地址地位服務<br>(<a href="https://www.tgos.tw/TGOS/Web/Address/TGOS_Address.aspx">門牌地址地位服務</a>)</li>
+</ol>
+<p>  <strong><font color = "dd0000">該服務要申請會員，每日上限10000筆 </font></strong></p>
+<p>  只要選擇篩選的情況(接受模糊地段等)，將資料整理成規定格式上傳後，處理完後會寄到信箱(約一小時左右)</p>
+<p>  就我嘗試過的情況來說，太嚴格幾乎是抓不到東西，沒怎麼設定可能地址對照出來是別的街道…</p>
+<ol start="2">
+<li><p>Python 網頁爬蟲，透過電腦控制網頁開啟執行重複的動作取得經緯度，也是本文要說的重點</p>
+<p> 在資訊如此發達的現代，網路上爬蟲教學文多到不行，我也試著留下作法讓後人可以少走冤枉路</p>
+</li>
+</ol>
+<hr>
+<h1 id="執行環境"><a href="#執行環境" class="headerlink" title="執行環境"></a>執行環境</h1><p>以下程式碼在 Python3.6.8 可以使用，3.4以上的應該都適用</p>
+<p>若電腦沒裝python，請去<a href="https://www.python.org/">python官網</a></p>
+<ol>
+<li>Downloads</li>
+<li>All releases</li>
+<li>選擇適合版本</li>
+<li>直接安裝到底</li>
+</ol>
+<p>終端機(cmd)執行以下指令可以看python版本</p>
+<pre><code>python -V
+</code></pre>
+<p>安裝Python自動化模組(<a href="https://selenium-python.readthedocs.io/locating-elements.html">官方文件</a>)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install selenium</span><br></pre></td></tr></table></figure>
+<p>當然要開什麼瀏覽器需要去抓那瀏覽器對應的驅動程式(**Driver.exe)</p>
+<p>以Google瀏覽器為例(<a href="https://sites.google.com/a/chromium.org/chromedriver/downloads">驅動程式下載</a>)，選擇自己Chrome的版本下載</p>
+<p>怎麼看自己的Chrome版本</p>
+<ol>
+<li>點選網頁右上角頭像旁邊三個點</li>
+<li>選擇設定</li>
+<li>關於Google</li>
+</ol>
+<p><strong>下載完記得跟Python程式放在同一資料夾</strong></p>
+<p>安裝偽裝用戶代理模組</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pip install fake_useragent</span><br></pre></td></tr></table></figure>
+<p>爬蟲若是爬得過於頻繁就會被網頁偵測到，這時候只能在開啟的網頁下點功夫，舉例來說，正常開啟網頁做操作會有個請求的表頭，下面這段就是正常打開做請求的時候會送出的Useragent(用戶代理)</p>
+<p><code>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36</code></p>
+<p>會顯示用戶作業系統、瀏覽器版本等等的資訊，有些網頁擋爬蟲是看這個(部分是看IP請求次數)</p>
+<p>若重複的代理一直送請求容易很快就被擋，這地方做點偽裝延後被擋的時間</p>
+<h1 id="Python程式"><a href="#Python程式" class="headerlink" title="Python程式"></a>Python程式</h1><p>接著就是選定要爬蟲的網頁，以<a href="https://www.map.com.tw/">台灣電子地圖服務網</a>為例子</p>
+<p>以下程式碼會依 <strong>功能</strong> 分部分做解說</p>
+<h2 id="網頁自動化"><a href="#網頁自動化" class="headerlink" title="網頁自動化"></a>網頁自動化</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">chrome_options = webdriver.ChromeOptions() </span><br><span class="line">browser = webdriver.Chrome(options=chrome_options) <span class="comment">#載入瀏覽器設定 </span></span><br><span class="line">targetUrl = <span class="string">&#x27;https://www.map.com.tw/&#x27;</span></span><br><span class="line">browser.get(targetUrl)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上面程式碼執行後會開啟目標網頁，不做任何動作</p>
+<p>瀏覽器此時會有一則提示寫著：目前被自動化程式控制</p>
+<p>另外開啟的瀏覽器也有設定可以調整，以下提供幾個參考</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> fake_useragent <span class="keyword">import</span> UserAgent</span><br><span class="line"></span><br><span class="line"><span class="comment">#禁用瀏覽器彈窗設定</span></span><br><span class="line">prefs = &#123;</span><br><span class="line">    <span class="string">&#x27;profile.default_content_setting_values&#x27;</span>:</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&#x27;notifications&#x27;</span>: <span class="number">2</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">ua = UserAgent()</span><br><span class="line"></span><br><span class="line">chrome_options = webdriver.ChromeOptions()</span><br><span class="line"></span><br><span class="line"><span class="comment">#不開視窗</span></span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;--headless&quot;</span>)</span><br><span class="line"><span class="comment">#關閉GPU優化</span></span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;--disable-gpu&quot;</span>)</span><br><span class="line"><span class="comment">#不載圖片</span></span><br><span class="line">chrome_options.add_argument(<span class="string">&#x27;blink-settings=imagesEnabled=false&#x27;</span>) </span><br><span class="line"><span class="comment">#使用者代理更換</span></span><br><span class="line">chrome_options.add_argument(<span class="string">&quot;user-agent=&#123;&#125;&quot;</span>.<span class="built_in">format</span>(ua.random))</span><br><span class="line"> <span class="comment">#隱藏打印日誌及自動化提示</span></span><br><span class="line">chrome_options.add_experimental_option(<span class="string">&quot;excludeSwitches&quot;</span>, [<span class="string">&quot;enable-logging&quot;</span>,<span class="string">&quot;enable-automation&quot;</span>])</span><br><span class="line"><span class="comment">#禁用瀏覽器彈窗</span></span><br><span class="line">chrome_options.add_experimental_option(<span class="string">&#x27;prefs&#x27;</span>,prefs)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>接著說明模組基本操作的方式，由於該模組是模擬人在網頁上的操作，只要網頁上有的東西都能抓</p>
+<p>提供以下方式抓取網頁元素</p>
+<pre><code>find_element_by_id
+find_element_by_name
+find_element_by_xpath                 
+find_element_by_link_text
+find_element_by_partial_link_text
+find_element_by_tag_name
+find_element_by_class_name
+find_element_by_css_selector
+</code></pre>
+<p>有網頁開發基礎的應該不陌生，網頁元素都會有一些屬性存在</p>
+<p>例如我要在台灣電子地圖上找到搜尋框，那我程式碼基於上面基礎可以再加上</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">addr = <span class="string">&#x27;臺北市中正區延平南路96號&#x27;</span></span><br><span class="line">search = browser.find_element_by_id(<span class="string">&#x27;searchWord&#x27;</span>) <span class="comment">#找到網頁上id 相等的元素</span></span><br><span class="line">search.clear()    								<span class="comment">#清除輸入框預設值</span></span><br><span class="line">search.send_keys(addr)							<span class="comment">#送出輸入值</span></span><br></pre></td></tr></table></figure>
+<p>這程式會使網頁自動輸入地址並送出</p>
+<p>不知道怎麼看網頁名稱的可以按下F12，選擇想看元素的位置就會右邊原始碼部分就會亮起</p>
+<p>如果要用xpath定位參考下圖所示，複製到的就是網頁元素的XPATH<br><img src="/images/python_browser_1.png" alt="網頁爬蟲說明-1"></p>
+<p>其他抓取元素的資訊一樣透過這方法來看，會了這個之後基本上就是熟悉語法的問題了</p>
+<p>熟悉操作流程後來整理一下網頁的動作需求</p>
+<ol>
+<li>Python開啟網頁</li>
+<li>在地圖搜尋框輸入特定地址後送出</li>
+<li>找到位置後會出現該地址的資訊</li>
+<li>點選座標的按鈕後網頁會顯示該地點經緯度</li>
+<li>取得網頁顯示的經緯度後回傳</li>
+<li>Python關閉網頁</li>
+</ol>
+<p>整理好需求後程式會長這樣，把流程寫成一個Python函式，地址在呼叫的時候給</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_coordinate</span>(<span class="params">addr</span>):</span></span><br><span class="line">  chrome_options = webdriver.ChromeOptions() </span><br><span class="line">  browser = webdriver.Chrome(options=chrome_options) </span><br><span class="line">  targetUrl = <span class="string">&#x27;https://www.map.com.tw/&#x27;</span></span><br><span class="line">  browser.get(targetUrl)</span><br><span class="line">  search = browser.find_element_by_id(<span class="string">&#x27;searchWord&#x27;</span>) </span><br><span class="line">  search.clear()                                    </span><br><span class="line">  search.send_keys(addr)</span><br><span class="line">  browser.find_element_by_xpath(<span class="string">&quot;/html/body/form/div[10]/div[2]/img[2]&quot;</span>).click()  </span><br><span class="line">  iframe = browser.find_element_by_class_name(<span class="string">&quot;winfoIframe&quot;</span>)  </span><br><span class="line">  browser.switch_to.frame(iframe)                              </span><br><span class="line">  co_btn = browser.find_element_by_xpath(<span class="string">&quot;/html/body/form/div[4]/table/tbody/tr[3]/td/table/tbody/tr/td[2]&quot;</span>)</span><br><span class="line">  co_btn.click()</span><br><span class="line">  page_results = browser.find_element_by_xpath(<span class="string">&quot;/html/body/form/div[5]/table/tbody/tr[2]/td&quot;</span>)   </span><br><span class="line">  coor = page_results.text.strip().split(<span class="string">&quot; &quot;</span>)</span><br><span class="line">  lat = coor[-<span class="number">1</span>].split(<span class="string">&quot;：&quot;</span>)[-<span class="number">1</span>]         </span><br><span class="line">  lng = coor[<span class="number">0</span>].split(<span class="string">&quot;：&quot;</span>)[-<span class="number">1</span>]</span><br><span class="line">  browser.quit()                                <span class="comment">#關閉網頁</span></span><br><span class="line">  <span class="keyword">return</span> lat, lng</span><br></pre></td></tr></table></figure>
+
+<p>到這邊地址轉經緯度功能差不多做完了，剩下就是一些程式上的優化</p>
+<p>當然如果是少量資料這樣跑肯定是沒什麼問題，大量跑起來就會有一些問題出現了</p>
+<h3 id="網頁爬蟲多次後讀取超時"><a href="#網頁爬蟲多次後讀取超時" class="headerlink" title="網頁爬蟲多次後讀取超時"></a>網頁爬蟲多次後讀取超時</h3><p><strong>連續開啟網頁多次後，網頁元素還沒有載入完成程式就要存取就會出錯</strong></p>
+<p>因為抓不到元素又沒寫例外處理，程式就會直接中斷執行，此時可以加上</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.webdriver.support.ui <span class="keyword">import</span> WebDriverWait</span><br><span class="line"></span><br><span class="line">===與前面相同===</span><br><span class="line">wait = WebDriverWait(browser,<span class="number">60</span>)                     </span><br><span class="line">iframe = wait.until(<span class="keyword">lambda</span> browser: browser.find_element_by_class_name(<span class="string">&quot;winfoIframe&quot;</span>))  </span><br></pre></td></tr></table></figure>
+<p>這段程式碼意思是在存取時等待一段時間存取，存取到才會給網頁元素，沒有就會進入TimeoutException</p>
+<p>我的情況是在抓顯示目標地址iframe時候會出現，所以我選擇延後抓取時間，若60秒沒抓到就進例外處理</p>
+<p>Python例外若沒進行處理會強制中止程式執行，處理例外可以這樣寫</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.common.exceptions <span class="keyword">import</span> TimeoutException</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	browser.get(targetUrl)</span><br><span class="line">	===與前面相同===</span><br><span class="line"><span class="keyword">except</span> TimeoutException <span class="keyword">as</span> t:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;這次讀取超時&quot;</span>)</span><br><span class="line">    browser.quit()</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>,<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>讓函式回傳(1,1)表示出現例外情況，讓程式可以自己判斷接下來的操作而不是被強制中止</p>
+<h3 id="網頁爬蟲多次後被偵測成機器人"><a href="#網頁爬蟲多次後被偵測成機器人" class="headerlink" title="網頁爬蟲多次後被偵測成機器人"></a>網頁爬蟲多次後被偵測成機器人</h3><p><strong>連續開啟網頁多次後，目標網頁暫時封鎖你的存取使程式無法取得資料</strong></p>
+<p>一般來說網頁都會做反爬蟲的機制，因為大量的爬蟲會消耗伺服器的資源，會導致一般用戶的體驗受影響，爬蟲還是要適可而止啊…</p>
+<p><strong>一旦被判定成機器人，就直接鎖存取的IP了，此時要再度存取只能換IP來規避封鎖</strong></p>
+<p>當然這部分也需要例外處理不然程式照樣中止給你看，寫法可參考</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium.common.exceptions <span class="keyword">import</span> UnexpectedAlertPresentException</span><br><span class="line"></span><br><span class="line">===與前面相同===</span><br><span class="line"><span class="keyword">except</span> UnexpectedAlertPresentException <span class="keyword">as</span> bot:         </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;被偵測成機器人囉!&quot;</span>)</span><br><span class="line">    browser.quit()</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>,<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h4 id="降低被偵測成機器人的機率"><a href="#降低被偵測成機器人的機率" class="headerlink" title="降低被偵測成機器人的機率"></a>降低被偵測成機器人的機率</h4><p>前面也有提到更換請求的用戶代理讓網頁伺服器誤判請求來源，有些情況反而會使原本能抓到的元素抓不到要注意(瀏覽器版本過於老舊某些元件可能不支援或不存在等)</p>
+<p>再來就是在完成每次請求資料的時間點讓程式休息一下，python內建語法可使用(單位：秒)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>最好加上隨機變化的休息時間來降低被偵測的機率</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">rest= random.randint(<span class="number">1</span>,<span class="number">5</span>)</span><br><span class="line">time.sleep(rest)</span><br></pre></td></tr></table></figure>
+<h2 id="讀取CSV檔案"><a href="#讀取CSV檔案" class="headerlink" title="讀取CSV檔案"></a>讀取CSV檔案</h2><p>這邊提一下我在做這功能時用到的模組，以常見的CSV檔案為例</p>
+<p>假設我今天要處理的CSV檔案內容是</p>
+<pre><code>楊文昌診所,高雄市林園區東林西路281號
+澄品牙醫診所,高雄市林園區林園北路384號
+大統內兒科診所,高雄市大寮區鳳林四路五十六號
+</code></pre>
+<p>以上資料是我從政府開放性平台取得，原生檔案並沒有經緯度存在</p>
+<p>那我就能讀取檔案後將內容存在變數 datas 中</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line">file = <span class="string">&#x27;要處理的檔案名稱.csv&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file,encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> csvFile:  <span class="comment"># with open()只在函式內部讀取，離開函式會關檔</span></span><br><span class="line">    csvReader = csv.reader(csvFile)</span><br><span class="line">    datas = <span class="built_in">list</span>(csvReader)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="輸出CSV檔案"><a href="#輸出CSV檔案" class="headerlink" title="輸出CSV檔案"></a>輸出CSV檔案</h2><p>將上面取得的經緯度依需求整理成特定格式CSV檔案並儲存輸出到電腦上</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line">outputFile = <span class="string">&#x27;要輸出的檔案名稱.csv&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(outputFile, <span class="string">&#x27;w&#x27;</span>, newline=<span class="string">&#x27;&#x27;</span>,encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> csvWrite: </span><br><span class="line">    csvWriter = csv.writer(csvWrite)</span><br><span class="line">    csvWriter.writerow([<span class="string">&#x27;名稱&#x27;</span>, <span class="string">&#x27;地址&#x27;</span>, <span class="string">&#x27;lat&#x27;</span>,<span class="string">&#x27;lng&#x27;</span>])  <span class="comment">#寫入第一行</span></span><br><span class="line">    <span class="keyword">for</span> result <span class="keyword">in</span> datas:</span><br><span class="line">      location = get_coordinate(result[<span class="number">1</span>])</span><br><span class="line">      result.extend([location[<span class="number">0</span>],location[<span class="number">1</span>]])</span><br><span class="line">      <span class="built_in">print</span> (result)                                  <span class="comment">#在終端機印出結果</span></span><br><span class="line">      csvWriter.writerow(result)        			  <span class="comment">#寫入檔案    </span></span><br></pre></td></tr></table></figure>
+<p>這邊注意with open的第二個參數</p>
+<ul>
+<li>‘w’：是每次寫入都重頭開始，若沒找不到檔案會自己產生一個</li>
+<li>‘a’：寫入是從檔案的最後一行開始，不會自己產生檔案</li>
+</ul>
+<p>以上便是我透過網頁爬蟲去將地址轉成經緯度的python程式碼</p>
+<p>當然這方法懂之後所有網頁都能適用，網頁反爬蟲的機制也不只被ip封鎖那麼簡單了</p>
+<p>像是輸入驗證碼或是圖像驗證之類的在現代網頁反爬蟲也不少見就是，當然也有破解法又是別的故事了…</p>
+<p>要成為一名精通網頁爬蟲的工程師之路是很廣闊的啊 ~</p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><p><a href="https://ithelp.ithome.com.tw/articles/10225429">iT邦幫忙鐵人賽-【Day 21】反反爬蟲 (2/2)</a></p>
+</li>
+<li><p><a href="https://selflearningsuccess.com/pythonstring/#%E4%BD%BF%E7%94%A8_Str_%E5%87%BD%E5%BC%8F%E4%BE%86%E5%BB%BA%E7%AB%8B%E5%AD%97%E4%B8%B2">Python字串基礎與20種常見操作</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>網頁爬蟲</tag>
+        <tag>地址轉經緯度</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>記憶翻牌JAVA小遊戲</title>
+    <url>/2021/12/14/%E8%A8%98%E6%86%B6%E7%BF%BB%E7%89%8CJAVA%E5%B0%8F%E9%81%8A%E6%88%B2/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大學時期做的JAVA小遊戲</p>
+<p>圖片是從當時喜歡的遊戲抓的</p>
+<p><del>順便推廣不是很讚嗎</del></p>
+<h1 id="遊戲概念"><a href="#遊戲概念" class="headerlink" title="遊戲概念"></a>遊戲概念</h1><p>在每場遊戲開始會給予時間讓玩家看清每張圖片的位置<br>盡可能在最短時間內將對應的圖片湊齊，即可通關</p>
+<span id="more"></span>
+
+<h1 id="遊戲規則"><a href="#遊戲規則" class="headerlink" title="遊戲規則"></a>遊戲規則</h1><ol>
+<li>全部圖片共有36張圖，遊戲關卡有3關，有分一般和極限模式</li>
+<li>每局遊戲開始前會先讓玩家看「現在關卡 = 觀看秒數」記圖片位置</li>
+<li>翻錯圖片時，錯誤圖片會停留 1 秒讓玩家看</li>
+<li>猜對得 1000分，猜錯扣 100分</li>
+</ol>
+<h1 id="遊戲介面"><a href="#遊戲介面" class="headerlink" title="遊戲介面"></a>遊戲介面</h1><p>剛打開會像這樣子</p>
+<p><img src="/images/Java_game_1.png"></p>
+<p>之後關卡圖片數量會增加，通關後會出現這個</p>
+<p><img src="/images/Java_game_2.png"></p>
+<p>最後關卡會長這樣子</p>
+<p><img src="/images/Java_game_3.png"></p>
+<p>還有極限模式可以選</p>
+<p><img src="/images/Java_game_mode_3.png"></p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.*;</span><br><span class="line"><span class="keyword">import</span> sun.audio.*; <span class="comment">//import the sun.audio package</span></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.applet.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">memorycard</span> <span class="keyword">extends</span> <span class="title">JFrame</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">     </span><br><span class="line">   </span><br><span class="line">        <span class="keyword">private</span> ButtonHandler baf = <span class="keyword">new</span> ButtonHandler();                        <span class="comment">//功能表單事件</span></span><br><span class="line">        <span class="keyword">private</span> JMenuBar jmb;</span><br><span class="line">       </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> row = <span class="number">4</span> ;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> col = <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> LK_SEC = <span class="number">1</span>;                                                 <span class="comment">//設定一開始可看幾秒</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> add = <span class="number">1000</span>, dec = <span class="number">100</span>;                                      <span class="comment">//得分1000 扣分100</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> LimPoint;                                                   <span class="comment">//極限模式目標分數與秒數</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">long</span> LimSec;</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> sec = <span class="number">1</span>;                                                    <span class="comment">//設定翻開的牌不相同會蓋回去的秒速</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> imgH = <span class="number">0</span>,imgW =<span class="number">0</span>,score = <span class="number">0</span>;                                 <span class="comment">//imgH圖高，imgW圖寬，score分數</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> count = <span class="number">0</span>;                                                  <span class="comment">//正確的對數</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">long</span> startTime =<span class="number">0</span>;                                              <span class="comment">//遊戲開始的計時 </span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> level ;                                                     <span class="comment">//關卡等級</span></span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> JMenu game = <span class="keyword">new</span> JMenu(<span class="string">&quot;遊戲設定&quot;</span>),other = <span class="keyword">new</span> JMenu(<span class="string">&quot;其他資訊&quot;</span>);</span><br><span class="line">        <span class="keyword">private</span> JTextField usedtime;                                            <span class="comment">//遊戲經過時間</span></span><br><span class="line">        <span class="keyword">private</span> JTextField stage ;                                              <span class="comment">//遊戲關卡數</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> JMenuItem [] gm = <span class="keyword">new</span> JMenuItem[<span class="number">5</span>];                             <span class="comment">//遊戲設定選項格</span></span><br><span class="line">        <span class="keyword">private</span> JMenuItem [] oth = <span class="keyword">new</span> JMenuItem[<span class="number">2</span>];                            <span class="comment">//其他選項格</span></span><br><span class="line">     </span><br><span class="line">        <span class="keyword">private</span> JPanel jpl;</span><br><span class="line">        <span class="keyword">private</span> JLabel jl = <span class="keyword">new</span> JLabel(<span class="string">&quot;分數 : 0&quot;</span>);</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> [] m;                                                       <span class="comment">//存放每次重新玩的圖片順序</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> [] twoImg = &#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;                                        <span class="comment">//記錄目前翻開的兩張圖編號</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> [] btnIndex = &#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;                                      <span class="comment">//記錄被翻開兩張圖的按鈕位置</span></span><br><span class="line">        <span class="keyword">private</span> JButton [] imgbtn;                                              <span class="comment">//圖片按鈕</span></span><br><span class="line">        <span class="keyword">private</span> ImageIcon []img ;                                               <span class="comment">//存放圖物件</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> [] imgShow;                                             <span class="comment">//記錄已配對成功過的圖</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> [] btnDown;                                             <span class="comment">//記錄被按過的按鈕</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> isChange = <span class="keyword">false</span>;                                       <span class="comment">//用來確認是否切換存放兩張圖順序</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> isStart = <span class="keyword">false</span>;                                        <span class="comment">//確認是否開始</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">boolean</span> Limplay = <span class="keyword">false</span>;                                        <span class="comment">//確認是否極限模式</span></span><br><span class="line">                               </span><br><span class="line">   </span><br><span class="line">       </span><br><span class="line">      </span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="title">memorycard</span><span class="params">(<span class="keyword">int</span> mul,<span class="keyword">int</span> L)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                <span class="keyword">super</span>(<span class="string">&quot;記憶翻牌&quot;</span>);</span><br><span class="line">                level = L;</span><br><span class="line">                LK_SEC = level;</span><br><span class="line">                <span class="keyword">if</span>(L==<span class="number">1</span>)</span><br><span class="line">                     row = col = <span class="number">2</span>;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(L == <span class="number">2</span>)</span><br><span class="line">                    row = col = <span class="number">4</span>;</span><br><span class="line">                 <span class="keyword">else</span> <span class="keyword">if</span>(L == <span class="number">3</span>)</span><br><span class="line">                    row = col = <span class="number">6</span>;</span><br><span class="line">                </span><br><span class="line">                LimPoint = (row*col*<span class="number">500</span>);</span><br><span class="line">                LimSec = (row*col/<span class="number">2</span>)+<span class="number">2</span>;</span><br><span class="line">                <span class="keyword">if</span>(mul == <span class="number">1</span>)</span><br><span class="line">                     Limplay=<span class="keyword">true</span>;</span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line">              </span><br><span class="line">                imgbtn = <span class="keyword">new</span> JButton[row * col];</span><br><span class="line">                img = <span class="keyword">new</span> ImageIcon[row * col];</span><br><span class="line">                imgShow = <span class="keyword">new</span> <span class="keyword">boolean</span>[row*col/<span class="number">2</span>];</span><br><span class="line">                btnDown = <span class="keyword">new</span> <span class="keyword">boolean</span> [row*col];</span><br><span class="line"></span><br><span class="line">                jpl = <span class="keyword">new</span> JPanel(<span class="keyword">new</span> GridLayout(row,col,<span class="number">0</span>,<span class="number">0</span>));</span><br><span class="line">                Container c = getContentPane(); </span><br><span class="line">                c = <span class="keyword">this</span>.getContentPane();</span><br><span class="line">                jmb = <span class="keyword">new</span> JMenuBar();</span><br><span class="line">                <span class="keyword">this</span>.setJMenuBar(jmb);                                          <span class="comment">//加入工具列</span></span><br><span class="line">                usedtime = <span class="keyword">new</span> JTextField();                                    <span class="comment">//遊戲時間</span></span><br><span class="line">                usedtime.setEditable(<span class="keyword">false</span>);</span><br><span class="line">                stage = <span class="keyword">new</span> JTextField(<span class="string">&quot;Round &quot;</span>+ level +<span class="string">&quot;：&quot;</span>);                  <span class="comment">//關卡名稱</span></span><br><span class="line">                stage.setEditable(<span class="keyword">false</span>);</span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">            </span><br><span class="line">                </span><br><span class="line">              </span><br><span class="line">                setLocation(<span class="number">200</span>,<span class="number">50</span>); </span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; img.length; i++)                             <span class="comment">//初始化所有按鈕上的圖，預設為不可以按</span></span><br><span class="line">                &#123;</span><br><span class="line">                 img[i] = <span class="keyword">new</span> ImageIcon(getClass().getResource(<span class="string">&quot;images/p0.jpg&quot;</span>));</span><br><span class="line">                 imgbtn[i] = <span class="keyword">new</span> JButton(img[i]);</span><br><span class="line">                 imgbtn[i].addActionListener(baf);</span><br><span class="line">                 imgbtn[i].setEnabled(<span class="keyword">false</span>);</span><br><span class="line">                 jpl.add(imgbtn[i]);</span><br><span class="line">                 jpl.add(jl);</span><br><span class="line">                &#125;</span><br><span class="line">              </span><br><span class="line">                c.add(jpl,BorderLayout.CENTER);</span><br><span class="line">                c.add(jl,BorderLayout.SOUTH);                                  <span class="comment">//將分數label放到最下面</span></span><br><span class="line">                c.add(stage,BorderLayout.NORTH);</span><br><span class="line">                </span><br><span class="line">                <span class="comment">//遊戲設定的選擇項目</span></span><br><span class="line">                jmb.add(game);</span><br><span class="line">                gm[<span class="number">0</span>] = <span class="keyword">new</span> JMenuItem(<span class="string">&quot;開始遊戲&quot;</span>);</span><br><span class="line">                gm[<span class="number">1</span>] = <span class="keyword">new</span> JMenuItem(<span class="string">&quot;重新遊戲&quot;</span>);</span><br><span class="line">                gm[<span class="number">1</span>].setEnabled(<span class="keyword">false</span>);</span><br><span class="line">                gm[<span class="number">2</span>] = <span class="keyword">new</span> JMenuItem(<span class="string">&quot;離開遊戲&quot;</span>);</span><br><span class="line">                <span class="keyword">if</span>(level == <span class="number">3</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    gm[<span class="number">3</span>] = <span class="keyword">new</span> JMenuItem(<span class="string">&quot;前往下關&quot;</span>);</span><br><span class="line">                    gm[<span class="number">3</span>].setEnabled(<span class="keyword">false</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                    gm[<span class="number">3</span>] = <span class="keyword">new</span> JMenuItem(<span class="string">&quot;前往下關&quot;</span>);</span><br><span class="line">                </span><br><span class="line">                gm[<span class="number">4</span>] = <span class="keyword">new</span> JMenuItem(<span class="string">&quot;極限模式&quot;</span>);</span><br><span class="line">                </span><br><span class="line">                game.add(gm[<span class="number">0</span>]);</span><br><span class="line">                game.add(gm[<span class="number">1</span>]);</span><br><span class="line">                game.add(gm[<span class="number">3</span>]);</span><br><span class="line">                <span class="keyword">if</span>(mul == <span class="number">0</span>)</span><br><span class="line">                     game.add(gm[<span class="number">4</span>]);   </span><br><span class="line">                game.addSeparator();                                            <span class="comment">//加入分隔線</span></span><br><span class="line">                game.add(gm[<span class="number">2</span>]);</span><br><span class="line">		</span><br><span class="line">                <span class="comment">//其他的選擇項目</span></span><br><span class="line">                jmb.add(other);</span><br><span class="line">                oth[<span class="number">0</span>] = <span class="keyword">new</span> JMenuItem(<span class="string">&quot;遊戲規則&quot;</span>);</span><br><span class="line">                oth[<span class="number">1</span>] = <span class="keyword">new</span> JMenuItem(<span class="string">&quot;關於作者&quot;</span>);</span><br><span class="line">            </span><br><span class="line">                other.add(oth[<span class="number">0</span>]);</span><br><span class="line">                other.add(oth[<span class="number">1</span>]);</span><br><span class="line">		</span><br><span class="line">                              </span><br><span class="line">                <span class="comment">//設定視窗</span></span><br><span class="line">             	imgH = img[<span class="number">0</span>].getIconHeight() * row;                            <span class="comment">//取得圖片高度</span></span><br><span class="line">           	imgW = img[<span class="number">0</span>].getIconWidth() * col;                                 <span class="comment">//取得圖片寬度</span></span><br><span class="line">                setSize(imgW,imgH);</span><br><span class="line">            </span><br><span class="line">                setResizable(<span class="keyword">false</span>);                                            <span class="comment">//視窗放大按鈕無效 </span></span><br><span class="line">                setVisible(<span class="keyword">true</span>);</span><br><span class="line">                setIconImage(<span class="keyword">new</span> ImageIcon(<span class="string">&quot;images/iconFrame.png&quot;</span>).getImage()); <span class="comment">//視窗預設圖示更改</span></span><br><span class="line">                setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);                <span class="comment">//關閉事件</span></span><br><span class="line">                        </span><br><span class="line">                <span class="comment">//註冊功能表單傾聽者</span></span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> m=<span class="number">0</span>;m&lt;gm.length;m++)</span><br><span class="line">                 gm[m].addActionListener(baf);</span><br><span class="line">                oth[<span class="number">0</span>].addActionListener(baf);</span><br><span class="line">                oth[<span class="number">1</span>].addActionListener(baf);           </span><br><span class="line">        &#125;</span><br><span class="line">       <span class="comment">//功能表單事件處理</span></span><br><span class="line">        <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ButtonHandler</span> <span class="keyword">implements</span>  <span class="title">ActionListener</span></span></span><br><span class="line"><span class="class">        </span>&#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent ae)</span> 	<span class="comment">//按鈕事件</span></span></span><br><span class="line"><span class="function">            </span>&#123;</span><br><span class="line">             </span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; img.length; i++)</span><br><span class="line">                &#123;</span><br><span class="line">                 <span class="keyword">if</span>(ae.getSource() == imgbtn[i])</span><br><span class="line">                 &#123;</span><br><span class="line">                     checkIsRight(i,imgIndex(m[i]));</span><br><span class="line">                     <span class="keyword">break</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                 </span><br><span class="line">                <span class="keyword">if</span>(ae.getSource() == gm[<span class="number">0</span>])                                     <span class="comment">//開始遊戲</span></span><br><span class="line">                &#123;</span><br><span class="line">                 	replay(Limplay,level);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(ae.getSource() == gm[<span class="number">1</span>])                                <span class="comment">//重新遊戲</span></span><br><span class="line">                &#123;</span><br><span class="line">                 	replay(Limplay,level);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(ae.getSource() == gm[<span class="number">2</span>])                                <span class="comment">//結束遊戲</span></span><br><span class="line">                &#123;</span><br><span class="line">                 	System.exit(<span class="number">0</span>);</span><br><span class="line">                &#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(ae.getSource() == gm[<span class="number">3</span>])                                    <span class="comment">//前往下關</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span>(level  == <span class="number">3</span>)</span><br><span class="line">                        level = <span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(level &lt; <span class="number">3</span>)</span><br><span class="line">                        level++; </span><br><span class="line">                    <span class="keyword">new</span> memorycard(<span class="number">0</span>,level);      </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(ae.getSource() == gm[<span class="number">4</span>])                                <span class="comment">//極限模式</span></span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">new</span> memorycard(<span class="number">1</span>,level);</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(ae.getSource() == oth[<span class="number">0</span>])                               <span class="comment">//規則說明</span></span><br><span class="line">                &#123;</span><br><span class="line">                  <span class="keyword">if</span>(Limplay == <span class="keyword">false</span>)</span><br><span class="line">                  &#123;</span><br><span class="line">                         JOptionPane.showMessageDialog(jpl,</span><br><span class="line">                            <span class="string">&quot;1.圖片為 &quot;</span> + row + <span class="string">&quot; 乘 &quot;</span> + col +<span class="string">&quot; ，本關共有 &quot;</span> + (row * col) + <span class="string">&quot; 個按鈕\n&quot;</span> + </span><br><span class="line">                            <span class="string">&quot;2.一開始會讓玩家看 &quot;</span> + LK_SEC + <span class="string">&quot; 秒記圖片\n&quot;</span>+ </span><br><span class="line">                            <span class="string">&quot;3.翻錯圖片時，錯誤圖片會停留 &quot;</span> + sec+ <span class="string">&quot; 秒讓玩家記\n&quot;</span>+ </span><br><span class="line">                            <span class="string">&quot;4.猜對得 &quot;</span> + add + <span class="string">&quot; 分，猜錯扣 &quot;</span> + dec +<span class="string">&quot; 分\n&quot;</span> +</span><br><span class="line">                            <span class="string">&quot;5.關卡名稱顯示在左上方，關卡分數顯示在左下方\n&quot;</span> +</span><br><span class="line">                            <span class="string">&quot;6.全部共有三關&quot;</span> ,</span><br><span class="line">                            <span class="string">&quot;遊戲說明&quot;</span>,JOptionPane.PLAIN_MESSAGE,<span class="keyword">new</span> ImageIcon(getClass().getResource(<span class="string">&quot;images/BattleIcon.png&quot;</span>)));</span><br><span class="line">                   &#125;</span><br><span class="line">                 <span class="keyword">else</span></span><br><span class="line">                 &#123;</span><br><span class="line">                        JOptionPane.showMessageDialog(jpl,</span><br><span class="line">                          <span class="string">&quot;請努力達成以下條件:\n&quot;</span> + </span><br><span class="line">                          <span class="string">&quot;1.目標分數為滿分 〔 &quot;</span> + LimPoint + <span class="string">&quot; 〕 分\n&quot;</span>+ </span><br><span class="line">                          <span class="string">&quot;2.目標完成時間為 〔 &quot;</span> + LimSec+ <span class="string">&quot; 〕 秒\n&quot;</span>+ </span><br><span class="line">                          <span class="string">&quot;3.只要猜錯一次就會失敗\n&quot;</span> +</span><br><span class="line">                          <span class="string">&quot;4.以上兩個目標皆完成才會出現通關視窗\n&quot;</span>,</span><br><span class="line">                          <span class="string">&quot;極限關卡&quot;</span>,</span><br><span class="line">                          JOptionPane.PLAIN_MESSAGE,<span class="keyword">new</span> ImageIcon(getClass().getResource(<span class="string">&quot;images/BatLim.png&quot;</span>)));</span><br><span class="line">                        </span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(ae.getSource() == oth[<span class="number">1</span>])                               <span class="comment">//作者資訊與素材來源</span></span><br><span class="line">                &#123;</span><br><span class="line">                  JOptionPane.showMessageDialog(jpl,</span><br><span class="line">                  <span class="string">&quot;程式設計與介面修改：陳煜仁\n&quot;</span>+</span><br><span class="line">                          <span class="string">&quot;素材取得來源：https://granbluefantasy.jp/\n&quot;</span>+</span><br><span class="line">                          <span class="string">&quot;此程式僅用於學術研究，參考許多網路上資料完成\n&quot;</span>,</span><br><span class="line">                     <span class="string">&quot;作者資訊&quot;</span>,</span><br><span class="line">                      JOptionPane.PLAIN_MESSAGE,<span class="keyword">new</span> ImageIcon(getClass().getResource(<span class="string">&quot;images/ProgIcon.png&quot;</span>)));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//回傳一個存放1~N數值亂數陣列</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> [] rand(<span class="keyword">int</span> N)</span><br><span class="line">        &#123;</span><br><span class="line">         <span class="keyword">int</span> temp [] = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">         </span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">         &#123;</span><br><span class="line">          	temp[i] = i;</span><br><span class="line">         &#125;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> j = (<span class="keyword">int</span>) (Math.random() * N);</span><br><span class="line">                <span class="keyword">int</span> tmp = temp[i];</span><br><span class="line">                temp[i] = temp[j];</span><br><span class="line">                temp[j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> temp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//將記錄的圖片索引值0~N轉換為1~(N/2+1)</span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">imgIndex</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> ((n/<span class="number">2</span>)+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//開始(重玩)遊戲</span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">replay</span><span class="params">(<span class="keyword">boolean</span> lm,<span class="keyword">int</span> lev)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">                stage.setText(<span class="string">&quot;Round &quot;</span>+ lev+<span class="string">&quot;：&quot;</span>);</span><br><span class="line">                startTime = System.currentTimeMillis();</span><br><span class="line">         	gm[<span class="number">0</span>].setEnabled(<span class="keyword">false</span>);</span><br><span class="line">                <span class="keyword">if</span>(lm == <span class="keyword">true</span>)</span><br><span class="line">                    gm[<span class="number">4</span>].setEnabled(<span class="keyword">false</span>);</span><br><span class="line">         	gm[<span class="number">1</span>].setEnabled(<span class="keyword">true</span>);</span><br><span class="line">         	m = rand(row*col); 						<span class="comment">//取得按鈕下次重排的圖案順序</span></span><br><span class="line">              </span><br><span class="line">          </span><br><span class="line">         	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; img.length; i++)				<span class="comment">//設定所有圖片為可以翻狀態</span></span><br><span class="line">         	&#123;</span><br><span class="line">          	     imgbtn[i].setEnabled(<span class="keyword">true</span>);</span><br><span class="line">          	     imgbtn[i].setIcon(<span class="keyword">new</span> ImageIcon(getClass().getResource(<span class="string">&quot;images/&quot;</span> + imgIndex(m[i]) + <span class="string">&quot;.jpg&quot;</span>)));</span><br><span class="line">         	&#125;								</span><br><span class="line">         	twoImg[<span class="number">0</span>] = twoImg[<span class="number">1</span>] = btnIndex[<span class="number">0</span>] = btnIndex[<span class="number">1</span>] = -<span class="number">1</span>;		<span class="comment">//清除記錄兩張翻開圖片按鈕與位置</span></span><br><span class="line">         	isChange = <span class="keyword">false</span>; 						 <span class="comment">//重設翻牌順序</span></span><br><span class="line">         	score = <span class="number">0</span>; 								<span class="comment">//分數歸零</span></span><br><span class="line">         	jl.setText(<span class="string">&quot;分數 : &quot;</span> + score); 					<span class="comment">//更新顯示分數</span></span><br><span class="line">		   count=<span class="number">0</span>;</span><br><span class="line">         	isStart = <span class="keyword">false</span>;</span><br><span class="line">		</span><br><span class="line">         <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()</span><br><span class="line">         &#123;</span><br><span class="line">          <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">          </span>&#123;</span><br><span class="line">           <span class="keyword">try</span></span><br><span class="line">           &#123;</span><br><span class="line">               Thread.sleep(LK_SEC * <span class="number">1000</span>);</span><br><span class="line">            &#125;<span class="keyword">catch</span>(InterruptedException e)&#123;&#125;</span><br><span class="line">                                                                                <span class="comment">//將圖面改為預設圖，並設定無法按按鍵</span></span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; img.length; i++)</span><br><span class="line">                    &#123;</span><br><span class="line">                     img[i] = <span class="keyword">new</span> ImageIcon(getClass().getResource(<span class="string">&quot;images/p0.jpg&quot;</span>));</span><br><span class="line">                     imgbtn[i].setIcon(img[i]);</span><br><span class="line">                     btnDown[i] = <span class="keyword">false</span>;                                        <span class="comment">//將記錄過的按鈕清除</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    isStart = <span class="keyword">true</span>;</span><br><span class="line">          &#125;</span><br><span class="line">         &#125;).start();</span><br><span class="line">         </span><br><span class="line">            <span class="comment">//清除上局存放配對成功的圖片位置</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; imgShow.length; i++)</span><br><span class="line">             imgShow[i] = <span class="keyword">false</span>;</span><br><span class="line">        &#125;   </span><br><span class="line">        <span class="comment">//檢查是目前兩張圖是否配對</span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkIsRight</span><span class="params">(<span class="keyword">int</span> btnN, <span class="keyword">int</span> jpgNum)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">        	 <span class="keyword">if</span>(!isStart) <span class="keyword">return</span>; 						<span class="comment">//判斷是否已讓玩家看完圖片排列，再開始</span></span><br><span class="line">        	 <span class="keyword">if</span>(btnDown[btnN]) <span class="keyword">return</span>;					<span class="comment">//如果按下的圖片已翻開，就離開function</span></span><br><span class="line">        	 btnDown[btnN] = <span class="keyword">true</span>; 						<span class="comment">//表示此按鈕已翻開狀態</span></span><br><span class="line">		</span><br><span class="line">        	 imgbtn[btnN].setIcon(<span class="keyword">new</span> ImageIcon(getClass().getResource(<span class="string">&quot;images/&quot;</span> + jpgNum + <span class="string">&quot;.jpg&quot;</span>)));     </span><br><span class="line">         </span><br><span class="line">             <span class="comment">//記錄上張與目前圖片編號、按鈕位置twoImg[1]是上一張，twoImg[0]是目前   </span></span><br><span class="line">        	 <span class="keyword">int</span> temp = twoImg[<span class="number">0</span>];                                                 </span><br><span class="line">         	 <span class="keyword">int</span> btnTemp = btnIndex[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">        	 twoImg[<span class="number">0</span>] = jpgNum;</span><br><span class="line">        	 btnIndex[<span class="number">0</span>] = btnN;</span><br><span class="line">        	 twoImg[<span class="number">1</span>] = temp;</span><br><span class="line">        	 btnIndex[<span class="number">1</span>] = btnTemp;</span><br><span class="line">             </span><br><span class="line">            	<span class="keyword">if</span>(isChange)</span><br><span class="line">           	 &#123;</span><br><span class="line">            		 <span class="keyword">if</span>(imgShow[jpgNum-<span class="number">1</span>]) </span><br><span class="line">				<span class="keyword">return</span>;                                         <span class="comment">//若已配對成功</span></span><br><span class="line">              		 <span class="keyword">if</span>(twoImg[<span class="number">1</span>] == twoImg[<span class="number">0</span>])</span><br><span class="line">          		 &#123;</span><br><span class="line">          		 	imgShow[jpgNum-<span class="number">1</span>] = <span class="keyword">true</span>;                       <span class="comment">//記錄已配對的圖片索引值</span></span><br><span class="line">          			twoImg[<span class="number">1</span>] = -<span class="number">1</span>;</span><br><span class="line">          		 	btnIndex[<span class="number">1</span>] = -<span class="number">1</span>;</span><br><span class="line">          		 	isChange = <span class="keyword">false</span>;</span><br><span class="line">			 	count++;                                        <span class="comment">//正確對數增加</span></span><br><span class="line">          		 	score += add; 							 <span class="comment">//配對成功分數增加</span></span><br><span class="line">           		 	jl.setText(<span class="string">&quot;分數 : &quot;</span> + score);             <span class="comment">//更新分數</span></span><br><span class="line">                                </span><br><span class="line">				<span class="keyword">if</span>(count == row*col/<span class="number">2</span>)</span><br><span class="line">                                &#123;</span><br><span class="line">                    Long t =((System.currentTimeMillis()-startTime)/<span class="number">1000</span>);</span><br><span class="line">                    usedtime.setText(((System.currentTimeMillis()-startTime)/<span class="number">1000</span>)+<span class="string">&quot;&quot;</span>);   </span><br><span class="line">                    <span class="keyword">if</span>(Limplay == <span class="keyword">false</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        JOptionPane.showMessageDialog(jpl,</span><br><span class="line">                                                      <span class="string">&quot;恭喜通關！\n&quot;</span> + </span><br><span class="line">                                                      <span class="string">&quot;你本次遊戲花了【 &quot;</span> + usedtime.getText() + <span class="string">&quot; 】秒\n&quot;</span>+</span><br><span class="line">                                                      <span class="string">&quot;在這一關獲得總分數為【 &quot;</span>+score+<span class="string">&quot; 】分！!&quot;</span>,</span><br><span class="line">                                                      <span class="string">&quot;關卡訊息&quot;</span>,</span><br><span class="line">                                                      JOptionPane.PLAIN_MESSAGE,<span class="keyword">new</span> 							                                                                             ImageIcon(getClass().getResource(<span class="string">&quot;images/icon.png&quot;</span>)));</span><br><span class="line">					</span><br><span class="line">                                        &#125;</span><br><span class="line">                                        <span class="keyword">else</span></span><br><span class="line">                                        &#123;</span><br><span class="line">                                             <span class="keyword">if</span>(LimPoint  == score &amp;&amp; LimSec &gt;= t)</span><br><span class="line">                                             &#123;</span><br><span class="line">                                                            JOptionPane.showMessageDialog(jpl,</span><br><span class="line">                                                <span class="string">&quot;超越極限！！！\n&quot;</span> + </span><br><span class="line">                                                <span class="string">&quot;你的翻牌沒有絲毫猶豫！竟然只花了【 &quot;</span> + usedtime.getText() + <span class="string">&quot; 】秒\n&quot;</span>+</span><br><span class="line">                                                <span class="string">&quot;沒有任何錯誤的通關了！ 恭喜你！&quot;</span>,</span><br><span class="line">                                                <span class="string">&quot;極限關卡&quot;</span>,</span><br><span class="line">											JOptionPane.PLAIN_MESSAGE,<span class="keyword">new</span> ImageIcon(getClass().getResource(<span class="string">&quot;images/LimIcon1.png&quot;</span>)));</span><br><span class="line">                                              &#125;</span><br><span class="line">                                              <span class="keyword">else</span></span><br><span class="line">                                              &#123;</span><br><span class="line">                                                  <span class="keyword">int</span> x =JOptionPane.showConfirmDialog(jpl, <span class="string">&quot;可惜...\n你還沒達成所有條件....\n&quot;</span> + </span><br><span class="line">                                                  你本次遊戲花了【 <span class="string">&quot; + usedtime.getText() + &quot;</span> 】秒\n你獲得分數為【 <span class="string">&quot;+score+&quot;</span> 】分\n<span class="string">&quot;+</span></span><br><span class="line"><span class="string">                                                  &quot;</span>你還想要繼續挑戰嗎？<span class="string">&quot;,</span></span><br><span class="line"><span class="string">                                                  &quot;</span>極限關卡<span class="string">&quot;,                                                                               											JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE);</span></span><br><span class="line"><span class="string">                       </span></span><br><span class="line"><span class="string">                                                 if(x ==JOptionPane.YES_OPTION)</span></span><br><span class="line"><span class="string">                                                 &#123;</span></span><br><span class="line"><span class="string">                                                     replay(Limplay,level);</span></span><br><span class="line"><span class="string">                                                 &#125;                                          </span></span><br><span class="line"><span class="string">                			      &#125;</span></span><br><span class="line"><span class="string">                                        &#125;</span></span><br><span class="line"><span class="string">                                      </span></span><br><span class="line"><span class="string">                                &#125;</span></span><br><span class="line"><span class="string">           			return;</span></span><br><span class="line"><span class="string">          		 &#125;</span></span><br><span class="line"><span class="string">                                                                                //設定翻開兩張圖片時，其他圖片不能翻</span></span><br><span class="line"><span class="string">              		for(int i = 0; i &lt; btnDown.length; i++)</span></span><br><span class="line"><span class="string">               		    if(!btnDown[i]) imgbtn[i].setEnabled(false);</span></span><br><span class="line"><span class="string">             		new Thread(this).start();</span></span><br><span class="line"><span class="string">                 &#125;            </span></span><br><span class="line"><span class="string">         		isChange = !isChange;</span></span><br><span class="line"><span class="string">       &#125;        </span></span><br><span class="line"><span class="string">        public void run ()</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">          try&#123;   </span></span><br><span class="line"><span class="string">           Thread.sleep(sec * 1000);</span></span><br><span class="line"><span class="string">          &#125;catch(InterruptedException e)&#123;&#125;</span></span><br><span class="line"><span class="string">          </span></span><br><span class="line"><span class="string">                                                                                //蓋住原本翻開的圖片         </span></span><br><span class="line"><span class="string">      	 btnDown[btnIndex[0]] = false;                                      </span></span><br><span class="line"><span class="string">         btnDown[btnIndex[1]] = false;</span></span><br><span class="line"><span class="string">         imgbtn[btnIndex[0]].setIcon(new ImageIcon(getClass().getResource(&quot;</span>images/p0.jpg<span class="string">&quot;)));</span></span><br><span class="line"><span class="string">         imgbtn[btnIndex[1]].setIcon(new ImageIcon(getClass().getResource(&quot;</span>images/p0.jpg<span class="string">&quot;)));</span></span><br><span class="line"><span class="string">         </span></span><br><span class="line"><span class="string">                                                                                //設定蓋回兩張翻開圖片時，其他圖片可以回復可以翻的狀態</span></span><br><span class="line"><span class="string">         for(int i = 0; i &lt; btnDown.length; i++)</span></span><br><span class="line"><span class="string">           if(!btnDown[i]) imgbtn[i].setEnabled(true);</span></span><br><span class="line"><span class="string">         </span></span><br><span class="line"><span class="string">         score -= dec;                                                          //猜錯扣分</span></span><br><span class="line"><span class="string">         jl.setText(&quot;</span>分數 : <span class="string">&quot; + score); 	</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      </span></span><br><span class="line"><span class="string">        public static void main(String [] args)</span></span><br><span class="line"><span class="string">        &#123;</span></span><br><span class="line"><span class="string">                new memorycard(0,1);</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>程式作品</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+</search>
