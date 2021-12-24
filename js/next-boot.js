@@ -63,7 +63,9 @@ NexT.boot.refresh = function() {
    * Need to add config option in Front-End at 'scripts/helpers/next-config.js' file.
    */
   CONFIG.prism && window.Prism.highlightAll();
-  CONFIG.fancybox && NexT.utils.wrapImageWithFancyBox();
+  // CONFIG.fancybox && NexT.utils.wrapImageWithFancyBox();
+  CONFIG.fancybox.enable && NexT.utils.wrapImageWithFancyBox();
+
   CONFIG.mediumzoom && window.mediumZoom('.post-body :not(a) > img, .post-body > img', {
     background: 'var(--content-bg-color)'
   });
