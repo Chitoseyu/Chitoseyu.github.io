@@ -787,7 +787,7 @@ find_element_by_css_selector
 <li>在SD卡的boot磁區建立檔名為「<strong>wpa_supplicant.conf</strong>」的檔案</li>
 </ol>
 <p>  建議<strong>不要用記事本開</strong>，可用 <strong>Nodepad++、Sublime</strong> 等開啟</p>
-<p>→ 檔案內容如下：**(區分大小寫，失敗返回第一步)**</p>
+<p>→ 檔案內容如下：<br><strong>(區分大小寫，失敗返回第一步)</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line"></span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">country=TW</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line"></span><br><span class="line">  ssid=&quot;SSID名稱&quot;</span><br><span class="line"></span><br><span class="line">  psk=&quot;密碼&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -805,13 +805,13 @@ find_element_by_css_selector
 </li>
 </ul>
 <h2 id="第四步：找到樹梅派-IP"><a href="#第四步：找到樹梅派-IP" class="headerlink" title="第四步：找到樹梅派 IP"></a>第四步：找到樹梅派 IP</h2><p>在電腦上使用「angryip」搜尋IP</p>
-<p><img src="https://i.imgur.com/zib72Fp.png" alt="ipscan"></p>
+<p><img src="https://i.imgur.com/vgNd5qL.png" alt="ipscan"></p>
 <p><strong>預設名稱為「raspberrypi.local」</strong></p>
 <p><code>無線網路：樹梅派與電腦需同一網段</code></p>
 <p><code>有線網路：需要路由器與網路線手動將電腦與樹梅派置於同一網段</code></p>
 <h2 id="第五步：使用網路連線"><a href="#第五步：使用網路連線" class="headerlink" title="第五步：使用網路連線"></a>第五步：使用網路連線</h2><p>SSH：使用 mobaxterm</p>
 <p>點選Sessions &gt; New session &gt; SSH </p>
-<p><img src="https://i.imgur.com/LnbuXvZ.png" alt="MobaXterm"></p>
+<p><img src="https://i.imgur.com/hAxVTh4.png" alt="MobaXterm"></p>
 <p>設定如上圖預設帳號：pi  ，點選OK進入輸入密碼頁面</p>
 <p>預設密碼：raspberry  便可成功登入</p>
 <h2 id="第六步：系統設定"><a href="#第六步：系統設定" class="headerlink" title="第六步：系統設定"></a>第六步：系統設定</h2><p>編輯檔案推薦使用 nano </p>
