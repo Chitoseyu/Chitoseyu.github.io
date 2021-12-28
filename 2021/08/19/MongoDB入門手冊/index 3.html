@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/coding.png">
+  <link rel="mask-icon" href="/images/coding.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<meta name="hexo-config" content="{&quot;hostname&quot;:&quot;chitoseyu.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:{&quot;enable&quot;:true,&quot;caption&quot;:false},&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜尋...&quot;,&quot;empty&quot;:&quot;我們無法找到任何有關 ${query} 的搜索結果&quot;,&quot;hits_time&quot;:&quot;${hits} 找到 ${time} 個結果&quot;,&quot;hits&quot;:&quot;找到 ${hits} 個結果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F10W092PP3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-F10W092PP3');
+</script><meta name="description" content="前言照慣例在文章開頭放個圖片  作為近幾年開始熱門討論的 NoSQL資料庫，有非常強大的社群及網路討論聲量，本身也有分成安裝版跟免安裝版本，大部分網路上教學都是安裝版，因為有安裝就會有預設路徑 &#x3D; 少做路徑設定 對於第一次操作的人可能都會是這個表情，這就是學習新技術痛苦的地方啊… 我在操作時使用免安裝版，優點就是可以隨時帶著走，但路徑出錯直接運作不起來 這部分就交給讀者自行選擇版本囉 ~  在學習">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB入門手冊">
+<meta property="og:url" content="https://chitoseyu.github.io/2021/08/19/MongoDB%E5%85%A5%E9%96%80%E6%89%8B%E5%86%8A/index.html">
+<meta property="og:site_name" content="Ren&#39;s Coding Note">
+<meta property="og:description" content="前言照慣例在文章開頭放個圖片  作為近幾年開始熱門討論的 NoSQL資料庫，有非常強大的社群及網路討論聲量，本身也有分成安裝版跟免安裝版本，大部分網路上教學都是安裝版，因為有安裝就會有預設路徑 &#x3D; 少做路徑設定 對於第一次操作的人可能都會是這個表情，這就是學習新技術痛苦的地方啊… 我在操作時使用免安裝版，優點就是可以隨時帶著走，但路徑出錯直接運作不起來 這部分就交給讀者自行選擇版本囉 ~  在學習">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://chitoseyu.github.io/images/mongodb.png">
+<meta property="og:image" content="https://chitoseyu.github.io/images/cat.jpg">
+<meta property="article:published_time" content="2021-08-19T08:05:21.000Z">
+<meta property="article:modified_time" content="2021-08-19T09:46:28.000Z">
+<meta property="article:author" content="Ren">
+<meta property="article:tag" content="MongoDB">
+<meta property="article:tag" content="NoSQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chitoseyu.github.io/images/mongodb.png">
+
+
+<link rel="canonical" href="https://chitoseyu.github.io/2021/08/19/MongoDB%E5%85%A5%E9%96%80%E6%89%8B%E5%86%8A/">
+
+
+
+<meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-TW&quot;}">
+<meta name="hexo-config-calendar" content="">
+<script data-pjax src="/js/load-config.js"></script>
+  <title>MongoDB入門手冊 | Ren's Coding Note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F10W092PP3"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-F10W092PP3');
+      }
+    </script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Ren's Coding Note</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">什麼都在嘗試的網頁工程之路...</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB%E8%A8%AD%E5%AE%9A%E7%B4%B0%E7%AF%80"><span class="nav-number">2.</span> <span class="nav-text">MongoDB設定細節</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E6%9C%AC%E6%A9%9F%E8%83%8C%E6%99%AF%E6%9C%8D%E5%8B%99%E8%A8%AD%E5%AE%9A-Windows%E7%92%B0%E5%A2%83%E4%B8%8B-%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">安裝本機背景服務設定(Windows環境下)：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E5%95%9F%E5%8B%95%E6%8C%87%E4%BB%A4%EF%BC%9A"><span class="nav-number">2.1.1.</span> <span class="nav-text">背景啟動指令：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E9%97%9C%E9%96%89%E6%8C%87%E4%BB%A4%EF%BC%9A"><span class="nav-number">2.1.2.</span> <span class="nav-text">背景關閉指令：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mongod-cfg%E6%A0%BC%E5%BC%8F-%E6%B3%A8%E6%84%8F%E7%B8%AE%E6%8E%92%E8%88%87%E7%A9%BA%E6%A0%BC-%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">mongod.cfg格式(注意縮排與空格)：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB%E6%8C%87%E4%BB%A4%E6%95%B4%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">MongoDB指令整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%BA%AB%E6%93%8D%E4%BD%9C"><span class="nav-number">3.1.</span> <span class="nav-text">資料庫操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E8%B3%87%E6%96%99"><span class="nav-number">3.2.</span> <span class="nav-text">插入資料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E8%B3%87%E6%96%99%E5%BA%AB"><span class="nav-number">3.3.</span> <span class="nav-text">刪除資料庫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E5%B0%8B%E8%B3%87%E6%96%99%E5%BA%AB%E5%85%A7%E5%AE%B9"><span class="nav-number">3.4.</span> <span class="nav-text">搜尋資料庫內容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%BA%AB%E5%85%A7%E5%AE%B9%E6%9B%B4%E6%96%B0"><span class="nav-number">3.5.</span> <span class="nav-text">資料庫內容更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%BA%AB%E5%82%99%E4%BB%BD"><span class="nav-number">3.6.</span> <span class="nav-text">資料庫備份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%BA%AB%E9%82%84%E5%8E%9F"><span class="nav-number">3.7.</span> <span class="nav-text">資料庫還原</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB%E9%81%A0%E7%AB%AF%E9%80%A3%E7%B7%9A"><span class="nav-number">4.</span> <span class="nav-text">MongoDB遠端連線</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9AAuth%E6%AD%A5%E9%A9%9F"><span class="nav-number">4.1.</span> <span class="nav-text">設定Auth步驟</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Auth%E5%8F%AF%E8%83%BD%E6%9C%83%E7%99%BC%E7%94%9F%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">4.1.1.</span> <span class="nav-text">Auth可能會發生的問題</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%A0%E7%AB%AF%E9%9B%BB%E8%85%A6%E9%80%A3%E7%B7%9AmongoDB"><span class="nav-number">4.2.</span> <span class="nav-text">遠端電腦連線mongoDB</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB%E5%9C%A8-Centos-7%E7%92%B0%E5%A2%83%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">MongoDB在 Centos 7環境操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%94%B9Port%E5%BE%88%E5%AE%B9%E6%98%93%E5%87%BA%E7%8F%BE%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">5.1.</span> <span class="nav-text">更改Port很容易出現的問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B2%92%E8%A8%AD%E5%AE%9A%E6%8E%88%E6%AC%8A%E7%94%A8%E9%A0%90%E8%A8%AD%E7%AB%AF%E5%8F%A3%E5%AE%B9%E6%98%93%E5%85%A5%E4%BE%B5%E8%A2%AB%E6%94%B9%E5%85%A7%E5%AE%B9"><span class="nav-number">5.2.</span> <span class="nav-text">沒設定授權用預設端口容易入侵被改內容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MongoDB-Cloud%E6%9C%8D%E5%8B%99"><span class="nav-number">6.</span> <span class="nav-text">MongoDB  Cloud服務</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="nav-number">7.</span> <span class="nav-text">參考資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ren"
+      src="/images/Chitose.png">
+  <p class="site-author-name" itemprop="name">Ren</p>
+  <div class="site-description" itemprop="description">You have to believe in yourself .</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Chitoseyu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Chitoseyu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+  <div class="links-of-blogroll-title">
+      
+      <i class="fa fa-clock fa-" aria-hidden="true" style="margin: 1rem 0.25rem 0.5rem 0"></i>
+      近期文章
+  </div>
+  <ul class="links-of-blogroll-list">
+      <li>
+          <a href="/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/" title="Raspbain實作筆記" target="_blank">Raspbain實作筆記</a>
+      </li>
+      <li>
+          <a href="/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/" title="Linux常用語法" target="_blank">Linux常用語法</a>
+      </li>
+      <li>
+          <a href="/2021/12/14/%E8%A8%98%E6%86%B6%E7%BF%BB%E7%89%8CJAVA%E5%B0%8F%E9%81%8A%E6%88%B2/" title="記憶翻牌JAVA小遊戲" target="_blank">記憶翻牌JAVA小遊戲</a>
+      </li>
+      <li>
+          <a href="/2021/11/08/155-Min-Stack-javascript/" title="155. Min Stack javascript解題" target="_blank">155. Min Stack javascript解題</a>
+      </li>
+      <li>
+          <a href="/2021/08/23/Python%E5%9C%B0%E5%9D%80%E8%BD%89%E6%8F%9B%E5%9C%B0%E5%9C%96%E7%B6%93%E7%B7%AF%E5%BA%A6/" title="Python地址轉換地圖經緯度" target="_blank">Python地址轉換地圖經緯度</a>
+      </li>
+  </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://chitoseyu.github.io/2021/08/19/MongoDB%E5%85%A5%E9%96%80%E6%89%8B%E5%86%8A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Chitose.png">
+      <meta itemprop="name" content="Ren">
+      <meta itemprop="description" content="You have to believe in yourself .">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ren's Coding Note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MongoDB入門手冊
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2021-08-19 17:46:28" itemprop="dateModified" datetime="2021-08-19T17:46:28+08:00">2021-08-19</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">技術筆記</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>照慣例在文章開頭放個圖片</p>
+<p><img src="/images/mongodb.png"></p>
+<p>作為近幾年開始熱門討論的 NoSQL資料庫，有非常強大的社群及網路討論聲量，本身也有分成安裝版跟免安裝版本，大部分網路上教學都是安裝版，因為有安裝就會有預設路徑 = 少做路徑設定</p>
+<p>對於第一次操作的人可能都會是這個表情，這就是學習新技術痛苦的地方啊…<br><img src="/images/cat.jpg"  width="300" height="300"></p>
+<p>我在操作時使用免安裝版，優點就是可以隨時帶著走，但路徑出錯直接運作不起來</p>
+<p>這部分就交給讀者自行選擇版本囉 ~ </p>
+<p>在學習途中做個資料整理，提供正在學的人能避免做無用功浪費時間，有錯誤歡迎留言指正！</p>
+<span id="more"></span>
+<hr>
+<h1 id="MongoDB設定細節"><a href="#MongoDB設定細節" class="headerlink" title="MongoDB設定細節"></a>MongoDB設定細節</h1><h2 id="安裝本機背景服務設定-Windows環境下-："><a href="#安裝本機背景服務設定-Windows環境下-：" class="headerlink" title="安裝本機背景服務設定(Windows環境下)："></a>安裝本機背景服務設定(Windows環境下)：</h2><p>讓MongoDB可以在背景啟動，mongodb.cfg是設定檔，寫法可參考下文所寫格式</p>
+<p><code>mongod --config &quot;C:\你的安裝路徑\bin\mongodb.cfg&quot; --serviceName &quot;MongoDB&quot; --serviceDisplayName &quot;MongoDB&quot; --install</code></p>
+<p>在安裝的時候一起把設定檔讀入就不需要打前面那一大串了</p>
+<p>讀取設定檔語法可以參照下面寫的 把設定路徑的部分改成讀取設定檔也行</p>
+<p>筆者目前資料夾分布有以下(可自由設定)</p>
+<pre><code>#資料庫存放的地方
+C:/mongodb/data/db              
+#備份存放的地方
+C:/mongodb/data/backup        
+#日誌檔存放的地方
+C:/mongodb/data/log            
+</code></pre>
+<p>安裝成功使用以下可以看到服務啟動的提示，如果沒反應可能有地方打錯就重新安裝一次吧</p>
+<h3 id="背景啟動指令："><a href="#背景啟動指令：" class="headerlink" title="背景啟動指令："></a>背景啟動指令：</h3><pre><code>net start MongoDB
+</code></pre>
+<h3 id="背景關閉指令："><a href="#背景關閉指令：" class="headerlink" title="背景關閉指令："></a>背景關閉指令：</h3><pre><code>net stop MongoDB
+</code></pre>
+<p>命令提示字元(Cmd)登入MongoDB：</p>
+<p>若今天要用 asd1234帳號登入mongoDB存取mongodb，27012是當初設定的port</p>
+<pre><code>mongo -u asd1234 -p zxc1234 --port 27012
+</code></pre>
+<p>以下指令可以在mongodb啟動時更改路徑</p>
+<p>資料庫存放路徑：</p>
+<p><code>mongod --dbpath=C:\mongodb\data</code>                       </p>
+<p>Log檔案存放路徑：</p>
+<p><code>mongod --logpath=C:\mongodb\log\mongod.log</code>    </p>
+<p>讀取設定檔案路徑：</p>
+<p><code>mongod --config &quot;C:\mongodb\bin\mongod.cfg&quot;</code>     </p>
+<h2 id="mongod-cfg格式-注意縮排與空格-："><a href="#mongod-cfg格式-注意縮排與空格-：" class="headerlink" title="mongod.cfg格式(注意縮排與空格)："></a>mongod.cfg格式(注意縮排與空格)：</h2><pre><code>  storage:           #DB存放設定
+      dbPath: C:\mongodb\data\db
+      journal:    
+        enabled: true
+  systemLog:           #日誌檔存放設定
+      destination: file
+      logAppend: true 
+      path: C:\mongodb\log\mongod.log
+  security:
+     authorization: enabled
+  net:
+     port: 27123        #綁定的PORT
+     bindIp : 0.0.0.0   #允許遠端的所有IP
+</code></pre>
+<h1 id="MongoDB指令整理"><a href="#MongoDB指令整理" class="headerlink" title="MongoDB指令整理"></a>MongoDB指令整理</h1><p><strong>&lt;&gt; 、{} =&gt; 表示名稱，省略不打</strong></p>
+<h2 id="資料庫操作"><a href="#資料庫操作" class="headerlink" title="資料庫操作"></a>資料庫操作</h2><pre><code>#顯示目前所在資料庫
+db                                                
+#檢視所有資料庫
+show  dbs                                    
+#檢視所有使用者
+show  users                                 
+#切換資料庫，原本沒有會自己新建一個，空DB不會顯示在檢視
+use &lt;DB名稱&gt;                             
+#檢視DB裡面的table，也能稱collection
+show tables/collections                
+#顯示table資料筆數
+db.&lt;table名稱&gt;.count()                
+</code></pre>
+<h2 id="插入資料"><a href="#插入資料" class="headerlink" title="插入資料"></a>插入資料</h2><pre><code>#創建table，不過直接在插入資料時直接寫也行
+db.createCollection(&quot;table名稱&quot;)  
+
+#AND語法
+db.&#123;collection名稱&#125;.find(&#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;, &quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;).pretty()
+#OR語法
+db.&#123;collection名稱&#125;.find(&#123;$or: [&#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;, &#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;]&#125;).pretty()
+#兩者組合
+db.&#123;collection名稱&#125;.find(&#123;&quot;欄位名稱&quot;:&#123;$gt:50&#125;,$or:[&#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;,&#123;&quot;欄位名稱&quot;:&quot;資料內容&quot;&#125;]&#125;).pretty()
+</code></pre>
+<p>以下對 ({要插入的資料內容篩選條件}) 符號說明</p>
+<pre><code>#等於50
+&quot;by&quot;:&quot;50&quot;         
+#小於50
+&quot;欄位名稱&quot;:&#123;$lt:50&#125;    
+#小於等於50    
+&quot;欄位名稱&quot;:&#123;$lte:50&#125;  
+#大於50
+&quot;欄位名稱&quot;:&#123;$gt:50&#125;   
+ #大於等於50
+&quot;欄位名稱&quot;:&#123;$gte:50&#125; 
+ #不等於
+&quot;欄位名稱&quot;:&#123;$ne:50&#125;  
+</code></pre>
+<p>若碰上要一次插入多筆資料的情況</p>
+<p>[  ]  → 多筆資料包起來，每筆資料逗號分隔</p>
+<p>“  “  → 欄位名稱跟內容沒有也能插資料，通常是只有內容有 “ “ </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">db.pets.insertMany([</span><br><span class="line">  &#123;</span><br><span class="line"></span><br><span class="line">    &quot;name&quot; : &quot;Daisy&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;species&quot; : &quot;cat&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;breed&quot; : &quot;calico&quot;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;name&quot;:&quot;Bella&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;species&quot;:&quot;dog&quot;,</span><br><span class="line"></span><br><span class="line">    &quot;breed&quot;:&quot;australian shepard&quot;</span><br><span class="line">  &#125;</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<h2 id="刪除資料庫"><a href="#刪除資料庫" class="headerlink" title="刪除資料庫"></a>刪除資料庫</h2><pre><code>#在DB底下操作才能刪除該資料庫
+db.dropDatabase()   
+#刪除table
+db.&lt;table名稱&gt;.drop()   
+#找到table有包含到該內容就刪除
+db.&lt;table名稱&gt;.remove(&#123;欄位名稱 : 欄位內容,...&#125;)  
+#全刪除
+db.&lt;table名稱&gt;.remove()   
+</code></pre>
+<h2 id="搜尋資料庫內容"><a href="#搜尋資料庫內容" class="headerlink" title="搜尋資料庫內容"></a>搜尋資料庫內容</h2><pre><code>#回傳第一筆資料
+db.&lt;table名稱&gt;.findOne()   
+#回傳全部資料，pretty是讓顯示有間距好看
+db.&lt;table名稱&gt;.find().pretty()  
+</code></pre>
+<h2 id="資料庫內容更新"><a href="#資料庫內容更新" class="headerlink" title="資料庫內容更新"></a>資料庫內容更新</h2><p><code>db.&lt;table名稱&gt;.update(&#123;name:&quot;MongoDB&quot;,其他欄位:欄位內容...&#125;,&#123;$set:&#123;name:&quot;Jack&quot;,其他欄位:欄位內容...&#125;&#125;,&#123;multi:true&#125;)</code></p>
+<pre><code>&#123;name:&quot;MongoDB&quot;,其他欄位:欄位內容...&#125;：要更新的資料
+&#123;$set:&#123;name:&quot;Jack&quot;,其他欄位:欄位內容...&#125;&#125;：從舊資料找符合內容的目標
+&#123;multi:true&#125;：若要一次更新多筆要true
+</code></pre>
+<h2 id="資料庫備份"><a href="#資料庫備份" class="headerlink" title="資料庫備份"></a>資料庫備份</h2><p>指令如下</p>
+<p><code>mongodump -h 127.0.0.1 --port 27120 -u root -p root1234 -d Number -o C:/mongodb/data/backup --authenticationDatabase admin</code></p>
+<p>參數說明：</p>
+<pre><code>#host,表示資料庫主機的IP位置或是電腦名稱
+-h        
+#user,登入的帳號
+-u         
+#password,登入的密碼
+-p         
+#指定port號
+--port     
+#database,備份資料庫的名稱
+-d         
+#collection,指定備份某一個Collection
+-c         
+ #output備份輸出的磁碟位置(Folder Path) 要備份在哪個磁碟要打不然會在奇怪地方
+-o        
+#開啟授權的資料庫需要加上否則無法使用
+--authenticationDatabase admin 
+</code></pre>
+<p><strong>備份前最好先移動到 mongoDB 的  admin 資料庫下面</strong></p>
+<p>使用以下指令<br>    #磁碟同步與上鎖<br>    db.runCommand({fsync:1,lock:1})<br>    #查看上鎖狀態 fsyncLock true 代表成功<br>    db.currentOp()<br>    #備份完成記得解鎖<br>    db.fsyncUnLock()</p>
+<h2 id="資料庫還原"><a href="#資料庫還原" class="headerlink" title="資料庫還原"></a>資料庫還原</h2><p>指令如下</p>
+<p><code>mongorestore -h 127.0.0.1 --port 27120 -d Number -u root -p root1234 --authenticationDatabase admin --dir C:/mongodb/data/backup/Number --drop</code></p>
+<pre><code>#host,表示資料庫主機的IP位置或是電腦名稱
+-h         
+#user,登入的帳號
+-u         
+#password,登入的密碼
+-p         
+#指定port號
+--port
+#database,備份資料庫的名稱
+-d        
+#備份DB的磁碟位置(Folder Path) 要備份在哪個磁碟要打不然會在奇怪地方
+-dir     
+ #開啟授權的資料庫需要加上否則無法使用
+--authenticationDatabase admin
+#若Server有相同DB會先刪除再還原回去(因有相同名稱不能還原)，小心使用    
+--drop  
+</code></pre>
+<h1 id="MongoDB遠端連線"><a href="#MongoDB遠端連線" class="headerlink" title="MongoDB遠端連線"></a>MongoDB遠端連線</h1><p><strong>沒有設定Auth沒辦法開放給其他電腦使用</strong></p>
+<h2 id="設定Auth步驟"><a href="#設定Auth步驟" class="headerlink" title="設定Auth步驟"></a>設定Auth步驟</h2><ol>
+<li><p>先移動到admin DB下操作</p>
+</li>
+<li><p>創建管理所有DB的管理帳號(最一開始需要的帳號)</p>
+</li>
+</ol>
+<p> <code>db.createUser(&#123;user: &quot;asd1234&quot;,pwd: &quot;zxc1234&quot;,roles: [&#123; role: &quot;root&quot;, db: &quot;admin&quot; &#125;]&#125;)</code></p>
+<ol start="3">
+<li>再啟動MongoDB時開啟認證</li>
+</ol>
+<p> <code>mongod --auth </code></p>
+<ol start="4">
+<li><p>之後使用mongo進去就看不到所有資料庫狀態了</p>
+<p> 一開始沒輸入帳號進去想登入管理者帳號就要移動到admin下使用語法：</p>
+</li>
+</ol>
+<p> <code>db.auth(&quot;root&quot;, &quot;PASSWORD&quot;) </code></p>
+<p>  在使用MongoDB的Shell開始就登入的語法：</p>
+<p>  <strong>連接Port預設27017,遠端開放要改</strong></p>
+<p>  <code>mongo -u 使用者帳號 -p 使用者密碼 --port 連接Port</code></p>
+<ol start="5">
+<li><p>能對不同資料庫增加不同使用者並設定權限</p>
+<p> <code>db.createUser(&#123;user: &quot;使用者名稱&quot;,pwd: &quot;密碼&quot;,roles: [&#123; role: &quot;root/readWrite/read&quot;, db: &quot;資料庫名稱&quot; &#125;]&#125;)</code></p>
+<ul>
+<li>root #最大  </li>
+<li>read #只能讀  </li>
+<li>readWrite #能讀寫</li>
+</ul>
+</li>
+</ol>
+<p>補充用戶設定的相關指令<br>     #更新用戶權限<br>    db.updateUser(user, writeConcern)<br>    #在DB的 test 下創使用者<br>    db.createUser({ user:”asd1234”, pwd:”zxc1234”, roles:[“readWrite”, “dbAdmin”] })<br>    #遠端連線( / 為二選一)<br>    mongo [IP] / [database] -u username -p password</p>
+<p>權限補充說明(部分)：</p>
+<pre><code>dbAdmin
+在指定DB中執行管理函數，如創建删除和查看資料表
+userAdmin
+可以在系統的users集合寫入，找指定DB創建删除和管理使用者
+clusterAdmin
+只在admin中可用，給使用者所有分片和複製集相關函數的管理權限
+readAnyDatabase
+只在admin中可用，給使用者所有DB的讀取權限
+readWriteAnyDatabase
+只在admin中可用，給使用者所有DB的讀寫權限 
+</code></pre>
+<h3 id="Auth可能會發生的問題"><a href="#Auth可能會發生的問題" class="headerlink" title="Auth可能會發生的問題"></a>Auth可能會發生的問題</h3><p><strong>若直接從設定檔開啟授權會導致無法遠端連線</strong></p>
+<p><strong>要針對個別DB設置使用者再透過指令授權連線</strong></p>
+<pre><code>#修改密碼
+db.changeUserPassword(&quot;user123&quot;,&quot;password456&quot;)           
+#刪除帳戶
+db.dropUser(&quot;user123&quot;)   
+</code></pre>
+<h2 id="遠端電腦連線mongoDB"><a href="#遠端電腦連線mongoDB" class="headerlink" title="遠端電腦連線mongoDB"></a>遠端電腦連線mongoDB</h2><p>指令如下</p>
+<pre><code>mongo &quot;mongodb://mongodb.test.com:連線的port&quot;
+mongo --host mongodb.test.com:連線的port
+mongo --host mongodb.test.com --port 連線的port
+</code></pre>
+<p>參數說明<br>    #連線地址(如mongodb.test.com ，也可以是 IP位置)<br>    –host <hostname></p>
+<p>舉個例子<br>，使用者 root連線至admin DB使用</p>
+<p>[  ]請依情況變化</p>
+<p><code>mongo --host [192.168.xx.xxx] --port [27120] -u [&quot;root&quot;]  -p --authenticationDatabase [&quot;admin&quot;]</code></p>
+<h1 id="MongoDB在-Centos-7環境操作"><a href="#MongoDB在-Centos-7環境操作" class="headerlink" title="MongoDB在 Centos 7環境操作"></a>MongoDB在 Centos 7環境操作</h1><p><strong>有時無法啟動檢查相關資料夾是否存在去看log檔案檢查是否為權限問題</strong></p>
+<h2 id="更改Port很容易出現的問題"><a href="#更改Port很容易出現的問題" class="headerlink" title="更改Port很容易出現的問題"></a>更改Port很容易出現的問題</h2><pre><code>#如果不存在才新增沒有的資料夾
+sudo mkdir /var/lib/mongodb                                
+#設定資料夾權限  mongo為使用者名稱
+sudo chown -R mongo:mongo /var/lib/mongodb   
+#重設權限給mongod  改port 後就好了
+sudo chown -R mongod:mongod /var/lib/mongo    
+</code></pre>
+<h2 id="沒設定授權用預設端口容易入侵被改內容"><a href="#沒設定授權用預設端口容易入侵被改內容" class="headerlink" title="沒設定授權用預設端口容易入侵被改內容"></a>沒設定授權用預設端口容易入侵被改內容</h2><pre><code>#啟動Mongodb
+sudo service mongod start  /   systemctl start mongod.service    
+#重啟Mongodb
+sudo service mongod restart
+#關閉Mongodb
+sudo service mongod stop      
+#查看目前狀態
+systemctl status mongod.service 
+</code></pre>
+<p>如何正確關閉mongoDB<br>    1. mongo<br>    2. use admin<br>    3. db.shutdownServer()</p>
+<p>如果以上指令還是無法解決就是重裝，重裝解決95%問題👌<br>    #卸載MongoDB<br>    sudo yum erase $(rpm -qa | grep mongodb-org)<br>    #刪除 log<br>    sudo rm -r /var/log/mongodb<br>    #對MongoDB設定檔修改<br>    nano  /etc/mongod.conf<br>     → 要開關帳號權限進去改完存檔重新啟動MongoDB</p>
+<p>開放對外的端口方法：<br>    #查看防火牆狀態<br>    systemctl status firewalld<br>    #防火牆重載<br>    firewall-cmd –reload<br>    #開放PORT狀態  YES成功<br>    firewall-cmd –zone=public –query-port=27017/tcp<br>    #開放MongoDB PORT<br>    firewall-cmd –zone=public –add-port=27017/tcp –permanent   </p>
+<h1 id="MongoDB-Cloud服務"><a href="#MongoDB-Cloud服務" class="headerlink" title="MongoDB  Cloud服務"></a>MongoDB  Cloud服務</h1><p>MongoDB Atlas 學術用512MB，官方近幾年在推的，我用過後覺得容量太小，有興趣可以參考</p>
+<p>網誌在這 → <a target="_blank" rel="noopener" href="https://www.mongodb.com/cloud/atlas/lp/try2?utm_source=google&utm_campaign=gs_apac_taiwan_search_brand_atlas_desktop&utm_term=mongodb%20cloud&utm_medium=cpc_paid_search&utm_ad=e&utm_ad_campaign_id=6498554090&gclid=CjwKCAjwgviIBhBkEiwA10D2j_c5k68hdbzBgb-OhwwLksgPAiIBf72pf4nfJskX6768fxCgt8OyIBoC7GIQAvD_BwE">MongoDB Atlas</a></p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">官方Centos7安裝文件</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.digitalocean.com/community/questions/mongo-cant-start-service">Mongo can not start service(權限問題)</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MongoDB/" rel="tag"># MongoDB</a>
+              <a href="/tags/NoSQL/" rel="tag"># NoSQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/" rel="prev" title="Markdown語法筆記">
+                  <i class="fa fa-chevron-left"></i> Markdown語法筆記
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/08/23/Python%E5%9C%B0%E5%9D%80%E8%BD%89%E6%8F%9B%E5%9C%B0%E5%9C%96%E7%B6%93%E7%B7%AF%E5%BA%A6/" rel="next" title="Python地址轉換地圖經緯度">
+                  Python地址轉換地圖經緯度 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="Chitoseyu / Chitoseyu.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+    <div class="comments utterances-container"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fas fa-dove"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ren</span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    <div class="pjax">
+
+
+<script>
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "Chitoseyu/Chitoseyu.github.io");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "github-dark-orange");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
+});
+</script>
+
+    </div>
+</body>
+</html>
