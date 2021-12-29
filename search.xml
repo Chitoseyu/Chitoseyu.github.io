@@ -858,6 +858,139 @@ find_element_by_css_selector
       </tags>
   </entry>
   <entry>
+    <title>來用Apache架設簡單WebServer吧</title>
+    <url>/2021/12/29/%E4%BE%86%E4%BD%BF%E7%94%A8Apache%E6%9E%B6%E8%A8%AD%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%EF%BC%B7ebServer%E5%90%A7/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://i.imgur.com/KUO20Hj.png"></p>
+<p>本文安裝環境為 <strong>Ubuntu16.04</strong></p>
+<p>提供給初學想要用 Apache 架站的人做參考</p>
+<p>會由安裝到 Apache 的細部設定依序說明</p>
+<span id="more"></span>
+
+<h1 id="安裝Apache"><a href="#安裝Apache" class="headerlink" title="安裝Apache"></a>安裝Apache</h1><ol>
+<li>安裝套件</li>
+</ol>
+<p>​    <code>sudo apt-get install apache2</code></p>
+<ol start="2">
+<li>確認安裝完成後啟動服務(兩個指令都行)</li>
+</ol>
+<p>​    <code>sudo systemctl start apache2</code></p>
+<p>​    <code>sudo systemctl start apache2</code></p>
+<p>啟用後可以用以下兩個指令查看運作狀態</p>
+<p><code>sudo service apache2 status</code></p>
+<p><code>sudo systemctl status apache2</code>  </p>
+<h1 id="細部設定"><a href="#細部設定" class="headerlink" title="細部設定"></a>細部設定</h1><h2 id="個人首頁設定"><a href="#個人首頁設定" class="headerlink" title="個人首頁設定"></a>個人首頁設定</h2><ol>
+<li>啟用個人首頁</li>
+</ol>
+<p>​    <code>sudo a2enmod userdir</code></p>
+<ol start="2">
+<li><p>新增個人首頁的設定檔</p>
+<p><code>sudo nano /etc/apache2/mods-available/userdir.conf</code></p>
+</li>
+<li><p>確認防火牆開啟</p>
+<p><code>sudo iptables -t filter -L –n</code></p>
+</li>
+<li><p>重啟 Apache 服務</p>
+<p><code>sudo systemctl restart apache2.service</code></p>
+</li>
+</ol>
+<p>這時候在自己帳號的資料夾底下( 通常會是 […/使用者帳號/home/] )</p>
+<p>建立 public_html 資料夾</p>
+<p><code>mkdir public_html</code></p>
+<p>並放上網頁檔案在網址列打上</p>
+<p><strong>電腦的ip  / ~使用者名稱 / 檔案名稱</strong></p>
+<p>就能看到放上去的網頁了</p>
+<h2 id="放置網頁檔案的目錄"><a href="#放置網頁檔案的目錄" class="headerlink" title="放置網頁檔案的目錄"></a>放置網頁檔案的目錄</h2><p>請更改以下檔案</p>
+<p><code>sudo nano /etc/apache2/sites-enabled/000-default</code></p>
+<p>找到 DocumentRoot 後面改成要改的目錄位置</p>
+<h2 id="網頁檔案名稱的設定"><a href="#網頁檔案名稱的設定" class="headerlink" title="網頁檔案名稱的設定"></a>網頁檔案名稱的設定</h2><p>請更改以下檔案</p>
+<p><code>sudo nano /etc/apache2/mods-available/dir.conf</code></p>
+<p>找到  DirectoryIndex  後面改成要改的檔案名稱 </p>
+<h2 id="可能會用到的指令"><a href="#可能會用到的指令" class="headerlink" title="可能會用到的指令"></a>可能會用到的指令</h2><ul>
+<li>查看 Apache 版本</li>
+</ul>
+<p>​        <code>apache2 -v</code></p>
+<h3 id="系統時區"><a href="#系統時區" class="headerlink" title="系統時區"></a>系統時區</h3><ul>
+<li><p>查看時區</p>
+<p><code>timedatectl</code></p>
+</li>
+<li><p>設定時區</p>
+<p><code>sudo timedatectl set-timezone Asia/Taipei </code></p>
+</li>
+<li><p>查看能設定時區的地區</p>
+<p><code>timedatectl list-timezones</code></p>
+</li>
+</ul>
+<h3 id="內部防火牆"><a href="#內部防火牆" class="headerlink" title="內部防火牆"></a>內部防火牆</h3><ul>
+<li><p>啟用或停用狀態</p>
+<p><code>sudo ufw enable/disable</code></p>
+</li>
+<li><p>啟用日誌</p>
+<p><code>sudo ufw logging on</code></p>
+</li>
+<li><p>查看狀態及規則</p>
+<p><code>sudo ufw status</code></p>
+<p><code>sudo ufw status verbose</code></p>
+<p><code>sudo ufw status numbered #以數字排列目前防火牆規則</code></p>
+<p><code>sudo ufw delete 3 #刪除剛剛查看的第三條防火牆規則</code></p>
+<p><code>sudo ufw reset #清空防火牆所有已設置之規則</code></p>
+</li>
+<li><p>查看需要開放的應用程式</p>
+<p><code>sudo ufw app list</code> </p>
+</li>
+<li><p>查看應用程式開放資訊</p>
+<p><code>sudo ufw app info “應用程式名稱”</code></p>
+<p>Ex :</p>
+<p>要開放 Apache 的通行請打</p>
+<p><code>sudo ufw allow in &quot;Apache Full&quot;</code> </p>
+</li>
+</ul>
+<h1 id="沒有實體機器的做法"><a href="#沒有實體機器的做法" class="headerlink" title="沒有實體機器的做法"></a>沒有實體機器的做法</h1><p>請去下載 <a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox</a></p>
+<p>裝好 <strong>Ｗindows作業系統</strong> 後</p>
+<ol>
+<li><p>開機前將網路介面卡設成 <strong>僅限主機的介面卡</strong></p>
+</li>
+<li><p>開機後使用 終端機指令 查看enp0s3(或其他)位址</p>
+<p><code>ipconfig</code></p>
+</li>
+</ol>
+<p>​        假設看到的ip為  <strong>192.168.56.102</strong></p>
+<ol start="3">
+<li><p>更改C:\Windows\System32\drivers\etc\hosts 檔案內容</p>
+<p><strong>預設要先把User權限打開才能編輯</strong></p>
+<p>更改的內容如下</p>
+<p><img src="https://i.imgur.com/0DG9Vtg.png" alt="hosts內容"></p>
+</li>
+<li><p>在自己電腦瀏覽器輸入  <a href="http://192.168.56.102/">http://192.168.56.102/</a> 或 <a href="http://guestserver.com/">http://guestserver.com/</a> 就能看到首頁</p>
+</li>
+</ol>
+<h2 id="設定-NAT-Host-only-網卡"><a href="#設定-NAT-Host-only-網卡" class="headerlink" title="設定 NAT + Host-only 網卡"></a>設定 NAT + Host-only 網卡</h2><p>若虛擬機想要連上網路用 Host-only是不行的 </p>
+<p>需要設定第二張網卡 NAT</p>
+<ul>
+<li>查看網卡名稱</li>
+</ul>
+<p>​        <code>ip link</code></p>
+<ul>
+<li>更改網路設定檔</li>
+</ul>
+<p>​        <code>sudo nano /etc/network/interfaces</code></p>
+<p>​        更改內容如圖所示</p>
+<p><img src="https://i.imgur.com/UcHZXIi.png" alt="interfaces內容"></p>
+<ul>
+<li><p>啟用寫好的網路介面並重啟網路</p>
+<p><code>sudo ifup enp0s8</code></p>
+<p><code>sudo /etc/init.d/networking restart</code></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Apache</tag>
+        <tag>ＷebServer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>記憶翻牌JAVA小遊戲</title>
     <url>/2021/12/14/%E8%A8%98%E6%86%B6%E7%BF%BB%E7%89%8CJAVA%E5%B0%8F%E9%81%8A%E6%88%B2/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大學時期做的JAVA小遊戲</p>
