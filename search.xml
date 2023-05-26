@@ -1,51 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>155. Min Stack javascript解題</title>
-    <url>/2021/11/08/155-Min-Stack-javascript/</url>
-    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
-<p>Implement the MinStack class:</p>
-<ul>
-<li>MinStack() initializes the stack object.</li>
-<li>void push(int val) pushes the element val onto the stack.</li>
-<li>void pop() removes the element on the top of the stack.</li>
-<li>int top() gets the top element of the stack.</li>
-<li>int getMin() retrieves the minimum element in the stack.</li>
-</ul>
-<span id="more"></span>
-
-<p>Input / Output(測試資料輸入/輸出):</p>
-<pre><code>參考leetcode
+    <title>Markdown語法筆記</title>
+    <url>/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/</url>
+    <content><![CDATA[<p>整理一些比較常用的語法紀錄</p>
+<hr>
+<h1 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h1><p><strong>#當標題使用，越少字越大，最多6個</strong></p>
+<pre><code>## 第二段 (H2)
+### 第三段(H3)
 </code></pre>
-<p>Explanation(使用範例):</p>
-<pre><code>MinStack minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-minStack.getMin(); // return -3
-minStack.pop();
-minStack.top();    // return 0
-minStack.getMin(); // return -2
-</code></pre>
-<p>Constraints(參數限制):</p>
-<ul>
-<li>-231 &lt;= val &lt;= 231 - 1</li>
-<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
-<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
-</ul>
-<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
-<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
-<p>所以 min 最底層永遠是最小值</p>
-<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
-<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
-<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<h2 id="第二段-H2"><a href="#第二段-H2" class="headerlink" title="第二段 (H2)"></a>第二段 (H2)</h2><h3 id="第三段-H3"><a href="#第三段-H3" class="headerlink" title="第三段(H3)"></a>第三段(H3)</h3><span id="more"></span>
 
+
+<h1 id="刪除線"><a href="#刪除線" class="headerlink" title="刪除線"></a>刪除線</h1><p><strong>句子前後都加 ~~ 會有刪除線效果</strong></p>
+<pre><code>~~我是刪除線~~
+</code></pre>
+<p>效果如下</p>
+<p><del>我是刪除線</del></p>
+<h1 id="常用文字效果"><a href="#常用文字效果" class="headerlink" title="常用文字效果"></a>常用文字效果</h1><h2 id="粗體"><a href="#粗體" class="headerlink" title="粗體"></a>粗體</h2><pre><code>**Bold**  or __Bold__
+</code></pre>
+<p>效果如下</p>
+<p><strong>Bold</strong></p>
+<h2 id="斜體"><a href="#斜體" class="headerlink" title="斜體"></a>斜體</h2><pre><code>*Italic*  or _Italic_
+</code></pre>
+<p>效果如下</p>
+<p><em>Italic</em></p>
+<h2 id="字體顏色"><a href="#字體顏色" class="headerlink" title="字體顏色"></a>字體顏色</h2><p>這部分可以直接套用HTML語法，顏色可以參考<a href="https://www.ifreesite.com/color/">網頁色碼表</a></p>
+<pre><code>* &lt;font color = &quot;#FF0000&quot;&gt;紅色文字&lt;/font&gt;
+* &lt;font color = &quot;00A600&quot;&gt;綠色文字&lt;/font&gt;
+* &lt;font color = &quot;#0000C6&quot;&gt;藍色文字&lt;/font&gt;
+</code></pre>
+<p>效果如下 </p>
+<ul>
+<li><font color = "#FF0000">紅色文字</font></li>
+<li><font color = "00A600">綠色文字</font></li>
+<li><font color = "#0000C6">藍色文字</font></li>
+</ul>
+<h2 id="特殊符號"><a href="#特殊符號" class="headerlink" title="特殊符號"></a>特殊符號</h2><p>**如果需要打特殊符號但跟前面的有重複到，記得在符號前加上反斜線 \ ，特殊符號如下 **</p>
+<pre><code>*
+!
++
+-
+[]
+&#123;&#125;
+#
+!
+</code></pre>
+<h2 id="區塊引言"><a href="#區塊引言" class="headerlink" title="區塊引言"></a>區塊引言</h2><p>** 在每行前面 加上 &gt; 或是在區塊的第一行加上 &gt; **</p>
+<pre><code>&gt; 哈哈
+&gt; 區塊引言
+&gt; &gt; 多加就會換行
+</code></pre>
+<p>效果如下</p>
+<blockquote>
+<p>哈哈<br>區塊引言</p>
+<blockquote>
+<p>多加就會換行</p>
+</blockquote>
+</blockquote>
+<h2 id="分隔線"><a href="#分隔線" class="headerlink" title="分隔線"></a>分隔線</h2><p><strong>分隔線的部分就很自由了，只要有三個以上的 * or _ or - 都會出來，不管中間有沒有空格</strong> </p>
+<pre><code>***
+_ _ _ _ _
+------------
+</code></pre>
+<p>效果如下</p>
+<hr>
+<h1 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h1><p><strong>前面一個 * or + or - 當一般清單(就是沒有1.、2.、3.、…etc)</strong></p>
+<pre><code>* 第一個
+ * 第二個
+* 第三個
+</code></pre>
+<p>效果如下</p>
+<ul>
+<li>第一個</li>
+<li>第二個</li>
+<li>第三個</li>
+</ul>
+<p><strong>想要有序清單就正常打</strong></p>
+<pre><code>1. 第一個
+2. 第二個
+</code></pre>
+<p>效果如下   </p>
+<ol>
+<li>第一個</li>
+<li>第二個</li>
+</ol>
+<h1 id="文字大區塊"><a href="#文字大區塊" class="headerlink" title="文字大區塊"></a>文字大區塊</h1><p><strong>要用大區塊將文字包起來可以按四個空白或是一個Tab</strong></p>
+<pre><code>echo &quot;Hello World!&quot;
+</code></pre>
+<h1 id="文字小區塊"><a href="#文字小區塊" class="headerlink" title="文字小區塊"></a>文字小區塊</h1><p><strong>要用小區塊將文字包起來前後都加上 ` 反引號</strong></p>
+<p><code>echo &quot;Hello World!&quot;</code></p>
+<h1 id="程式碼區塊"><a href="#程式碼區塊" class="headerlink" title="程式碼區塊"></a>程式碼區塊</h1><p><strong>程式碼區塊在開頭結尾加上```可以顯示</strong></p>
+<p>要加上Highlight  以JS為例就是 js 或 javascript 在前面的 ``` 加上 js 或 javascript 就有囉</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">&quot;歡迎光臨&quot;</span>) </span><br></pre></td></tr></table></figure>
+<h1 id="超連結"><a href="#超連結" class="headerlink" title="超連結"></a>超連結</h1><p><strong>需要超連結的格式</strong></p>
+<p><code>[要顯示的名稱](網址)</code></p>
+<h1 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h1><p><code>![若圖片顯示不出來的文字](圖片連結位置或網址)</code></p>
+<p>效果如下，用原生的沒辦法設定大小，可以改用HTML的　img　標籤來設定</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;圖片網誌或存放路徑&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML的img做出來的效果"><a href="#HTML的img做出來的效果" class="headerlink" title="HTML的img做出來的效果"></a>HTML的img做出來的效果</h2><img src="https://i.imgur.com/8Kwd2ko.jpg"  width="300" height="300">
+
+<h2 id="Markdown做出來的效果"><a href="#Markdown做出來的效果" class="headerlink" title="Markdown做出來的效果"></a>Markdown做出來的效果</h2><p><img src="https://i.imgur.com/8Kwd2ko.jpg" alt="沒錯原生圖檔就這麼大"></p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://markdown.tw/">Markdown語法說明</a></p>
 ]]></content>
       <categories>
-        <category>解題紀錄</category>
+        <category>技術筆記</category>
       </categories>
       <tags>
-        <tag>LeetCode</tag>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -234,117 +297,6 @@ minStack.getMin(); // return -2
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown語法筆記</title>
-    <url>/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/</url>
-    <content><![CDATA[<p>整理一些比較常用的語法紀錄</p>
-<hr>
-<h1 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h1><p><strong>#當標題使用，越少字越大，最多6個</strong></p>
-<pre><code>## 第二段 (H2)
-### 第三段(H3)
-</code></pre>
-<p>效果如下</p>
-<h2 id="第二段-H2"><a href="#第二段-H2" class="headerlink" title="第二段 (H2)"></a>第二段 (H2)</h2><h3 id="第三段-H3"><a href="#第三段-H3" class="headerlink" title="第三段(H3)"></a>第三段(H3)</h3><span id="more"></span>
-
-
-<h1 id="刪除線"><a href="#刪除線" class="headerlink" title="刪除線"></a>刪除線</h1><p><strong>句子前後都加 ~~ 會有刪除線效果</strong></p>
-<pre><code>~~我是刪除線~~
-</code></pre>
-<p>效果如下</p>
-<p><del>我是刪除線</del></p>
-<h1 id="常用文字效果"><a href="#常用文字效果" class="headerlink" title="常用文字效果"></a>常用文字效果</h1><h2 id="粗體"><a href="#粗體" class="headerlink" title="粗體"></a>粗體</h2><pre><code>**Bold**  or __Bold__
-</code></pre>
-<p>效果如下</p>
-<p><strong>Bold</strong></p>
-<h2 id="斜體"><a href="#斜體" class="headerlink" title="斜體"></a>斜體</h2><pre><code>*Italic*  or _Italic_
-</code></pre>
-<p>效果如下</p>
-<p><em>Italic</em></p>
-<h2 id="字體顏色"><a href="#字體顏色" class="headerlink" title="字體顏色"></a>字體顏色</h2><p>這部分可以直接套用HTML語法，顏色可以參考<a href="https://www.ifreesite.com/color/">網頁色碼表</a></p>
-<pre><code>* &lt;font color = &quot;#FF0000&quot;&gt;紅色文字&lt;/font&gt;
-* &lt;font color = &quot;00A600&quot;&gt;綠色文字&lt;/font&gt;
-* &lt;font color = &quot;#0000C6&quot;&gt;藍色文字&lt;/font&gt;
-</code></pre>
-<p>效果如下 </p>
-<ul>
-<li><font color = "#FF0000">紅色文字</font></li>
-<li><font color = "00A600">綠色文字</font></li>
-<li><font color = "#0000C6">藍色文字</font></li>
-</ul>
-<h2 id="特殊符號"><a href="#特殊符號" class="headerlink" title="特殊符號"></a>特殊符號</h2><p>**如果需要打特殊符號但跟前面的有重複到，記得在符號前加上反斜線 \ ，特殊符號如下 **</p>
-<pre><code>*
-!
-+
--
-[]
-&#123;&#125;
-#
-!
-</code></pre>
-<h2 id="區塊引言"><a href="#區塊引言" class="headerlink" title="區塊引言"></a>區塊引言</h2><p>** 在每行前面 加上 &gt; 或是在區塊的第一行加上 &gt; **</p>
-<pre><code>&gt; 哈哈
-&gt; 區塊引言
-&gt; &gt; 多加就會換行
-</code></pre>
-<p>效果如下</p>
-<blockquote>
-<p>哈哈<br>區塊引言</p>
-<blockquote>
-<p>多加就會換行</p>
-</blockquote>
-</blockquote>
-<h2 id="分隔線"><a href="#分隔線" class="headerlink" title="分隔線"></a>分隔線</h2><p><strong>分隔線的部分就很自由了，只要有三個以上的 * or _ or - 都會出來，不管中間有沒有空格</strong> </p>
-<pre><code>***
-_ _ _ _ _
-------------
-</code></pre>
-<p>效果如下</p>
-<hr>
-<h1 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h1><p><strong>前面一個 * or + or - 當一般清單(就是沒有1.、2.、3.、…etc)</strong></p>
-<pre><code>* 第一個
- * 第二個
-* 第三個
-</code></pre>
-<p>效果如下</p>
-<ul>
-<li>第一個</li>
-<li>第二個</li>
-<li>第三個</li>
-</ul>
-<p><strong>想要有序清單就正常打</strong></p>
-<pre><code>1. 第一個
-2. 第二個
-</code></pre>
-<p>效果如下   </p>
-<ol>
-<li>第一個</li>
-<li>第二個</li>
-</ol>
-<h1 id="文字大區塊"><a href="#文字大區塊" class="headerlink" title="文字大區塊"></a>文字大區塊</h1><p><strong>要用大區塊將文字包起來可以按四個空白或是一個Tab</strong></p>
-<pre><code>echo &quot;Hello World!&quot;
-</code></pre>
-<h1 id="文字小區塊"><a href="#文字小區塊" class="headerlink" title="文字小區塊"></a>文字小區塊</h1><p><strong>要用小區塊將文字包起來前後都加上 ` 反引號</strong></p>
-<p><code>echo &quot;Hello World!&quot;</code></p>
-<h1 id="程式碼區塊"><a href="#程式碼區塊" class="headerlink" title="程式碼區塊"></a>程式碼區塊</h1><p><strong>程式碼區塊在開頭結尾加上```可以顯示</strong></p>
-<p>要加上Highlight  以JS為例就是 js 或 javascript 在前面的 ``` 加上 js 或 javascript 就有囉</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">&quot;歡迎光臨&quot;</span>) </span><br></pre></td></tr></table></figure>
-<h1 id="超連結"><a href="#超連結" class="headerlink" title="超連結"></a>超連結</h1><p><strong>需要超連結的格式</strong></p>
-<p><code>[要顯示的名稱](網址)</code></p>
-<h1 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h1><p><code>![若圖片顯示不出來的文字](圖片連結位置或網址)</code></p>
-<p>效果如下，用原生的沒辦法設定大小，可以改用HTML的　img　標籤來設定</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;圖片網誌或存放路徑&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="HTML的img做出來的效果"><a href="#HTML的img做出來的效果" class="headerlink" title="HTML的img做出來的效果"></a>HTML的img做出來的效果</h2><img src="https://i.imgur.com/8Kwd2ko.jpg"  width="300" height="300">
-
-<h2 id="Markdown做出來的效果"><a href="#Markdown做出來的效果" class="headerlink" title="Markdown做出來的效果"></a>Markdown做出來的效果</h2><p><img src="https://i.imgur.com/8Kwd2ko.jpg" alt="沒錯原生圖檔就這麼大"></p>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://markdown.tw/">Markdown語法說明</a></p>
-]]></content>
-      <categories>
-        <category>技術筆記</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -599,119 +551,6 @@ systemctl status mongod.service
       </tags>
   </entry>
   <entry>
-    <title>Raspbain實作筆記</title>
-    <url>/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>簡單記錄一下如何從空機到能正常使用的步驟 </p>
-<p>操作基本上使用 Windows作業系統</p>
-<h1 id="初次安裝"><a href="#初次安裝" class="headerlink" title="初次安裝"></a>初次安裝</h1><p><strong>在開始安裝前請準備一台『讀卡機』</strong></p>
-<span id="more"></span>
-
-<ol>
-<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbain官網</a>   </li>
-</ol>
-<p>→ 下載「Raspbain Buster with desktop」的ZIP檔，作業系統</p>
-<ol start="2">
-<li><a href="https://www.balena.io/etcher/">balenaEtcher</a></li>
-</ol>
-<p>→ 下載並安裝，燒錄程式</p>
-<ol start="3">
-<li><a href="https://mobaxterm.mobatek.net/">Mobaxterm</a></li>
-</ol>
-<p>→ 下載並安裝，遠端操作</p>
-<ol start="4">
-<li><a href="https://angryip.org/">angryip</a></li>
-</ol>
-<p>→ 下載並安裝，掃描樹梅派IP </p>
-<h2 id="第一步：燒錄"><a href="#第一步：燒錄" class="headerlink" title="第一步：燒錄"></a>第一步：燒錄</h2><p>將SD卡插入讀卡機並與電腦連接，開啟『balenaEtcher』</p>
-<p> <img src="https://i.imgur.com/CW809w5.png" alt="balenaEtcher"></p>
-<ol>
-<li><p>選擇「Raspbain Buster with desktop」的ZIP檔</p>
-</li>
-<li><p>選擇「SD卡的磁碟」</p>
-</li>
-<li><p>等待進度條跑完</p>
-</li>
-</ol>
-<h2 id="第二步：設定網路連線"><a href="#第二步：設定網路連線" class="headerlink" title="第二步：設定網路連線"></a>第二步：設定網路連線</h2><ol>
-<li>在SD卡的boot磁區建立檔名為「ssh」的空檔(不要有副檔名)，開啟ssh功能**(預設為關)**</li>
-</ol>
-<img src="https://i.imgur.com/1p04Q2j.png" alt="ssh" style="zoom:90%;" />
-
-<ol start="2">
-<li>在SD卡的boot磁區建立檔名為「<strong>wpa_supplicant.conf</strong>」的檔案</li>
-</ol>
-<p>  建議<strong>不要用記事本開</strong>，可用 <strong>Nodepad++、Sublime</strong> 等開啟</p>
-<p>→ 檔案內容如下：<br><strong>(區分大小寫，失敗返回第一步)</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line"></span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">country=TW</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line"></span><br><span class="line">  ssid=&quot;SSID名稱&quot;</span><br><span class="line"></span><br><span class="line">  psk=&quot;密碼&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>network 部分 為 要連線的WiFi 帳密</p>
-<h2 id="第三步：開機"><a href="#第三步：開機" class="headerlink" title="第三步：開機"></a>第三步：開機</h2><ol>
-<li><p>樹梅派插上SD卡並開機</p>
-<p>→ 注意樹梅派的 燈號是否閃爍</p>
-</li>
-</ol>
-<ul>
-<li><p>開機閃爍，SD卡正在讀取，正常</p>
-</li>
-<li><p>開機不閃爍，樹梅派、SD卡、作業系統三者之一損毀</p>
-</li>
-</ul>
-<h2 id="第四步：找到樹梅派-IP"><a href="#第四步：找到樹梅派-IP" class="headerlink" title="第四步：找到樹梅派 IP"></a>第四步：找到樹梅派 IP</h2><p>在電腦上使用「angryip」搜尋IP</p>
-<p><img src="https://i.imgur.com/vgNd5qL.png" alt="ipscan"></p>
-<p><strong>預設名稱為「raspberrypi.local」</strong></p>
-<p><code>無線網路：樹梅派與電腦需同一網段</code></p>
-<p><code>有線網路：需要路由器與網路線手動將電腦與樹梅派置於同一網段</code></p>
-<h2 id="第五步：使用網路連線"><a href="#第五步：使用網路連線" class="headerlink" title="第五步：使用網路連線"></a>第五步：使用網路連線</h2><p>SSH：使用 mobaxterm</p>
-<p>點選Sessions &gt; New session &gt; SSH </p>
-<p><img src="https://i.imgur.com/hAxVTh4.png" alt="MobaXterm"></p>
-<p>設定如上圖預設帳號：pi  ，點選OK進入輸入密碼頁面</p>
-<p>預設密碼：raspberry  便可成功登入</p>
-<h2 id="第六步：系統設定"><a href="#第六步：系統設定" class="headerlink" title="第六步：系統設定"></a>第六步：系統設定</h2><p>編輯檔案推薦使用 nano </p>
-<h3 id="主機設定"><a href="#主機設定" class="headerlink" title="主機設定"></a>主機設定</h3><p><code>sudo raspi - config</code></p>
-<p>→ 修改密碼 (第一個)</p>
-<p>→ 修改樹梅派hostname (第二個) </p>
-<p>→ 修改時區 (第四個) </p>
-<p>→ 修改WIFI國家( TW ) </p>
-<h3 id="WiFi設定"><a href="#WiFi設定" class="headerlink" title="WiFi設定"></a>WiFi設定</h3><p><code>sudo nano /etc/rc.local</code>  </p>
-<p>→ 檔案最後加上( 關閉wifi睡眠 )</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iwconfig wlan0 power off </span><br><span class="line"></span><br><span class="line">iw dev wlan0 set power_save off</span><br></pre></td></tr></table></figure>
-
-<p>儲存後離開，並使用 ifconfig  確認wlan0是否開啟</p>
-<h3 id="遠端桌面"><a href="#遠端桌面" class="headerlink" title="遠端桌面"></a>遠端桌面</h3><p><code>sudo apt-get install xrdp</code></p>
-<p>→ 在搜尋中輸入mstsc 找到遠端桌面連線並輸入樹梅派 IP 連線</p>
-<p>→ 輸入樹梅派帳號密碼存取</p>
-<h3 id="安裝vim格式設定"><a href="#安裝vim格式設定" class="headerlink" title="安裝vim格式設定"></a>安裝vim格式設定</h3><p><code>sudo apt-get install vim</code></p>
-<p><code>sudo nano /etc/vim/vimrc.local</code></p>
-<p> 檔案最後輸入以下內容(格式設定)：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set tabstop=4 </span><br><span class="line"></span><br><span class="line">set expandtab </span><br><span class="line"></span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">set nu</span><br></pre></td></tr></table></figure>
-<h3 id="進行系統更新"><a href="#進行系統更新" class="headerlink" title="進行系統更新"></a>進行系統更新</h3><p> <code>sudo apt-get update</code></p>
-<p>→ 更新來源清單</p>
-<p><code>sudo apt-get-upgrade</code></p>
-<p>→ 更新軟體</p>
-<h3 id="重開機與關機指令"><a href="#重開機與關機指令" class="headerlink" title="重開機與關機指令"></a>重開機與關機指令</h3><ul>
-<li>重開機</li>
-</ul>
-<p><code>sudo shutdown –r now</code></p>
-<p><code>sudo reboot</code></p>
-<ul>
-<li>關機</li>
-</ul>
-<p><code>sudo shutdown –h now</code></p>
-<h1 id="樹梅派接腳-GPIO"><a href="#樹梅派接腳-GPIO" class="headerlink" title="樹梅派接腳 (GPIO)"></a>樹梅派接腳 (GPIO)</h1><p><strong>注意接腳，隨意接觸可能導致樹梅派燒毀</strong></p>
-<p><img src="https://i.imgur.com/3Mfd3ce.png" alt="rasp_1"></p>
-<p>在程式選用接腳時不要與現有接腳衝突  </p>
-<p><img src="https://i.imgur.com/mcUFttK.png" alt="rasp_2"></p>
-]]></content>
-      <categories>
-        <category>技術筆記</category>
-      </categories>
-      <tags>
-        <tag>Raspbain</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python地址轉換地圖經緯度</title>
     <url>/2021/08/23/Python%E5%9C%B0%E5%9D%80%E8%BD%89%E6%8F%9B%E5%9C%B0%E5%9C%96%E7%B6%93%E7%B7%AF%E5%BA%A6/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在實作地圖的時候多少會遇到資料只有地址的情況</p>
@@ -858,126 +697,164 @@ find_element_by_css_selector
       </tags>
   </entry>
   <entry>
-    <title>藍芽室內定位的可行性</title>
-    <url>/2022/01/12/%E8%97%8D%E8%8A%BD%E5%AE%A4%E5%85%A7%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大學專題有思考過類似的問題，並有實際去嘗試過才想寫這主題。</p>
-<p>因為室內定位真的是一門很廣的學問，何況藍芽的訊號干擾太多了，實作起來能說是困難重重…</p>
+    <title>155. Min Stack javascript解題</title>
+    <url>/2021/11/08/155-Min-Stack-javascript/</url>
+    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
+<p>Implement the MinStack class:</p>
+<ul>
+<li>MinStack() initializes the stack object.</li>
+<li>void push(int val) pushes the element val onto the stack.</li>
+<li>void pop() removes the element on the top of the stack.</li>
+<li>int top() gets the top element of the stack.</li>
+<li>int getMin() retrieves the minimum element in the stack.</li>
+</ul>
 <span id="more"></span>
 
-
-<h1 id="專題簡介"><a href="#專題簡介" class="headerlink" title="專題簡介"></a>專題簡介</h1><p>大學專題的作品名稱是 『 行動導覽系統 』，</p>
-<p>跟另外兩名大學同學一組，</p>
-<p>我主要負責報告文件整理及統整其他技術研究等，</p>
-<p>看過各種關於藍牙室內定位的論文或研究，</p>
-<p>看到最後好像也沒有一個很完美的做法…</p>
-<p>這邊放上當初做的海報擷取來說明主要功能<br><img src="https://i.imgur.com/9pIPg8F.png"></p>
-<p>就是透過手機程式來定位到在特定位置的展物並顯示出展物資訊</p>
-<p>聽起來好像很簡單但做了才發現問題很多…</p>
+<p>Input / Output(測試資料輸入/輸出):</p>
+<pre><code>參考leetcode
+</code></pre>
+<p>Explanation(使用範例):</p>
+<pre><code>MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+</code></pre>
+<p>Constraints(參數限制):</p>
 <ul>
-<li>訊號精準度若偏差太大定位點會偏離</li>
-<li>藍芽訊號太容易受干擾</li>
-<li>距離不同收到的訊號強度也不同</li>
-<li>放太近訊號會互相干擾</li>
-<li>展覽場地不同要配置幾個才夠定位</li>
+<li>-231 &lt;= val &lt;= 231 - 1</li>
+<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
+<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
 </ul>
-<p>以下就用專題中遇到的不同技術困難點做分段說明。</p>
-<h1 id="定位設備-Beacon"><a href="#定位設備-Beacon" class="headerlink" title="定位設備 - Beacon"></a>定位設備 - Beacon</h1><p>當初實驗室剛好手邊有這個 - 智石科技的Ｍax Beacon<br><img src="https://i.imgur.com/f4TlFY8.jpg" alt="Beacon"><br>設備規格如下圖所示<br><img src="https://i.imgur.com/U5vc8Mg.png"></p>
-<p>防水防塵防震動，<br>提供App 可以搜尋調整Beacon訊號的強弱及推播頻率和看電池電量等功能。</p>
-<p>每個 Beacon 都有獨立的一個編號(如：47044)</p>
-<p>為什麼要採用這個，主要原因如下：</p>
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
+<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
+<p>所以 min 最底層永遠是最小值</p>
+<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
+<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>解題紀錄</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Raspbain實作筆記</title>
+    <url>/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>簡單記錄一下如何從空機到能正常使用的步驟 </p>
+<p>操作基本上使用 Windows作業系統</p>
+<h1 id="初次安裝"><a href="#初次安裝" class="headerlink" title="初次安裝"></a>初次安裝</h1><p><strong>在開始安裝前請準備一台『讀卡機』</strong></p>
+<span id="more"></span>
+
 <ol>
-<li>單一設備便宜(約4.500元 / 個)</li>
-<li>配置簡單(與無線訊號台AP比較)</li>
-<li>藍芽已被廣大運用在各類產品</li>
-<li>實驗室剛好有</li>
+<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbain官網</a>   </li>
 </ol>
-<p>Beacon可以發送訊號給手機接收，不同距離的訊號強度也不同</p>
-<p><strong>用這些不同的訊號強度來判斷使用者目前在場地的哪個地方</strong></p>
-<h2 id="設備狀態"><a href="#設備狀態" class="headerlink" title="設備狀態"></a>設備狀態</h2><p>這些編號跟訊號強弱有關係，若壞掉的訊號就異常需排除在外</p>
-<p>我們第一步做的就是從一堆 Beacon 中排除訊號異常的部分</p>
-<p>廠商提供的訊號正常範圍為 -50 ~ -90 dBm(一公尺)</p>
-<p>但又不能把他們放太近測試，<strong>藍芽訊號非常容易受干擾</strong></p>
-<p>於是就分別量測不同編號的訊號強度，如下圖所示，</p>
-<p><img src="https://i.imgur.com/orXyRnn.png" alt="編號訊號強度比較"></p>
-<p>這資料是依 1m 不同推播頻率的Beacon來做比較，</p>
-<p>使用 APP 調整編號的 TXPOWER(會影響訊號推播強度)，</p>
-<p><strong>依這個數據將與其他人訊號有差異的裝置排除不使用</strong>。</p>
-<h2 id="設備推播範圍"><a href="#設備推播範圍" class="headerlink" title="設備推播範圍"></a>設備推播範圍</h2><p>基本上 Beacon 的訊號可以超過 3 m 沒問題，</p>
-<p>但室內並不需要那麼廣的推播範圍，</p>
-<p>而前面也提到 TXPOWER 會影響訊號強度，</p>
-<p>於是我們以 1 m 不同 TXPOWER 來看訊號變化，如圖所示，</p>
-<p><img src="https://i.imgur.com/iVrncd0.png" alt="不同推播訊號強度"></p>
-<p>可以看到 <strong>4dBm 是訊號強度最強的時候，越往下調整越弱</strong>。</p>
-<h2 id="設備維持時間"><a href="#設備維持時間" class="headerlink" title="設備維持時間"></a>設備維持時間</h2><p>對於Beacon能維持正常狀態多少時間也有花時間測試，</p>
-<p>具體狀況如下圖所示，以正常推播頻率放置超過半年，</p>
-<p>4dBm是 TXPOWER 最強訊號強度的情況，</p>
-<p><img src="https://i.imgur.com/GlU4VcD.png" alt="Beacon電池狀況"></p>
-<p><strong>基本上跟三號電池的衰減曲線差不多符合，在續航力上不太需要擔心</strong>。</p>
-<h1 id="Bluetooth-藍芽"><a href="#Bluetooth-藍芽" class="headerlink" title="Bluetooth 藍芽"></a>Bluetooth 藍芽</h1><p>作為室內定位的主技術，也有很長發展歷史…有興趣的就自己去研究吧</p>
-<p>採用的是藍芽4.0後出現的 低功耗藍牙BLE 技術，比較如下圖，</p>
-<p><img src="https://i.imgur.com/jJu1J48.png" alt="與傳統藍芽比較"></p>
-<p>在找資料的時候發現藍芽是非常容易受干擾的東西，</p>
-<p>什麼都會對訊號造成干擾，通常稱為多重訊號干擾，如下圖所示，</p>
-<p><img src="https://i.imgur.com/FOhpGW1.jpg" alt="藍芽干擾"></p>
-<p>那參考別人的論文後發現他們有有遇過類似的問題，</p>
-<p>此時他們提出的解決方法是 - 訊號濾波，</p>
-<p>將收到的訊號做一次過濾，也就是把過高或過低的訊號值移除，</p>
-<p>濾波器也有很多種，像是均值濾波器跟卡爾曼濾波器等等</p>
-<p>但均值濾波器在處理上反應時間較久，不適合用在即時處理的應用上，</p>
-<p>所以我們採用的是卡爾曼濾波器，這裡就不贅述它的原理了，</p>
-<p>經過濾波器處理後，訊號強度確實有變規律一點。</p>
-<h2 id="定位方法"><a href="#定位方法" class="headerlink" title="定位方法"></a>定位方法</h2><p>室內定位也有很多方法被使用，定位的根據不同方法也不同，</p>
-<p>我們這邊是採用 <strong>RSSI 接收強度定位法</strong>，</p>
-<p>接收不同的訊號強度轉換成距離後透過三角定位法求出接收器的位置</p>
-<p>稱為 RSSI 三點定位法也稱三角定位法。</p>
-<p>但距離跟訊號強度的關係不明顯就會使定位不精準，</p>
-<p>所以我們採用的是另一種稱為<strong>指紋定位法</strong>的方法，如圖所示，</p>
-<p><img src="https://i.imgur.com/m0hfTBX.png" alt="指紋定位法"></p>
-<p>用大量搜集不同區塊所收得的訊號強度當成區域特徵後儲存於資料庫，</p>
-<p>需要定位時則透過當下收到的特徵去比對資料庫中較符合的區塊回傳。</p>
-<h2 id="定位場域"><a href="#定位場域" class="headerlink" title="定位場域"></a>定位場域</h2><p>最一開始我們是用實驗室當場域，</p>
-<p>呈現一個長方形，<del>然後訊號干擾超嚴重</del>，</p>
-<p>後來選用學校的一間教室，平面圖如下，</p>
-<p><img src="https://i.imgur.com/EnI61MP.png" alt="教室平面圖"></p>
-<p>因為前面選用的定位方法，把這地方切成數區塊如下圖所示，</p>
-<p><img src="https://i.imgur.com/GRHvAos.jpg" alt="切割教室圖"></p>
-<p>大致上的想法是走到哪個地方那區塊就會發亮，</p>
-<p>表示使用者現在走到這個區塊內了，可以顯示區塊的資訊。</p>
-<h2 id="場域配置數量"><a href="#場域配置數量" class="headerlink" title="場域配置數量"></a>場域配置數量</h2><p>決定好場地後再來就是要配置幾顆 Beacon 才夠用了，</p>
-<p>這時我看到成功大學有一篇論文在研究訊號特徵法，</p>
-<p>就模仿他的方法來做我們的預估配置狀況，如下圖所示，</p>
-<p>考慮過若配置3顆的情況，<br><img src="https://i.imgur.com/x2CpETR.png" alt="理論3顆配置"><br>或是配置4顆的情況，<br><img src="https://i.imgur.com/blrZVJ6.png" alt="理論4顆配置"></p>
-<p>以顏色來分辨訊號強度，我的訊號強度顏色如下圖所示，</p>
-<p><img src="https://i.imgur.com/XgwjlSe.png" alt="訊號強度顏色"></p>
-<p>因為場地不大所以配置數量 4 顆就算多了，再往上會互相干擾…</p>
-<p>那我們選用 3 顆的配置方法，</p>
-<p>並開始去搜集這區塊的訊號強度到資料庫中。</p>
-<h1 id="實作成果"><a href="#實作成果" class="headerlink" title="實作成果"></a>實作成果</h1><p>最後讓負責手機程式的同學開發後的成果如下圖，<br><img src="https://i.imgur.com/7ciy3bv.png" alt="App畫面-定位區塊"></p>
-<p>假設場地上有各種畫作，若剛好Ａ4 區域有東西顯示，會如下圖所示，<br><img src="https://i.imgur.com/QTJwvEF.png" alt="App畫面-導覽畫面"></p>
-<p>但有時候會定位在別的區塊上也是個問題，</p>
-<p>定位精準度經過我們處理還是不高…</p>
-<p>離實際要應用在導覽場域還有很大一段距離。</p>
-<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p><del><strong>專題千萬不要做藍芽室內定位</strong></del></p>
-<p>如果時間很多又想挑戰新領域的人可以嘗試，</p>
-<p>但其中要花費的時間絕對遠超你的預期，</p>
-<p>我很肯定你們大多數時間都在處理和調整非程式的因素</p>
-<p>作為大學的畢業專題來說，</p>
-<p>說真的超出一般大學生能處理的東西了，</p>
-<p>考慮和影響的東西太多，什麼配置方法什麼地點都要自己決定，</p>
-<p>技術成果不算完美，從裡面學到了不少實驗方法與解決問題的想法，</p>
-<p>也感謝配合指導教授和我任性實驗要求的組員們，</p>
-<p>提供給之後想做 <strong>藍芽室內定位</strong> 的人參考。</p>
-<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><p>這邊就提供當初寫報告有參考的論文，如圖所示，</p>
-<p><img src="https://i.imgur.com/BHn5d52.png" alt="參考論文"></p>
-<p>這些論文也給當初在研究的我們不少啟發，</p>
-<p>有興趣的人也可以去看看！</p>
+<p>→ 下載「Raspbain Buster with desktop」的ZIP檔，作業系統</p>
+<ol start="2">
+<li><a href="https://www.balena.io/etcher/">balenaEtcher</a></li>
+</ol>
+<p>→ 下載並安裝，燒錄程式</p>
+<ol start="3">
+<li><a href="https://mobaxterm.mobatek.net/">Mobaxterm</a></li>
+</ol>
+<p>→ 下載並安裝，遠端操作</p>
+<ol start="4">
+<li><a href="https://angryip.org/">angryip</a></li>
+</ol>
+<p>→ 下載並安裝，掃描樹梅派IP </p>
+<h2 id="第一步：燒錄"><a href="#第一步：燒錄" class="headerlink" title="第一步：燒錄"></a>第一步：燒錄</h2><p>將SD卡插入讀卡機並與電腦連接，開啟『balenaEtcher』</p>
+<p> <img src="https://i.imgur.com/CW809w5.png" alt="balenaEtcher"></p>
+<ol>
+<li><p>選擇「Raspbain Buster with desktop」的ZIP檔</p>
+</li>
+<li><p>選擇「SD卡的磁碟」</p>
+</li>
+<li><p>等待進度條跑完</p>
+</li>
+</ol>
+<h2 id="第二步：設定網路連線"><a href="#第二步：設定網路連線" class="headerlink" title="第二步：設定網路連線"></a>第二步：設定網路連線</h2><ol>
+<li>在SD卡的boot磁區建立檔名為「ssh」的空檔(不要有副檔名)，開啟ssh功能**(預設為關)**</li>
+</ol>
+<img src="https://i.imgur.com/1p04Q2j.png" alt="ssh" style="zoom:90%;" />
+
+<ol start="2">
+<li>在SD卡的boot磁區建立檔名為「<strong>wpa_supplicant.conf</strong>」的檔案</li>
+</ol>
+<p>  建議<strong>不要用記事本開</strong>，可用 <strong>Nodepad++、Sublime</strong> 等開啟</p>
+<p>→ 檔案內容如下：<br><strong>(區分大小寫，失敗返回第一步)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line"></span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">country=TW</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line"></span><br><span class="line">  ssid=&quot;SSID名稱&quot;</span><br><span class="line"></span><br><span class="line">  psk=&quot;密碼&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>network 部分 為 要連線的WiFi 帳密</p>
+<h2 id="第三步：開機"><a href="#第三步：開機" class="headerlink" title="第三步：開機"></a>第三步：開機</h2><ol>
+<li><p>樹梅派插上SD卡並開機</p>
+<p>→ 注意樹梅派的 燈號是否閃爍</p>
+</li>
+</ol>
+<ul>
+<li><p>開機閃爍，SD卡正在讀取，正常</p>
+</li>
+<li><p>開機不閃爍，樹梅派、SD卡、作業系統三者之一損毀</p>
+</li>
+</ul>
+<h2 id="第四步：找到樹梅派-IP"><a href="#第四步：找到樹梅派-IP" class="headerlink" title="第四步：找到樹梅派 IP"></a>第四步：找到樹梅派 IP</h2><p>在電腦上使用「angryip」搜尋IP</p>
+<p><img src="https://i.imgur.com/vgNd5qL.png" alt="ipscan"></p>
+<p><strong>預設名稱為「raspberrypi.local」</strong></p>
+<p><code>無線網路：樹梅派與電腦需同一網段</code></p>
+<p><code>有線網路：需要路由器與網路線手動將電腦與樹梅派置於同一網段</code></p>
+<h2 id="第五步：使用網路連線"><a href="#第五步：使用網路連線" class="headerlink" title="第五步：使用網路連線"></a>第五步：使用網路連線</h2><p>SSH：使用 mobaxterm</p>
+<p>點選Sessions &gt; New session &gt; SSH </p>
+<p><img src="https://i.imgur.com/hAxVTh4.png" alt="MobaXterm"></p>
+<p>設定如上圖預設帳號：pi  ，點選OK進入輸入密碼頁面</p>
+<p>預設密碼：raspberry  便可成功登入</p>
+<h2 id="第六步：系統設定"><a href="#第六步：系統設定" class="headerlink" title="第六步：系統設定"></a>第六步：系統設定</h2><p>編輯檔案推薦使用 nano </p>
+<h3 id="主機設定"><a href="#主機設定" class="headerlink" title="主機設定"></a>主機設定</h3><p><code>sudo raspi - config</code></p>
+<p>→ 修改密碼 (第一個)</p>
+<p>→ 修改樹梅派hostname (第二個) </p>
+<p>→ 修改時區 (第四個) </p>
+<p>→ 修改WIFI國家( TW ) </p>
+<h3 id="WiFi設定"><a href="#WiFi設定" class="headerlink" title="WiFi設定"></a>WiFi設定</h3><p><code>sudo nano /etc/rc.local</code>  </p>
+<p>→ 檔案最後加上( 關閉wifi睡眠 )</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iwconfig wlan0 power off </span><br><span class="line"></span><br><span class="line">iw dev wlan0 set power_save off</span><br></pre></td></tr></table></figure>
+
+<p>儲存後離開，並使用 ifconfig  確認wlan0是否開啟</p>
+<h3 id="遠端桌面"><a href="#遠端桌面" class="headerlink" title="遠端桌面"></a>遠端桌面</h3><p><code>sudo apt-get install xrdp</code></p>
+<p>→ 在搜尋中輸入mstsc 找到遠端桌面連線並輸入樹梅派 IP 連線</p>
+<p>→ 輸入樹梅派帳號密碼存取</p>
+<h3 id="安裝vim格式設定"><a href="#安裝vim格式設定" class="headerlink" title="安裝vim格式設定"></a>安裝vim格式設定</h3><p><code>sudo apt-get install vim</code></p>
+<p><code>sudo nano /etc/vim/vimrc.local</code></p>
+<p> 檔案最後輸入以下內容(格式設定)：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set tabstop=4 </span><br><span class="line"></span><br><span class="line">set expandtab </span><br><span class="line"></span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">set nu</span><br></pre></td></tr></table></figure>
+<h3 id="進行系統更新"><a href="#進行系統更新" class="headerlink" title="進行系統更新"></a>進行系統更新</h3><p> <code>sudo apt-get update</code></p>
+<p>→ 更新來源清單</p>
+<p><code>sudo apt-get-upgrade</code></p>
+<p>→ 更新軟體</p>
+<h3 id="重開機與關機指令"><a href="#重開機與關機指令" class="headerlink" title="重開機與關機指令"></a>重開機與關機指令</h3><ul>
+<li>重開機</li>
+</ul>
+<p><code>sudo shutdown –r now</code></p>
+<p><code>sudo reboot</code></p>
+<ul>
+<li>關機</li>
+</ul>
+<p><code>sudo shutdown –h now</code></p>
+<h1 id="樹梅派接腳-GPIO"><a href="#樹梅派接腳-GPIO" class="headerlink" title="樹梅派接腳 (GPIO)"></a>樹梅派接腳 (GPIO)</h1><p><strong>注意接腳，隨意接觸可能導致樹梅派燒毀</strong></p>
+<p><img src="https://i.imgur.com/3Mfd3ce.png" alt="rasp_1"></p>
+<p>在程式選用接腳時不要與現有接腳衝突  </p>
+<p><img src="https://i.imgur.com/mcUFttK.png" alt="rasp_2"></p>
 ]]></content>
       <categories>
         <category>技術筆記</category>
       </categories>
       <tags>
-        <tag>藍芽</tag>
-        <tag>室內定位</tag>
+        <tag>Raspbain</tag>
       </tags>
   </entry>
   <entry>
@@ -1111,6 +988,129 @@ find_element_by_css_selector
       <tags>
         <tag>Apache</tag>
         <tag>ＷebServer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>藍芽室內定位的可行性</title>
+    <url>/2022/01/12/%E8%97%8D%E8%8A%BD%E5%AE%A4%E5%85%A7%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大學專題有思考過類似的問題，並有實際去嘗試過才想寫這主題。</p>
+<p>因為室內定位真的是一門很廣的學問，何況藍芽的訊號干擾太多了，實作起來能說是困難重重…</p>
+<span id="more"></span>
+
+
+<h1 id="專題簡介"><a href="#專題簡介" class="headerlink" title="專題簡介"></a>專題簡介</h1><p>大學專題的作品名稱是 『 行動導覽系統 』，</p>
+<p>跟另外兩名大學同學一組，</p>
+<p>我主要負責報告文件整理及統整其他技術研究等，</p>
+<p>看過各種關於藍牙室內定位的論文或研究，</p>
+<p>看到最後好像也沒有一個很完美的做法…</p>
+<p>這邊放上當初做的海報擷取來說明主要功能<br><img src="https://i.imgur.com/9pIPg8F.png"></p>
+<p>就是透過手機程式來定位到在特定位置的展物並顯示出展物資訊</p>
+<p>聽起來好像很簡單但做了才發現問題很多…</p>
+<ul>
+<li>訊號精準度若偏差太大定位點會偏離</li>
+<li>藍芽訊號太容易受干擾</li>
+<li>距離不同收到的訊號強度也不同</li>
+<li>放太近訊號會互相干擾</li>
+<li>展覽場地不同要配置幾個才夠定位</li>
+</ul>
+<p>以下就用專題中遇到的不同技術困難點做分段說明。</p>
+<h1 id="定位設備-Beacon"><a href="#定位設備-Beacon" class="headerlink" title="定位設備 - Beacon"></a>定位設備 - Beacon</h1><p>當初實驗室剛好手邊有這個 - 智石科技的Ｍax Beacon<br><img src="https://i.imgur.com/f4TlFY8.jpg" alt="Beacon"><br>設備規格如下圖所示<br><img src="https://i.imgur.com/U5vc8Mg.png"></p>
+<p>防水防塵防震動，<br>提供App 可以搜尋調整Beacon訊號的強弱及推播頻率和看電池電量等功能。</p>
+<p>每個 Beacon 都有獨立的一個編號(如：47044)</p>
+<p>為什麼要採用這個，主要原因如下：</p>
+<ol>
+<li>單一設備便宜(約4.500元 / 個)</li>
+<li>配置簡單(與無線訊號台AP比較)</li>
+<li>藍芽已被廣大運用在各類產品</li>
+<li>實驗室剛好有</li>
+</ol>
+<p>Beacon可以發送訊號給手機接收，不同距離的訊號強度也不同</p>
+<p><strong>用這些不同的訊號強度來判斷使用者目前在場地的哪個地方</strong></p>
+<h2 id="設備狀態"><a href="#設備狀態" class="headerlink" title="設備狀態"></a>設備狀態</h2><p>這些編號跟訊號強弱有關係，若壞掉的訊號就異常需排除在外</p>
+<p>我們第一步做的就是從一堆 Beacon 中排除訊號異常的部分</p>
+<p>廠商提供的訊號正常範圍為 -50 ~ -90 dBm(一公尺)</p>
+<p>但又不能把他們放太近測試，<strong>藍芽訊號非常容易受干擾</strong></p>
+<p>於是就分別量測不同編號的訊號強度，如下圖所示，</p>
+<p><img src="https://i.imgur.com/orXyRnn.png" alt="編號訊號強度比較"></p>
+<p>這資料是依 1m 不同推播頻率的Beacon來做比較，</p>
+<p>使用 APP 調整編號的 TXPOWER(會影響訊號推播強度)，</p>
+<p><strong>依這個數據將與其他人訊號有差異的裝置排除不使用</strong>。</p>
+<h2 id="設備推播範圍"><a href="#設備推播範圍" class="headerlink" title="設備推播範圍"></a>設備推播範圍</h2><p>基本上 Beacon 的訊號可以超過 3 m 沒問題，</p>
+<p>但室內並不需要那麼廣的推播範圍，</p>
+<p>而前面也提到 TXPOWER 會影響訊號強度，</p>
+<p>於是我們以 1 m 不同 TXPOWER 來看訊號變化，如圖所示，</p>
+<p><img src="https://i.imgur.com/iVrncd0.png" alt="不同推播訊號強度"></p>
+<p>可以看到 <strong>4dBm 是訊號強度最強的時候，越往下調整越弱</strong>。</p>
+<h2 id="設備維持時間"><a href="#設備維持時間" class="headerlink" title="設備維持時間"></a>設備維持時間</h2><p>對於Beacon能維持正常狀態多少時間也有花時間測試，</p>
+<p>具體狀況如下圖所示，以正常推播頻率放置超過半年，</p>
+<p>4dBm是 TXPOWER 最強訊號強度的情況，</p>
+<p><img src="https://i.imgur.com/GlU4VcD.png" alt="Beacon電池狀況"></p>
+<p><strong>基本上跟三號電池的衰減曲線差不多符合，在續航力上不太需要擔心</strong>。</p>
+<h1 id="Bluetooth-藍芽"><a href="#Bluetooth-藍芽" class="headerlink" title="Bluetooth 藍芽"></a>Bluetooth 藍芽</h1><p>作為室內定位的主技術，也有很長發展歷史…有興趣的就自己去研究吧</p>
+<p>採用的是藍芽4.0後出現的 低功耗藍牙BLE 技術，比較如下圖，</p>
+<p><img src="https://i.imgur.com/jJu1J48.png" alt="與傳統藍芽比較"></p>
+<p>在找資料的時候發現藍芽是非常容易受干擾的東西，</p>
+<p>什麼都會對訊號造成干擾，通常稱為多重訊號干擾，如下圖所示，</p>
+<p><img src="https://i.imgur.com/FOhpGW1.jpg" alt="藍芽干擾"></p>
+<p>那參考別人的論文後發現他們有有遇過類似的問題，</p>
+<p>此時他們提出的解決方法是 - 訊號濾波，</p>
+<p>將收到的訊號做一次過濾，也就是把過高或過低的訊號值移除，</p>
+<p>濾波器也有很多種，像是均值濾波器跟卡爾曼濾波器等等</p>
+<p>但均值濾波器在處理上反應時間較久，不適合用在即時處理的應用上，</p>
+<p>所以我們採用的是卡爾曼濾波器，這裡就不贅述它的原理了，</p>
+<p>經過濾波器處理後，訊號強度確實有變規律一點。</p>
+<h2 id="定位方法"><a href="#定位方法" class="headerlink" title="定位方法"></a>定位方法</h2><p>室內定位也有很多方法被使用，定位的根據不同方法也不同，</p>
+<p>我們這邊是採用 <strong>RSSI 接收強度定位法</strong>，</p>
+<p>接收不同的訊號強度轉換成距離後透過三角定位法求出接收器的位置</p>
+<p>稱為 RSSI 三點定位法也稱三角定位法。</p>
+<p>但距離跟訊號強度的關係不明顯就會使定位不精準，</p>
+<p>所以我們採用的是另一種稱為<strong>指紋定位法</strong>的方法，如圖所示，</p>
+<p><img src="https://i.imgur.com/m0hfTBX.png" alt="指紋定位法"></p>
+<p>用大量搜集不同區塊所收得的訊號強度當成區域特徵後儲存於資料庫，</p>
+<p>需要定位時則透過當下收到的特徵去比對資料庫中較符合的區塊回傳。</p>
+<h2 id="定位場域"><a href="#定位場域" class="headerlink" title="定位場域"></a>定位場域</h2><p>最一開始我們是用實驗室當場域，</p>
+<p>呈現一個長方形，<del>然後訊號干擾超嚴重</del>，</p>
+<p>後來選用學校的一間教室，平面圖如下，</p>
+<p><img src="https://i.imgur.com/EnI61MP.png" alt="教室平面圖"></p>
+<p>因為前面選用的定位方法，把這地方切成數區塊如下圖所示，</p>
+<p><img src="https://i.imgur.com/GRHvAos.jpg" alt="切割教室圖"></p>
+<p>大致上的想法是走到哪個地方那區塊就會發亮，</p>
+<p>表示使用者現在走到這個區塊內了，可以顯示區塊的資訊。</p>
+<h2 id="場域配置數量"><a href="#場域配置數量" class="headerlink" title="場域配置數量"></a>場域配置數量</h2><p>決定好場地後再來就是要配置幾顆 Beacon 才夠用了，</p>
+<p>這時我看到成功大學有一篇論文在研究訊號特徵法，</p>
+<p>就模仿他的方法來做我們的預估配置狀況，如下圖所示，</p>
+<p>考慮過若配置3顆的情況，<br><img src="https://i.imgur.com/x2CpETR.png" alt="理論3顆配置"><br>或是配置4顆的情況，<br><img src="https://i.imgur.com/blrZVJ6.png" alt="理論4顆配置"></p>
+<p>以顏色來分辨訊號強度，我的訊號強度顏色如下圖所示，</p>
+<p><img src="https://i.imgur.com/XgwjlSe.png" alt="訊號強度顏色"></p>
+<p>因為場地不大所以配置數量 4 顆就算多了，再往上會互相干擾…</p>
+<p>那我們選用 3 顆的配置方法，</p>
+<p>並開始去搜集這區塊的訊號強度到資料庫中。</p>
+<h1 id="實作成果"><a href="#實作成果" class="headerlink" title="實作成果"></a>實作成果</h1><p>最後讓負責手機程式的同學開發後的成果如下圖，<br><img src="https://i.imgur.com/7ciy3bv.png" alt="App畫面-定位區塊"></p>
+<p>假設場地上有各種畫作，若剛好Ａ4 區域有東西顯示，會如下圖所示，<br><img src="https://i.imgur.com/QTJwvEF.png" alt="App畫面-導覽畫面"></p>
+<p>但有時候會定位在別的區塊上也是個問題，</p>
+<p>定位精準度經過我們處理還是不高…</p>
+<p>離實際要應用在導覽場域還有很大一段距離。</p>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p><del><strong>專題千萬不要做藍芽室內定位</strong></del></p>
+<p>如果時間很多又想挑戰新領域的人可以嘗試，</p>
+<p>但其中要花費的時間絕對遠超你的預期，</p>
+<p>我很肯定你們大多數時間都在處理和調整非程式的因素</p>
+<p>作為大學的畢業專題來說，</p>
+<p>說真的超出一般大學生能處理的東西了，</p>
+<p>考慮和影響的東西太多，什麼配置方法什麼地點都要自己決定，</p>
+<p>技術成果不算完美，從裡面學到了不少實驗方法與解決問題的想法，</p>
+<p>也感謝配合指導教授和我任性實驗要求的組員們，</p>
+<p>提供給之後想做 <strong>藍芽室內定位</strong> 的人參考。</p>
+<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><p>這邊就提供當初寫報告有參考的論文，如圖所示，</p>
+<p><img src="https://i.imgur.com/BHn5d52.png" alt="參考論文"></p>
+<p>這些論文也給當初在研究的我們不少啟發，</p>
+<p>有興趣的人也可以去看看！</p>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>藍芽</tag>
+        <tag>室內定位</tag>
       </tags>
   </entry>
   <entry>
