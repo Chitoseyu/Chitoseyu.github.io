@@ -1,54 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>155. Min Stack javascript解題</title>
-    <url>/2021/11/08/155-Min-Stack-javascript/</url>
-    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
-<p>Implement the MinStack class:</p>
-<ul>
-<li>MinStack() initializes the stack object.</li>
-<li>void push(int val) pushes the element val onto the stack.</li>
-<li>void pop() removes the element on the top of the stack.</li>
-<li>int top() gets the top element of the stack.</li>
-<li>int getMin() retrieves the minimum element in the stack.</li>
-</ul>
-<span id="more"></span>
-
-<p>Input / Output(測試資料輸入/輸出):</p>
-<pre><code>參考leetcode
-</code></pre>
-<p>Explanation(使用範例):</p>
-<pre><code>MinStack minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-minStack.getMin(); // return -3
-minStack.pop();
-minStack.top();    // return 0
-minStack.getMin(); // return -2
-</code></pre>
-<p>Constraints(參數限制):</p>
-<ul>
-<li>-231 &lt;= val &lt;= 231 - 1</li>
-<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
-<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
-</ul>
-<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
-<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
-<p>所以 min 最底層永遠是最小值</p>
-<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
-<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
-<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>解題紀錄</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux常用語法</title>
     <url>/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>開始整理大學時期研究的筆記</p>
@@ -745,6 +697,119 @@ find_element_by_css_selector
       </tags>
   </entry>
   <entry>
+    <title>Raspbain實作筆記</title>
+    <url>/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>簡單記錄一下如何從空機到能正常使用的步驟 </p>
+<p>操作基本上使用 Windows作業系統</p>
+<h1 id="初次安裝"><a href="#初次安裝" class="headerlink" title="初次安裝"></a>初次安裝</h1><p><strong>在開始安裝前請準備一台『讀卡機』</strong></p>
+<span id="more"></span>
+
+<ol>
+<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbain官網</a>   </li>
+</ol>
+<p>→ 下載「Raspbain Buster with desktop」的ZIP檔，作業系統</p>
+<ol start="2">
+<li><a href="https://www.balena.io/etcher/">balenaEtcher</a></li>
+</ol>
+<p>→ 下載並安裝，燒錄程式</p>
+<ol start="3">
+<li><a href="https://mobaxterm.mobatek.net/">Mobaxterm</a></li>
+</ol>
+<p>→ 下載並安裝，遠端操作</p>
+<ol start="4">
+<li><a href="https://angryip.org/">angryip</a></li>
+</ol>
+<p>→ 下載並安裝，掃描樹梅派IP </p>
+<h2 id="第一步：燒錄"><a href="#第一步：燒錄" class="headerlink" title="第一步：燒錄"></a>第一步：燒錄</h2><p>將SD卡插入讀卡機並與電腦連接，開啟『balenaEtcher』</p>
+<p> <img src="https://i.imgur.com/CW809w5.png" alt="balenaEtcher"></p>
+<ol>
+<li><p>選擇「Raspbain Buster with desktop」的ZIP檔</p>
+</li>
+<li><p>選擇「SD卡的磁碟」</p>
+</li>
+<li><p>等待進度條跑完</p>
+</li>
+</ol>
+<h2 id="第二步：設定網路連線"><a href="#第二步：設定網路連線" class="headerlink" title="第二步：設定網路連線"></a>第二步：設定網路連線</h2><ol>
+<li>在SD卡的boot磁區建立檔名為「ssh」的空檔(不要有副檔名)，開啟ssh功能**(預設為關)**</li>
+</ol>
+<img src="https://i.imgur.com/1p04Q2j.png" alt="ssh" style="zoom:90%;" />
+
+<ol start="2">
+<li>在SD卡的boot磁區建立檔名為「<strong>wpa_supplicant.conf</strong>」的檔案</li>
+</ol>
+<p>  建議<strong>不要用記事本開</strong>，可用 <strong>Nodepad++、Sublime</strong> 等開啟</p>
+<p>→ 檔案內容如下：<br><strong>(區分大小寫，失敗返回第一步)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line"></span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">country=TW</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line"></span><br><span class="line">  ssid=&quot;SSID名稱&quot;</span><br><span class="line"></span><br><span class="line">  psk=&quot;密碼&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>network 部分 為 要連線的WiFi 帳密</p>
+<h2 id="第三步：開機"><a href="#第三步：開機" class="headerlink" title="第三步：開機"></a>第三步：開機</h2><ol>
+<li><p>樹梅派插上SD卡並開機</p>
+<p>→ 注意樹梅派的 燈號是否閃爍</p>
+</li>
+</ol>
+<ul>
+<li><p>開機閃爍，SD卡正在讀取，正常</p>
+</li>
+<li><p>開機不閃爍，樹梅派、SD卡、作業系統三者之一損毀</p>
+</li>
+</ul>
+<h2 id="第四步：找到樹梅派-IP"><a href="#第四步：找到樹梅派-IP" class="headerlink" title="第四步：找到樹梅派 IP"></a>第四步：找到樹梅派 IP</h2><p>在電腦上使用「angryip」搜尋IP</p>
+<p><img src="https://i.imgur.com/vgNd5qL.png" alt="ipscan"></p>
+<p><strong>預設名稱為「raspberrypi.local」</strong></p>
+<p><code>無線網路：樹梅派與電腦需同一網段</code></p>
+<p><code>有線網路：需要路由器與網路線手動將電腦與樹梅派置於同一網段</code></p>
+<h2 id="第五步：使用網路連線"><a href="#第五步：使用網路連線" class="headerlink" title="第五步：使用網路連線"></a>第五步：使用網路連線</h2><p>SSH：使用 mobaxterm</p>
+<p>點選Sessions &gt; New session &gt; SSH </p>
+<p><img src="https://i.imgur.com/hAxVTh4.png" alt="MobaXterm"></p>
+<p>設定如上圖預設帳號：pi  ，點選OK進入輸入密碼頁面</p>
+<p>預設密碼：raspberry  便可成功登入</p>
+<h2 id="第六步：系統設定"><a href="#第六步：系統設定" class="headerlink" title="第六步：系統設定"></a>第六步：系統設定</h2><p>編輯檔案推薦使用 nano </p>
+<h3 id="主機設定"><a href="#主機設定" class="headerlink" title="主機設定"></a>主機設定</h3><p><code>sudo raspi - config</code></p>
+<p>→ 修改密碼 (第一個)</p>
+<p>→ 修改樹梅派hostname (第二個) </p>
+<p>→ 修改時區 (第四個) </p>
+<p>→ 修改WIFI國家( TW ) </p>
+<h3 id="WiFi設定"><a href="#WiFi設定" class="headerlink" title="WiFi設定"></a>WiFi設定</h3><p><code>sudo nano /etc/rc.local</code>  </p>
+<p>→ 檔案最後加上( 關閉wifi睡眠 )</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iwconfig wlan0 power off </span><br><span class="line"></span><br><span class="line">iw dev wlan0 set power_save off</span><br></pre></td></tr></table></figure>
+
+<p>儲存後離開，並使用 ifconfig  確認wlan0是否開啟</p>
+<h3 id="遠端桌面"><a href="#遠端桌面" class="headerlink" title="遠端桌面"></a>遠端桌面</h3><p><code>sudo apt-get install xrdp</code></p>
+<p>→ 在搜尋中輸入mstsc 找到遠端桌面連線並輸入樹梅派 IP 連線</p>
+<p>→ 輸入樹梅派帳號密碼存取</p>
+<h3 id="安裝vim格式設定"><a href="#安裝vim格式設定" class="headerlink" title="安裝vim格式設定"></a>安裝vim格式設定</h3><p><code>sudo apt-get install vim</code></p>
+<p><code>sudo nano /etc/vim/vimrc.local</code></p>
+<p> 檔案最後輸入以下內容(格式設定)：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set tabstop=4 </span><br><span class="line"></span><br><span class="line">set expandtab </span><br><span class="line"></span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">set nu</span><br></pre></td></tr></table></figure>
+<h3 id="進行系統更新"><a href="#進行系統更新" class="headerlink" title="進行系統更新"></a>進行系統更新</h3><p> <code>sudo apt-get update</code></p>
+<p>→ 更新來源清單</p>
+<p><code>sudo apt-get-upgrade</code></p>
+<p>→ 更新軟體</p>
+<h3 id="重開機與關機指令"><a href="#重開機與關機指令" class="headerlink" title="重開機與關機指令"></a>重開機與關機指令</h3><ul>
+<li>重開機</li>
+</ul>
+<p><code>sudo shutdown –r now</code></p>
+<p><code>sudo reboot</code></p>
+<ul>
+<li>關機</li>
+</ul>
+<p><code>sudo shutdown –h now</code></p>
+<h1 id="樹梅派接腳-GPIO"><a href="#樹梅派接腳-GPIO" class="headerlink" title="樹梅派接腳 (GPIO)"></a>樹梅派接腳 (GPIO)</h1><p><strong>注意接腳，隨意接觸可能導致樹梅派燒毀</strong></p>
+<p><img src="https://i.imgur.com/3Mfd3ce.png" alt="rasp_1"></p>
+<p>在程式選用接腳時不要與現有接腳衝突  </p>
+<p><img src="https://i.imgur.com/mcUFttK.png" alt="rasp_2"></p>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Raspbain</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>來用Apache架設簡單WebServer吧</title>
     <url>/2021/12/29/%E4%BE%86%E4%BD%BF%E7%94%A8Apache%E6%9E%B6%E8%A8%AD%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%EF%BC%B7ebServer%E5%90%A7/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://i.imgur.com/KUO20Hj.png"></p>
@@ -878,116 +943,51 @@ find_element_by_css_selector
       </tags>
   </entry>
   <entry>
-    <title>Raspbain實作筆記</title>
-    <url>/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>簡單記錄一下如何從空機到能正常使用的步驟 </p>
-<p>操作基本上使用 Windows作業系統</p>
-<h1 id="初次安裝"><a href="#初次安裝" class="headerlink" title="初次安裝"></a>初次安裝</h1><p><strong>在開始安裝前請準備一台『讀卡機』</strong></p>
+    <title>155. Min Stack javascript解題</title>
+    <url>/2021/11/08/155-Min-Stack-javascript/</url>
+    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
+<p>Implement the MinStack class:</p>
+<ul>
+<li>MinStack() initializes the stack object.</li>
+<li>void push(int val) pushes the element val onto the stack.</li>
+<li>void pop() removes the element on the top of the stack.</li>
+<li>int top() gets the top element of the stack.</li>
+<li>int getMin() retrieves the minimum element in the stack.</li>
+</ul>
 <span id="more"></span>
 
-<ol>
-<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbain官網</a>   </li>
-</ol>
-<p>→ 下載「Raspbain Buster with desktop」的ZIP檔，作業系統</p>
-<ol start="2">
-<li><a href="https://www.balena.io/etcher/">balenaEtcher</a></li>
-</ol>
-<p>→ 下載並安裝，燒錄程式</p>
-<ol start="3">
-<li><a href="https://mobaxterm.mobatek.net/">Mobaxterm</a></li>
-</ol>
-<p>→ 下載並安裝，遠端操作</p>
-<ol start="4">
-<li><a href="https://angryip.org/">angryip</a></li>
-</ol>
-<p>→ 下載並安裝，掃描樹梅派IP </p>
-<h2 id="第一步：燒錄"><a href="#第一步：燒錄" class="headerlink" title="第一步：燒錄"></a>第一步：燒錄</h2><p>將SD卡插入讀卡機並與電腦連接，開啟『balenaEtcher』</p>
-<p> <img src="https://i.imgur.com/CW809w5.png" alt="balenaEtcher"></p>
-<ol>
-<li><p>選擇「Raspbain Buster with desktop」的ZIP檔</p>
-</li>
-<li><p>選擇「SD卡的磁碟」</p>
-</li>
-<li><p>等待進度條跑完</p>
-</li>
-</ol>
-<h2 id="第二步：設定網路連線"><a href="#第二步：設定網路連線" class="headerlink" title="第二步：設定網路連線"></a>第二步：設定網路連線</h2><ol>
-<li>在SD卡的boot磁區建立檔名為「ssh」的空檔(不要有副檔名)，開啟ssh功能**(預設為關)**</li>
-</ol>
-<img src="https://i.imgur.com/1p04Q2j.png" alt="ssh" style="zoom:90%;" />
-
-<ol start="2">
-<li>在SD卡的boot磁區建立檔名為「<strong>wpa_supplicant.conf</strong>」的檔案</li>
-</ol>
-<p>  建議<strong>不要用記事本開</strong>，可用 <strong>Nodepad++、Sublime</strong> 等開啟</p>
-<p>→ 檔案內容如下：<br><strong>(區分大小寫，失敗返回第一步)</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line"></span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">country=TW</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line"></span><br><span class="line">  ssid=&quot;SSID名稱&quot;</span><br><span class="line"></span><br><span class="line">  psk=&quot;密碼&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>network 部分 為 要連線的WiFi 帳密</p>
-<h2 id="第三步：開機"><a href="#第三步：開機" class="headerlink" title="第三步：開機"></a>第三步：開機</h2><ol>
-<li><p>樹梅派插上SD卡並開機</p>
-<p>→ 注意樹梅派的 燈號是否閃爍</p>
-</li>
-</ol>
+<p>Input / Output(測試資料輸入/輸出):</p>
+<pre><code>參考leetcode
+</code></pre>
+<p>Explanation(使用範例):</p>
+<pre><code>MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+</code></pre>
+<p>Constraints(參數限制):</p>
 <ul>
-<li><p>開機閃爍，SD卡正在讀取，正常</p>
-</li>
-<li><p>開機不閃爍，樹梅派、SD卡、作業系統三者之一損毀</p>
-</li>
+<li>-231 &lt;= val &lt;= 231 - 1</li>
+<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
+<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
 </ul>
-<h2 id="第四步：找到樹梅派-IP"><a href="#第四步：找到樹梅派-IP" class="headerlink" title="第四步：找到樹梅派 IP"></a>第四步：找到樹梅派 IP</h2><p>在電腦上使用「angryip」搜尋IP</p>
-<p><img src="https://i.imgur.com/vgNd5qL.png" alt="ipscan"></p>
-<p><strong>預設名稱為「raspberrypi.local」</strong></p>
-<p><code>無線網路：樹梅派與電腦需同一網段</code></p>
-<p><code>有線網路：需要路由器與網路線手動將電腦與樹梅派置於同一網段</code></p>
-<h2 id="第五步：使用網路連線"><a href="#第五步：使用網路連線" class="headerlink" title="第五步：使用網路連線"></a>第五步：使用網路連線</h2><p>SSH：使用 mobaxterm</p>
-<p>點選Sessions &gt; New session &gt; SSH </p>
-<p><img src="https://i.imgur.com/hAxVTh4.png" alt="MobaXterm"></p>
-<p>設定如上圖預設帳號：pi  ，點選OK進入輸入密碼頁面</p>
-<p>預設密碼：raspberry  便可成功登入</p>
-<h2 id="第六步：系統設定"><a href="#第六步：系統設定" class="headerlink" title="第六步：系統設定"></a>第六步：系統設定</h2><p>編輯檔案推薦使用 nano </p>
-<h3 id="主機設定"><a href="#主機設定" class="headerlink" title="主機設定"></a>主機設定</h3><p><code>sudo raspi - config</code></p>
-<p>→ 修改密碼 (第一個)</p>
-<p>→ 修改樹梅派hostname (第二個) </p>
-<p>→ 修改時區 (第四個) </p>
-<p>→ 修改WIFI國家( TW ) </p>
-<h3 id="WiFi設定"><a href="#WiFi設定" class="headerlink" title="WiFi設定"></a>WiFi設定</h3><p><code>sudo nano /etc/rc.local</code>  </p>
-<p>→ 檔案最後加上( 關閉wifi睡眠 )</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iwconfig wlan0 power off </span><br><span class="line"></span><br><span class="line">iw dev wlan0 set power_save off</span><br></pre></td></tr></table></figure>
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
+<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
+<p>所以 min 最底層永遠是最小值</p>
+<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
+<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>儲存後離開，並使用 ifconfig  確認wlan0是否開啟</p>
-<h3 id="遠端桌面"><a href="#遠端桌面" class="headerlink" title="遠端桌面"></a>遠端桌面</h3><p><code>sudo apt-get install xrdp</code></p>
-<p>→ 在搜尋中輸入mstsc 找到遠端桌面連線並輸入樹梅派 IP 連線</p>
-<p>→ 輸入樹梅派帳號密碼存取</p>
-<h3 id="安裝vim格式設定"><a href="#安裝vim格式設定" class="headerlink" title="安裝vim格式設定"></a>安裝vim格式設定</h3><p><code>sudo apt-get install vim</code></p>
-<p><code>sudo nano /etc/vim/vimrc.local</code></p>
-<p> 檔案最後輸入以下內容(格式設定)：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set tabstop=4 </span><br><span class="line"></span><br><span class="line">set expandtab </span><br><span class="line"></span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">set nu</span><br></pre></td></tr></table></figure>
-<h3 id="進行系統更新"><a href="#進行系統更新" class="headerlink" title="進行系統更新"></a>進行系統更新</h3><p> <code>sudo apt-get update</code></p>
-<p>→ 更新來源清單</p>
-<p><code>sudo apt-get-upgrade</code></p>
-<p>→ 更新軟體</p>
-<h3 id="重開機與關機指令"><a href="#重開機與關機指令" class="headerlink" title="重開機與關機指令"></a>重開機與關機指令</h3><ul>
-<li>重開機</li>
-</ul>
-<p><code>sudo shutdown –r now</code></p>
-<p><code>sudo reboot</code></p>
-<ul>
-<li>關機</li>
-</ul>
-<p><code>sudo shutdown –h now</code></p>
-<h1 id="樹梅派接腳-GPIO"><a href="#樹梅派接腳-GPIO" class="headerlink" title="樹梅派接腳 (GPIO)"></a>樹梅派接腳 (GPIO)</h1><p><strong>注意接腳，隨意接觸可能導致樹梅派燒毀</strong></p>
-<p><img src="https://i.imgur.com/3Mfd3ce.png" alt="rasp_1"></p>
-<p>在程式選用接腳時不要與現有接腳衝突  </p>
-<p><img src="https://i.imgur.com/mcUFttK.png" alt="rasp_2"></p>
 ]]></content>
       <categories>
-        <category>技術筆記</category>
+        <category>解題紀錄</category>
       </categories>
       <tags>
-        <tag>Raspbain</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1019,29 +1019,6 @@ find_element_by_css_selector
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>關於網站作者</title>
-    <url>/2021/04/05/%E9%97%9C%E6%96%BC%E7%B6%B2%E7%AB%99%E4%BD%9C%E8%80%85/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="毫無反應，就只是一隻腦袋當機貓"><a href="#毫無反應，就只是一隻腦袋當機貓" class="headerlink" title="毫無反應，就只是一隻腦袋當機貓"></a>毫無反應，就只是一隻腦袋當機貓</h2><img src="/images/cat.jpg"  width="500" height="500">
-
-<p><font color="#0072E3" size="5"><center>覺得人生苦不如就看貓吧</center></font></p>
-<span id="more"></span>
-
-<p>不常寫長文，不定時更新文章內容</p>
-<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>公立大學資訊工程系畢業</p>
-<p>科技不斷在變，不吸收各類新科技的工程師真的很難活啊</p>
-<p>目前在服兵役中</p>
-<p>每天看其他社群大神的各種教學文</p>
-<p>希望有天也能回饋廣大網路社會才開始更新自己的技術筆記</p>
-<p>整理自己研究過的技術，順便再複習相關概念</p>
-]]></content>
-      <categories>
-        <category>日記</category>
-      </categories>
-      <tags>
-        <tag>日常廢文</tag>
       </tags>
   </entry>
   <entry>
@@ -1167,6 +1144,29 @@ find_element_by_css_selector
       <tags>
         <tag>藍芽</tag>
         <tag>室內定位</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>關於網站作者</title>
+    <url>/2021/04/05/%E9%97%9C%E6%96%BC%E7%B6%B2%E7%AB%99%E4%BD%9C%E8%80%85/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="毫無反應，就只是一隻腦袋當機貓"><a href="#毫無反應，就只是一隻腦袋當機貓" class="headerlink" title="毫無反應，就只是一隻腦袋當機貓"></a>毫無反應，就只是一隻腦袋當機貓</h2><img src="/images/cat.jpg"  width="500" height="500">
+
+<p><font color="#0072E3" size="5"><center>覺得人生苦不如就看貓吧</center></font></p>
+<span id="more"></span>
+
+<p>不常寫長文，不定時更新文章內容</p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>公立大學資訊工程系畢業</p>
+<p>科技不斷在變，不吸收各類新科技的工程師真的很難活啊</p>
+<p>目前在服兵役中</p>
+<p>每天看其他社群大神的各種教學文</p>
+<p>希望有天也能回饋廣大網路社會才開始更新自己的技術筆記</p>
+<p>整理自己研究過的技術，順便再複習相關概念</p>
+]]></content>
+      <categories>
+        <category>日記</category>
+      </categories>
+      <tags>
+        <tag>日常廢文</tag>
       </tags>
   </entry>
 </search>
