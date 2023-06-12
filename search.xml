@@ -599,119 +599,6 @@ systemctl status mongod.service
       </tags>
   </entry>
   <entry>
-    <title>Raspbain實作筆記</title>
-    <url>/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>簡單記錄一下如何從空機到能正常使用的步驟 </p>
-<p>操作基本上使用 Windows作業系統</p>
-<h1 id="初次安裝"><a href="#初次安裝" class="headerlink" title="初次安裝"></a>初次安裝</h1><p><strong>在開始安裝前請準備一台『讀卡機』</strong></p>
-<span id="more"></span>
-
-<ol>
-<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbain官網</a>   </li>
-</ol>
-<p>→ 下載「Raspbain Buster with desktop」的ZIP檔，作業系統</p>
-<ol start="2">
-<li><a href="https://www.balena.io/etcher/">balenaEtcher</a></li>
-</ol>
-<p>→ 下載並安裝，燒錄程式</p>
-<ol start="3">
-<li><a href="https://mobaxterm.mobatek.net/">Mobaxterm</a></li>
-</ol>
-<p>→ 下載並安裝，遠端操作</p>
-<ol start="4">
-<li><a href="https://angryip.org/">angryip</a></li>
-</ol>
-<p>→ 下載並安裝，掃描樹梅派IP </p>
-<h2 id="第一步：燒錄"><a href="#第一步：燒錄" class="headerlink" title="第一步：燒錄"></a>第一步：燒錄</h2><p>將SD卡插入讀卡機並與電腦連接，開啟『balenaEtcher』</p>
-<p> <img src="https://i.imgur.com/CW809w5.png" alt="balenaEtcher"></p>
-<ol>
-<li><p>選擇「Raspbain Buster with desktop」的ZIP檔</p>
-</li>
-<li><p>選擇「SD卡的磁碟」</p>
-</li>
-<li><p>等待進度條跑完</p>
-</li>
-</ol>
-<h2 id="第二步：設定網路連線"><a href="#第二步：設定網路連線" class="headerlink" title="第二步：設定網路連線"></a>第二步：設定網路連線</h2><ol>
-<li>在SD卡的boot磁區建立檔名為「ssh」的空檔(不要有副檔名)，開啟ssh功能**(預設為關)**</li>
-</ol>
-<img src="https://i.imgur.com/1p04Q2j.png" alt="ssh" style="zoom:90%;" />
-
-<ol start="2">
-<li>在SD卡的boot磁區建立檔名為「<strong>wpa_supplicant.conf</strong>」的檔案</li>
-</ol>
-<p>  建議<strong>不要用記事本開</strong>，可用 <strong>Nodepad++、Sublime</strong> 等開啟</p>
-<p>→ 檔案內容如下：<br><strong>(區分大小寫，失敗返回第一步)</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line"></span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">country=TW</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line"></span><br><span class="line">  ssid=&quot;SSID名稱&quot;</span><br><span class="line"></span><br><span class="line">  psk=&quot;密碼&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>network 部分 為 要連線的WiFi 帳密</p>
-<h2 id="第三步：開機"><a href="#第三步：開機" class="headerlink" title="第三步：開機"></a>第三步：開機</h2><ol>
-<li><p>樹梅派插上SD卡並開機</p>
-<p>→ 注意樹梅派的 燈號是否閃爍</p>
-</li>
-</ol>
-<ul>
-<li><p>開機閃爍，SD卡正在讀取，正常</p>
-</li>
-<li><p>開機不閃爍，樹梅派、SD卡、作業系統三者之一損毀</p>
-</li>
-</ul>
-<h2 id="第四步：找到樹梅派-IP"><a href="#第四步：找到樹梅派-IP" class="headerlink" title="第四步：找到樹梅派 IP"></a>第四步：找到樹梅派 IP</h2><p>在電腦上使用「angryip」搜尋IP</p>
-<p><img src="https://i.imgur.com/vgNd5qL.png" alt="ipscan"></p>
-<p><strong>預設名稱為「raspberrypi.local」</strong></p>
-<p><code>無線網路：樹梅派與電腦需同一網段</code></p>
-<p><code>有線網路：需要路由器與網路線手動將電腦與樹梅派置於同一網段</code></p>
-<h2 id="第五步：使用網路連線"><a href="#第五步：使用網路連線" class="headerlink" title="第五步：使用網路連線"></a>第五步：使用網路連線</h2><p>SSH：使用 mobaxterm</p>
-<p>點選Sessions &gt; New session &gt; SSH </p>
-<p><img src="https://i.imgur.com/hAxVTh4.png" alt="MobaXterm"></p>
-<p>設定如上圖預設帳號：pi  ，點選OK進入輸入密碼頁面</p>
-<p>預設密碼：raspberry  便可成功登入</p>
-<h2 id="第六步：系統設定"><a href="#第六步：系統設定" class="headerlink" title="第六步：系統設定"></a>第六步：系統設定</h2><p>編輯檔案推薦使用 nano </p>
-<h3 id="主機設定"><a href="#主機設定" class="headerlink" title="主機設定"></a>主機設定</h3><p><code>sudo raspi - config</code></p>
-<p>→ 修改密碼 (第一個)</p>
-<p>→ 修改樹梅派hostname (第二個) </p>
-<p>→ 修改時區 (第四個) </p>
-<p>→ 修改WIFI國家( TW ) </p>
-<h3 id="WiFi設定"><a href="#WiFi設定" class="headerlink" title="WiFi設定"></a>WiFi設定</h3><p><code>sudo nano /etc/rc.local</code>  </p>
-<p>→ 檔案最後加上( 關閉wifi睡眠 )</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iwconfig wlan0 power off </span><br><span class="line"></span><br><span class="line">iw dev wlan0 set power_save off</span><br></pre></td></tr></table></figure>
-
-<p>儲存後離開，並使用 ifconfig  確認wlan0是否開啟</p>
-<h3 id="遠端桌面"><a href="#遠端桌面" class="headerlink" title="遠端桌面"></a>遠端桌面</h3><p><code>sudo apt-get install xrdp</code></p>
-<p>→ 在搜尋中輸入mstsc 找到遠端桌面連線並輸入樹梅派 IP 連線</p>
-<p>→ 輸入樹梅派帳號密碼存取</p>
-<h3 id="安裝vim格式設定"><a href="#安裝vim格式設定" class="headerlink" title="安裝vim格式設定"></a>安裝vim格式設定</h3><p><code>sudo apt-get install vim</code></p>
-<p><code>sudo nano /etc/vim/vimrc.local</code></p>
-<p> 檔案最後輸入以下內容(格式設定)：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set tabstop=4 </span><br><span class="line"></span><br><span class="line">set expandtab </span><br><span class="line"></span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">set nu</span><br></pre></td></tr></table></figure>
-<h3 id="進行系統更新"><a href="#進行系統更新" class="headerlink" title="進行系統更新"></a>進行系統更新</h3><p> <code>sudo apt-get update</code></p>
-<p>→ 更新來源清單</p>
-<p><code>sudo apt-get-upgrade</code></p>
-<p>→ 更新軟體</p>
-<h3 id="重開機與關機指令"><a href="#重開機與關機指令" class="headerlink" title="重開機與關機指令"></a>重開機與關機指令</h3><ul>
-<li>重開機</li>
-</ul>
-<p><code>sudo shutdown –r now</code></p>
-<p><code>sudo reboot</code></p>
-<ul>
-<li>關機</li>
-</ul>
-<p><code>sudo shutdown –h now</code></p>
-<h1 id="樹梅派接腳-GPIO"><a href="#樹梅派接腳-GPIO" class="headerlink" title="樹梅派接腳 (GPIO)"></a>樹梅派接腳 (GPIO)</h1><p><strong>注意接腳，隨意接觸可能導致樹梅派燒毀</strong></p>
-<p><img src="https://i.imgur.com/3Mfd3ce.png" alt="rasp_1"></p>
-<p>在程式選用接腳時不要與現有接腳衝突  </p>
-<p><img src="https://i.imgur.com/mcUFttK.png" alt="rasp_2"></p>
-]]></content>
-      <categories>
-        <category>技術筆記</category>
-      </categories>
-      <tags>
-        <tag>Raspbain</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python地址轉換地圖經緯度</title>
     <url>/2021/08/23/Python%E5%9C%B0%E5%9D%80%E8%BD%89%E6%8F%9B%E5%9C%B0%E5%9C%96%E7%B6%93%E7%B7%AF%E5%BA%A6/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在實作地圖的時候多少會遇到資料只有地址的情況</p>
@@ -858,10 +745,122 @@ find_element_by_css_selector
       </tags>
   </entry>
   <entry>
+    <title>Raspbain實作筆記</title>
+    <url>/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>簡單記錄一下如何從空機到能正常使用的步驟 </p>
+<p>操作基本上使用 Windows作業系統</p>
+<h1 id="初次安裝"><a href="#初次安裝" class="headerlink" title="初次安裝"></a>初次安裝</h1><p><strong>在開始安裝前請準備一台『讀卡機』</strong></p>
+<span id="more"></span>
+
+<ol>
+<li><a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbain官網</a>   </li>
+</ol>
+<p>→ 下載「Raspbain Buster with desktop」的ZIP檔，作業系統</p>
+<ol start="2">
+<li><a href="https://www.balena.io/etcher/">balenaEtcher</a></li>
+</ol>
+<p>→ 下載並安裝，燒錄程式</p>
+<ol start="3">
+<li><a href="https://mobaxterm.mobatek.net/">Mobaxterm</a></li>
+</ol>
+<p>→ 下載並安裝，遠端操作</p>
+<ol start="4">
+<li><a href="https://angryip.org/">angryip</a></li>
+</ol>
+<p>→ 下載並安裝，掃描樹梅派IP </p>
+<h2 id="第一步：燒錄"><a href="#第一步：燒錄" class="headerlink" title="第一步：燒錄"></a>第一步：燒錄</h2><p>將SD卡插入讀卡機並與電腦連接，開啟『balenaEtcher』</p>
+<p> <img src="https://i.imgur.com/CW809w5.png" alt="balenaEtcher"></p>
+<ol>
+<li><p>選擇「Raspbain Buster with desktop」的ZIP檔</p>
+</li>
+<li><p>選擇「SD卡的磁碟」</p>
+</li>
+<li><p>等待進度條跑完</p>
+</li>
+</ol>
+<h2 id="第二步：設定網路連線"><a href="#第二步：設定網路連線" class="headerlink" title="第二步：設定網路連線"></a>第二步：設定網路連線</h2><ol>
+<li>在SD卡的boot磁區建立檔名為「ssh」的空檔(不要有副檔名)，開啟ssh功能**(預設為關)**</li>
+</ol>
+<img src="https://i.imgur.com/1p04Q2j.png" alt="ssh" style="zoom:90%;" />
+
+<ol start="2">
+<li>在SD卡的boot磁區建立檔名為「<strong>wpa_supplicant.conf</strong>」的檔案</li>
+</ol>
+<p>  建議<strong>不要用記事本開</strong>，可用 <strong>Nodepad++、Sublime</strong> 等開啟</p>
+<p>→ 檔案內容如下：<br><strong>(區分大小寫，失敗返回第一步)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line"></span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">country=TW</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line"></span><br><span class="line">  ssid=&quot;SSID名稱&quot;</span><br><span class="line"></span><br><span class="line">  psk=&quot;密碼&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>network 部分 為 要連線的WiFi 帳密</p>
+<h2 id="第三步：開機"><a href="#第三步：開機" class="headerlink" title="第三步：開機"></a>第三步：開機</h2><ol>
+<li><p>樹梅派插上SD卡並開機</p>
+<p>→ 注意樹梅派的 燈號是否閃爍</p>
+</li>
+</ol>
+<ul>
+<li><p>開機閃爍，SD卡正在讀取，正常</p>
+</li>
+<li><p>開機不閃爍，樹梅派、SD卡、作業系統三者之一損毀</p>
+</li>
+</ul>
+<h2 id="第四步：找到樹梅派-IP"><a href="#第四步：找到樹梅派-IP" class="headerlink" title="第四步：找到樹梅派 IP"></a>第四步：找到樹梅派 IP</h2><p>在電腦上使用「angryip」搜尋IP</p>
+<p><img src="https://i.imgur.com/vgNd5qL.png" alt="ipscan"></p>
+<p><strong>預設名稱為「raspberrypi.local」</strong></p>
+<p><code>無線網路：樹梅派與電腦需同一網段</code></p>
+<p><code>有線網路：需要路由器與網路線手動將電腦與樹梅派置於同一網段</code></p>
+<h2 id="第五步：使用網路連線"><a href="#第五步：使用網路連線" class="headerlink" title="第五步：使用網路連線"></a>第五步：使用網路連線</h2><p>SSH：使用 mobaxterm</p>
+<p>點選Sessions &gt; New session &gt; SSH </p>
+<p><img src="https://i.imgur.com/hAxVTh4.png" alt="MobaXterm"></p>
+<p>設定如上圖預設帳號：pi  ，點選OK進入輸入密碼頁面</p>
+<p>預設密碼：raspberry  便可成功登入</p>
+<h2 id="第六步：系統設定"><a href="#第六步：系統設定" class="headerlink" title="第六步：系統設定"></a>第六步：系統設定</h2><p>編輯檔案推薦使用 nano </p>
+<h3 id="主機設定"><a href="#主機設定" class="headerlink" title="主機設定"></a>主機設定</h3><p><code>sudo raspi - config</code></p>
+<p>→ 修改密碼 (第一個)</p>
+<p>→ 修改樹梅派hostname (第二個) </p>
+<p>→ 修改時區 (第四個) </p>
+<p>→ 修改WIFI國家( TW ) </p>
+<h3 id="WiFi設定"><a href="#WiFi設定" class="headerlink" title="WiFi設定"></a>WiFi設定</h3><p><code>sudo nano /etc/rc.local</code>  </p>
+<p>→ 檔案最後加上( 關閉wifi睡眠 )</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">iwconfig wlan0 power off </span><br><span class="line"></span><br><span class="line">iw dev wlan0 set power_save off</span><br></pre></td></tr></table></figure>
+
+<p>儲存後離開，並使用 ifconfig  確認wlan0是否開啟</p>
+<h3 id="遠端桌面"><a href="#遠端桌面" class="headerlink" title="遠端桌面"></a>遠端桌面</h3><p><code>sudo apt-get install xrdp</code></p>
+<p>→ 在搜尋中輸入mstsc 找到遠端桌面連線並輸入樹梅派 IP 連線</p>
+<p>→ 輸入樹梅派帳號密碼存取</p>
+<h3 id="安裝vim格式設定"><a href="#安裝vim格式設定" class="headerlink" title="安裝vim格式設定"></a>安裝vim格式設定</h3><p><code>sudo apt-get install vim</code></p>
+<p><code>sudo nano /etc/vim/vimrc.local</code></p>
+<p> 檔案最後輸入以下內容(格式設定)：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">set tabstop=4 </span><br><span class="line"></span><br><span class="line">set expandtab </span><br><span class="line"></span><br><span class="line">set shiftwidth=4</span><br><span class="line"></span><br><span class="line">set nu</span><br></pre></td></tr></table></figure>
+<h3 id="進行系統更新"><a href="#進行系統更新" class="headerlink" title="進行系統更新"></a>進行系統更新</h3><p> <code>sudo apt-get update</code></p>
+<p>→ 更新來源清單</p>
+<p><code>sudo apt-get-upgrade</code></p>
+<p>→ 更新軟體</p>
+<h3 id="重開機與關機指令"><a href="#重開機與關機指令" class="headerlink" title="重開機與關機指令"></a>重開機與關機指令</h3><ul>
+<li>重開機</li>
+</ul>
+<p><code>sudo shutdown –r now</code></p>
+<p><code>sudo reboot</code></p>
+<ul>
+<li>關機</li>
+</ul>
+<p><code>sudo shutdown –h now</code></p>
+<h1 id="樹梅派接腳-GPIO"><a href="#樹梅派接腳-GPIO" class="headerlink" title="樹梅派接腳 (GPIO)"></a>樹梅派接腳 (GPIO)</h1><p><strong>注意接腳，隨意接觸可能導致樹梅派燒毀</strong></p>
+<p><img src="https://i.imgur.com/3Mfd3ce.png" alt="rasp_1"></p>
+<p>在程式選用接腳時不要與現有接腳衝突  </p>
+<p><img src="https://i.imgur.com/mcUFttK.png" alt="rasp_2"></p>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Raspbain</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>來用Apache架設簡單WebServer吧</title>
     <url>/2021/12/29/%E4%BE%86%E4%BD%BF%E7%94%A8Apache%E6%9E%B6%E8%A8%AD%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%EF%BC%B7ebServer%E5%90%A7/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><img src="https://i.imgur.com/KUO20Hj.png"></p>
-<p>本文安裝環境為 <strong>Ubuntu16.04</strong></p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文安裝環境為 <strong>Ubuntu16.04</strong></p>
 <p>提供給初學想要用 Apache 架站的人做參考</p>
 <p>會由安裝到 Apache 的細部設定依序說明</p>
 <span id="more"></span>
