@@ -15,9 +15,6 @@
 <span id="more"></span>
 
 <p>Input / Output(測試資料輸入/輸出):</p>
-<pre><code>參考leetcode
-</code></pre>
-<p>Explanation(使用範例):</p>
 <pre><code>MinStack minStack = new MinStack();
 minStack.push(-2);
 minStack.push(0);
@@ -1141,6 +1138,50 @@ find_element_by_css_selector
       </categories>
       <tags>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1146. Snapshot Array PHP解題</title>
+    <url>/2023/06/11/1146-Snapshot%20Array/</url>
+    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Implement a SnapshotArray that supports the following interface:</p>
+<ul>
+<li>SnapshotArray(int length) initializes an array-like data structure with the given length. Initially, each element equals 0.</li>
+<li>void set(index, val) sets the element at the given index to be equal to val.</li>
+<li>int snap() takes a snapshot of the array and returns the snap_id: the total number of times we called snap() minus 1.</li>
+<li>int get(index, snap_id) returns the value at the given index, at the time we took the snapshot with the given snap_id</li>
+</ul>
+<span id="more"></span>
+
+<p>Input / Output(測試資料輸入/輸出):</p>
+<pre><code>Input: [&quot;SnapshotArray&quot;,&quot;set&quot;,&quot;snap&quot;,&quot;set&quot;,&quot;get&quot;]
+[[3],[0,5],[],[0,6],[0,0]]
+Output: [null,null,0,null,5]
+Explanation: 
+SnapshotArray snapshotArr = new SnapshotArray(3); // set the length to be 3
+snapshotArr.set(0,5);  // Set array[0] = 5
+snapshotArr.snap();  // Take a snapshot, return snap_id = 0
+snapshotArr.set(0,6);
+snapshotArr.get(0,0);  // Get the value of array[0] with snap_id = 0, return 5
+</code></pre>
+<p>Constraints(參數限制):</p>
+<ul>
+<li>1 &lt;= length &lt;= 5 * 104</li>
+<li>0 &lt;= index &lt; length</li>
+<li>0 &lt;= val &lt;= 109</li>
+<li>0 &lt;= snap_id &lt; (the total number of times we call snap())<br>  At most 5 * 104 calls will be made to set, snap, and get.</li>
+</ul>
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>要做出一個可以快照目前陣列內容的功能，以下就個別功能說明</p>
+<h2 id="SnapshotArray-int-length"><a href="#SnapshotArray-int-length" class="headerlink" title="SnapshotArray(int length)"></a>SnapshotArray(int length)</h2><p>初始化陣列，length 會等於 陣列總長度，初始陣列為全部 0。</p>
+<h2 id="set-index-val"><a href="#set-index-val" class="headerlink" title="set(index, val)"></a>set(index, val)</h2><p>依照輸入的 val 來設置 陣列[index] 的數值</p>
+<h2 id="snap"><a href="#snap" class="headerlink" title="snap()"></a>snap()</h2><p>對目前資料陣列進行快照動作，回傳數值為 目前快照次數 - 1;</p>
+<h2 id="get-index-snap-id"><a href="#get-index-snap-id" class="headerlink" title="get(index, snap_id)"></a>get(index, snap_id)</h2><p>取得目前在 snap_id 下該陣列[index] 的數值</p>
+<p>此題目的測試範圍不小，且有記憶體限制，記錄太多東西執行上就會超時，<br>那節省記憶體的陣列做法是將資料存成二維陣列，資料除了設置的數值外多存一個快照ID，取資料的時候會用到(快照ID=snap_id)，此時將對應的陣列[index]傳進去，利用二分搜尋法查詢 符合條件的snap_id數值就能找到資料了！</p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SnapshotArray</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $length</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;snap_c = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="variable">$length</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$i</span>][] = [<span class="number">0</span>,<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $val</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> NULL</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">set</span>(<span class="params"><span class="variable">$index</span>, <span class="variable">$val</span></span>) </span>&#123; </span><br><span class="line">        <span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$index</span>][] = [<span class="keyword">$this</span>-&gt;snap_c,<span class="variable">$val</span>];  </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">snap</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;snap_c++;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $snap_id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"><span class="variable">$index</span>, <span class="variable">$snap_id</span></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getData(<span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$index</span>],<span class="variable">$snap_id</span>)[<span class="number">1</span>];</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"><span class="variable">$arr</span>,<span class="variable">$target</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable">$max</span> = count(<span class="variable">$arr</span>);</span><br><span class="line">        <span class="variable">$min</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="variable">$min</span> &lt; <span class="variable">$max</span>)&#123;</span><br><span class="line">            <span class="variable">$mid</span> = <span class="variable">$min</span> + floor( (<span class="variable">$max</span> - <span class="variable">$min</span> ) /<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$arr</span>[<span class="variable">$mid</span>][<span class="number">0</span>] &lt;= <span class="variable">$target</span>)&#123;</span><br><span class="line">                <span class="variable">$min</span> = <span class="variable">$mid</span> + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="variable">$max</span> = <span class="variable">$mid</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$arr</span>[<span class="variable">$min</span>-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>解題紀錄</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
 </search>

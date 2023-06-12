@@ -28,30 +28,28 @@
   gtag('js', new Date());
 
   gtag('config', 'G-F10W092PP3');
-</script><meta name="description" content="前言開始整理大學時期研究的筆記 也替自己的學習做一點紀錄 放個Linux吉祥物做開頭吧  Linux作業系統有發行很多種版本 例如：CentOS、Ubuntu…等都算是Linux的一種 但終端機用的指令通常都大同小異 也藉由這文章做個整理">
+</script><meta name="description" content="題目說明Implement a SnapshotArray that supports the following interface:  SnapshotArray(int length) initializes an array-like data structure with the given length. Initially, each element equals 0. void s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux常用語法">
-<meta property="og:url" content="https://chitoseyu.github.io/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/index.html">
+<meta property="og:title" content="1146. Snapshot Array PHP解題">
+<meta property="og:url" content="https://chitoseyu.github.io/2023/06/11/1146-Snapshot%20Array/index.html">
 <meta property="og:site_name" content="Ren&#39;s Coding Note">
-<meta property="og:description" content="前言開始整理大學時期研究的筆記 也替自己的學習做一點紀錄 放個Linux吉祥物做開頭吧  Linux作業系統有發行很多種版本 例如：CentOS、Ubuntu…等都算是Linux的一種 但終端機用的指令通常都大同小異 也藉由這文章做個整理">
+<meta property="og:description" content="題目說明Implement a SnapshotArray that supports the following interface:  SnapshotArray(int length) initializes an array-like data structure with the given length. Initially, each element equals 0. void s">
 <meta property="og:locale" content="zh_TW">
-<meta property="og:image" content="https://chitoseyu.github.io/images/Linux_icon.png">
-<meta property="article:published_time" content="2021-12-22T05:47:00.000Z">
-<meta property="article:modified_time" content="2021-12-27T00:45:35.000Z">
+<meta property="article:published_time" content="2023-06-11T05:30:00.000Z">
+<meta property="article:modified_time" content="2023-06-12T09:35:29.672Z">
 <meta property="article:author" content="Ren">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="LeetCode">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://chitoseyu.github.io/images/Linux_icon.png">
 
 
-<link rel="canonical" href="https://chitoseyu.github.io/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/">
+<link rel="canonical" href="https://chitoseyu.github.io/2023/06/11/1146-Snapshot%20Array/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-TW&quot;}">
 <meta name="hexo-config-calendar" content="">
 <script data-pjax src="/js/load-config.js"></script>
-  <title>Linux常用語法 | Ren's Coding Note</title>
+  <title>1146. Snapshot Array PHP解題 | Ren's Coding Note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F10W092PP3"></script>
     <script data-pjax>
@@ -166,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E8%AA%9E%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Linux語法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%B5%B1%E6%93%8D%E4%BD%9C"><span class="nav-number">2.1.</span> <span class="nav-text">系統操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.2.</span> <span class="nav-text">基本操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%94%E6%A1%88%E8%99%95%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">檔案處理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%80%85%E7%AE%A1%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text">使用者管理</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%8C%E7%9B%AE%E8%AA%AA%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">題目說明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">解題思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SnapshotArray-int-length"><span class="nav-number">2.1.</span> <span class="nav-text">SnapshotArray(int length)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set-index-val"><span class="nav-number">2.2.</span> <span class="nav-text">set(index, val)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#snap"><span class="nav-number">2.3.</span> <span class="nav-text">snap()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#get-index-snap-id"><span class="nav-number">2.4.</span> <span class="nav-text">get(index, snap_id)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">3.</span> <span class="nav-text">程式碼</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -264,7 +262,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://chitoseyu.github.io/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://chitoseyu.github.io/2023/06/11/1146-Snapshot%20Array/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/Chitose.png">
@@ -277,7 +275,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux常用語法
+          1146. Snapshot Array PHP解題
         </h1>
 
         <div class="post-meta-container">
@@ -287,7 +285,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-12-27 08:45:35" itemprop="dateModified" datetime="2021-12-27T08:45:35+08:00">2021-12-27</time>
+        <time title="修改時間：2023-06-12 17:35:29" itemprop="dateModified" datetime="2023-06-12T17:35:29+08:00">2023-06-12</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -295,7 +293,7 @@
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">技術筆記</span></a>
+          <a href="/categories/%E8%A7%A3%E9%A1%8C%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">解題紀錄</span></a>
         </span>
     </span>
 
@@ -316,184 +314,40 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>開始整理大學時期研究的筆記</p>
-<p>也替自己的學習做一點紀錄</p>
-<p>放個Linux吉祥物做開頭吧</p>
-<p><img src="/images/Linux_icon.png"></p>
-<p>Linux作業系統有發行很多種版本</p>
-<p>例如：CentOS、Ubuntu…等都算是Linux的一種</p>
-<p>但終端機用的指令通常都大同小異</p>
-<p>也藉由這文章做個整理</p>
+        <h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Implement a SnapshotArray that supports the following interface:</p>
+<ul>
+<li>SnapshotArray(int length) initializes an array-like data structure with the given length. Initially, each element equals 0.</li>
+<li>void set(index, val) sets the element at the given index to be equal to val.</li>
+<li>int snap() takes a snapshot of the array and returns the snap_id: the total number of times we called snap() minus 1.</li>
+<li>int get(index, snap_id) returns the value at the given index, at the time we took the snapshot with the given snap_id</li>
+</ul>
 <span id="more"></span>
 
-<h1 id="Linux語法"><a href="#Linux語法" class="headerlink" title="Linux語法"></a>Linux語法</h1><p>以下依照功能用途來區分常用指令</p>
-<h2 id="系統操作"><a href="#系統操作" class="headerlink" title="系統操作"></a>系統操作</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th>用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>lsb_release</td>
-<td>查看目前ubuntu版本</td>
-<td>lsb_release -a</td>
-</tr>
-<tr>
-<td>dpkg</td>
-<td>列出安裝套件</td>
-<td>dpkg -l  grep php</td>
-</tr>
-<tr>
-<td>route</td>
-<td>查看路由表</td>
-<td>route -n</td>
-</tr>
-</tbody></table>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ls</td>
-<td>查看目前所在位置的所有檔案</td>
-<td align="left">ls</td>
-</tr>
-<tr>
-<td>mkdir</td>
-<td>建立新資料夾</td>
-<td align="left">mkdir html</td>
-</tr>
-<tr>
-<td>cd</td>
-<td>移動到該資料夾下</td>
-<td align="left">cd html</td>
-</tr>
-<tr>
-<td>passwd</td>
-<td>使用者更改自己帳號的密碼</td>
-<td align="left">Passwd</td>
-</tr>
-<tr>
-<td>apt update</td>
-<td>更新系統</td>
-<td align="left">sudo apt update</td>
-</tr>
-<tr>
-<td>apt upgrade</td>
-<td>更新系統現有套件</td>
-<td align="left">sudo apt upgrade</td>
-</tr>
-<tr>
-<td>apt dist-upgrade</td>
-<td>更新系統套件相依性</td>
-<td align="left">sudo apt dist-upgrade</td>
-</tr>
-<tr>
-<td>shutdown</td>
-<td>系統關機(-c 取消關機 -r重新開機)</td>
-<td align="left">sudo shutdown -h now</td>
-</tr>
-</tbody></table>
-<h2 id="檔案處理"><a href="#檔案處理" class="headerlink" title="檔案處理"></a>檔案處理</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>nano(vi)</td>
-<td>編輯器新增或編輯檔案(nano或vi 看使用者習慣)</td>
-<td align="left">nano  index.html</td>
-</tr>
-<tr>
-<td>mv</td>
-<td>檔案改名或移動到特定位置</td>
-<td align="left">mv index.html newIndex.html</td>
-</tr>
-<tr>
-<td>find</td>
-<td>尋找檔案(可在檔案名稱變化：?單字元、*多字元)</td>
-<td align="left">find / -name newIndex.*</td>
-</tr>
-<tr>
-<td>cp</td>
-<td>複製檔案</td>
-<td align="left">cp newIndex.html index.txt</td>
-</tr>
-</tbody></table>
-<p>這邊說明檔案權限的區分規則</p>
-<p>主要有三個用戶  User(個人) / Group(群組) / Other(其他) 順序排列</p>
-<p><code>r :  可讀權限, 數字是 4</code></p>
-<p><code>w : 寫入權限, 數字是 2</code></p>
-<p><code>x :  執行權限, 數字是 1</code></p>
-<p><code>-:  刪除權限, 數字是 0</code></p>
-<p><strong>通常會是三個一組，採加法可得出數字</strong></p>
-<p><code>7 = 4 (讀) + 2 (寫) + 1 (執行)</code></p>
-<p><code>5 = 4 (讀) + 1 (執行)</code></p>
-<p><code>4 = 4 (讀)</code></p>
-<p>舉個例子</p>
-<p>要使 index.html 個人可以讀寫執、群組讀寫、其他讀：</p>
-<p>chmod rwx,rx,r index.html    </p>
-<p>也等於</p>
-<p>chmod 754 index.html</p>
-<h2 id="使用者管理"><a href="#使用者管理" class="headerlink" title="使用者管理"></a>使用者管理</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>cat</td>
-<td>預覽檔案全部內容並印出</td>
-<td align="left">cat index.html</td>
-</tr>
-<tr>
-<td>/etc/group</td>
-<td>目前系統存在的群組</td>
-<td align="left">cat /etc/group</td>
-</tr>
-<tr>
-<td>groups</td>
-<td>查看帳號群組</td>
-<td align="left">groups</td>
-</tr>
-<tr>
-<td>groupadd</td>
-<td>新增群組(G_ID:不重複的五位數 G_NAME:群組名稱)</td>
-<td align="left">groupadd -g G_ID G_Name</td>
-</tr>
-<tr>
-<td>/etc/passwd</td>
-<td>目前系統存在的帳號</td>
-<td align="left">cat /etc/passwd</td>
-</tr>
-<tr>
-<td>useradd</td>
-<td>新增使用者帳號(U_ID:不重複的數字 G:加入的群組 -m:建立目錄 U_N:使用者帳號）</td>
-<td align="left">useradd -u U_ID -g G -m U_N</td>
-</tr>
-<tr>
-<td>userdel</td>
-<td>刪除使用者帳號(-r:連家目錄一起刪除)</td>
-<td align="left">userdel -r U_N</td>
-</tr>
-<tr>
-<td>su</td>
-<td>管理帳號與使用者帳號切換</td>
-<td align="left">su -l U_N</td>
-</tr>
-</tbody></table>
-
+<p>Input / Output(測試資料輸入/輸出):</p>
+<pre><code>Input: [&quot;SnapshotArray&quot;,&quot;set&quot;,&quot;snap&quot;,&quot;set&quot;,&quot;get&quot;]
+[[3],[0,5],[],[0,6],[0,0]]
+Output: [null,null,0,null,5]
+Explanation: 
+SnapshotArray snapshotArr = new SnapshotArray(3); // set the length to be 3
+snapshotArr.set(0,5);  // Set array[0] = 5
+snapshotArr.snap();  // Take a snapshot, return snap_id = 0
+snapshotArr.set(0,6);
+snapshotArr.get(0,0);  // Get the value of array[0] with snap_id = 0, return 5
+</code></pre>
+<p>Constraints(參數限制):</p>
+<ul>
+<li>1 &lt;= length &lt;= 5 * 104</li>
+<li>0 &lt;= index &lt; length</li>
+<li>0 &lt;= val &lt;= 109</li>
+<li>0 &lt;= snap_id &lt; (the total number of times we call snap())<br>  At most 5 * 104 calls will be made to set, snap, and get.</li>
+</ul>
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>要做出一個可以快照目前陣列內容的功能，以下就個別功能說明</p>
+<h2 id="SnapshotArray-int-length"><a href="#SnapshotArray-int-length" class="headerlink" title="SnapshotArray(int length)"></a>SnapshotArray(int length)</h2><p>初始化陣列，length 會等於 陣列總長度，初始陣列為全部 0。</p>
+<h2 id="set-index-val"><a href="#set-index-val" class="headerlink" title="set(index, val)"></a>set(index, val)</h2><p>依照輸入的 val 來設置 陣列[index] 的數值</p>
+<h2 id="snap"><a href="#snap" class="headerlink" title="snap()"></a>snap()</h2><p>對目前資料陣列進行快照動作，回傳數值為 目前快照次數 - 1;</p>
+<h2 id="get-index-snap-id"><a href="#get-index-snap-id" class="headerlink" title="get(index, snap_id)"></a>get(index, snap_id)</h2><p>取得目前在 snap_id 下該陣列[index] 的數值</p>
+<p>此題目的測試範圍不小，且有記憶體限制，記錄太多東西執行上就會超時，<br>那節省記憶體的陣列做法是將資料存成二維陣列，資料除了設置的數值外多存一個快照ID，取資料的時候會用到(快照ID=snap_id)，此時將對應的陣列[index]傳進去，利用二分搜尋法查詢 符合條件的snap_id數值就能找到資料了！</p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SnapshotArray</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $length</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;snap_c = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="variable">$length</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$i</span>][] = [<span class="number">0</span>,<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $val</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> NULL</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">set</span>(<span class="params"><span class="variable">$index</span>, <span class="variable">$val</span></span>) </span>&#123; </span><br><span class="line">        <span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$index</span>][] = [<span class="keyword">$this</span>-&gt;snap_c,<span class="variable">$val</span>];  </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">snap</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;snap_c++;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $snap_id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"><span class="variable">$index</span>, <span class="variable">$snap_id</span></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getData(<span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$index</span>],<span class="variable">$snap_id</span>)[<span class="number">1</span>];</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"><span class="variable">$arr</span>,<span class="variable">$target</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable">$max</span> = count(<span class="variable">$arr</span>);</span><br><span class="line">        <span class="variable">$min</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="variable">$min</span> &lt; <span class="variable">$max</span>)&#123;</span><br><span class="line">            <span class="variable">$mid</span> = <span class="variable">$min</span> + floor( (<span class="variable">$max</span> - <span class="variable">$min</span> ) /<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$arr</span>[<span class="variable">$mid</span>][<span class="number">0</span>] &lt;= <span class="variable">$target</span>)&#123;</span><br><span class="line">                <span class="variable">$min</span> = <span class="variable">$mid</span> + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="variable">$max</span> = <span class="variable">$mid</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$arr</span>[<span class="variable">$min</span>-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -502,21 +356,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/12/14/%E8%A8%98%E6%86%B6%E7%BF%BB%E7%89%8CJAVA%E5%B0%8F%E9%81%8A%E6%88%B2/" rel="prev" title="記憶翻牌JAVA小遊戲">
-                  <i class="fa fa-chevron-left"></i> 記憶翻牌JAVA小遊戲
+                <a href="/2022/01/12/%E8%97%8D%E8%8A%BD%E5%AE%A4%E5%85%A7%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7/" rel="prev" title="藍芽室內定位的可行性">
+                  <i class="fa fa-chevron-left"></i> 藍芽室內定位的可行性
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/" rel="next" title="Raspbain實作筆記">
-                  Raspbain實作筆記 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
