@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>1146. Snapshot Array PHP解題</title>
+    <url>/2023/06/11/1146-Snapshot%20Array/</url>
+    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Implement a SnapshotArray that supports the following interface:</p>
+<ul>
+<li>SnapshotArray(int length) initializes an array-like data structure with the given length. Initially, each element equals 0.</li>
+<li>void set(index, val) sets the element at the given index to be equal to val.</li>
+<li>int snap() takes a snapshot of the array and returns the snap_id: the total number of times we called snap() minus 1.</li>
+<li>int get(index, snap_id) returns the value at the given index, at the time we took the snapshot with the given snap_id</li>
+</ul>
+<span id="more"></span>
+
+<p>Input / Output(測試資料輸入/輸出):</p>
+<pre><code>Input: [&quot;SnapshotArray&quot;,&quot;set&quot;,&quot;snap&quot;,&quot;set&quot;,&quot;get&quot;]
+[[3],[0,5],[],[0,6],[0,0]]
+Output: [null,null,0,null,5]
+Explanation: 
+SnapshotArray snapshotArr = new SnapshotArray(3); // set the length to be 3
+snapshotArr.set(0,5);  // Set array[0] = 5
+snapshotArr.snap();  // Take a snapshot, return snap_id = 0
+snapshotArr.set(0,6);
+snapshotArr.get(0,0);  // Get the value of array[0] with snap_id = 0, return 5
+</code></pre>
+<p>Constraints(參數限制):</p>
+<ul>
+<li>1 &lt;= length &lt;= 5 * 104</li>
+<li>0 &lt;= index &lt; length</li>
+<li>0 &lt;= val &lt;= 109</li>
+<li>0 &lt;= snap_id &lt; (the total number of times we call snap())<br>  At most 5 * 104 calls will be made to set, snap, and get.</li>
+</ul>
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>要做出一個可以快照目前陣列內容的功能，以下就個別功能說明</p>
+<h2 id="SnapshotArray-int-length"><a href="#SnapshotArray-int-length" class="headerlink" title="SnapshotArray(int length)"></a>SnapshotArray(int length)</h2><p>初始化陣列，length 會等於 陣列總長度，初始陣列為全部 0。</p>
+<h2 id="set-index-val"><a href="#set-index-val" class="headerlink" title="set(index, val)"></a>set(index, val)</h2><p>依照輸入的 val 來設置 陣列[index] 的數值</p>
+<h2 id="snap"><a href="#snap" class="headerlink" title="snap()"></a>snap()</h2><p>對目前資料陣列進行快照動作，回傳數值為 目前快照次數 - 1;</p>
+<h2 id="get-index-snap-id"><a href="#get-index-snap-id" class="headerlink" title="get(index, snap_id)"></a>get(index, snap_id)</h2><p>取得目前在 snap_id 下該陣列[index] 的數值</p>
+<p>此題目的測試範圍不小，且有記憶體限制，記錄太多東西執行上就會超時，<br>那節省記憶體的陣列做法是將資料存成二維陣列，資料除了設置的數值外多存一個快照ID，取資料的時候會用到(快照ID=snap_id)，此時將對應的陣列[index]傳進去，利用二分搜尋法查詢 符合條件的snap_id數值就能找到資料了！</p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SnapshotArray</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $length</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;snap_c = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="variable">$length</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$i</span>][] = [<span class="number">0</span>,<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $val</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> NULL</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">set</span>(<span class="params"><span class="variable">$index</span>, <span class="variable">$val</span></span>) </span>&#123; </span><br><span class="line">        <span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$index</span>][] = [<span class="keyword">$this</span>-&gt;snap_c,<span class="variable">$val</span>];  </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">snap</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;snap_c++;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $snap_id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"><span class="variable">$index</span>, <span class="variable">$snap_id</span></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getData(<span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$index</span>],<span class="variable">$snap_id</span>)[<span class="number">1</span>];</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"><span class="variable">$arr</span>,<span class="variable">$target</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable">$max</span> = count(<span class="variable">$arr</span>);</span><br><span class="line">        <span class="variable">$min</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="variable">$min</span> &lt; <span class="variable">$max</span>)&#123;</span><br><span class="line">            <span class="variable">$mid</span> = <span class="variable">$min</span> + floor( (<span class="variable">$max</span> - <span class="variable">$min</span> ) /<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$arr</span>[<span class="variable">$mid</span>][<span class="number">0</span>] &lt;= <span class="variable">$target</span>)&#123;</span><br><span class="line">                <span class="variable">$min</span> = <span class="variable">$mid</span> + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="variable">$max</span> = <span class="variable">$mid</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$arr</span>[<span class="variable">$min</span>-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>解題紀錄</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>155. Min Stack javascript解題</title>
     <url>/2021/11/08/155-Min-Stack-javascript/</url>
     <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
@@ -43,194 +87,6 @@ minStack.getMin(); // return -2
       </categories>
       <tags>
         <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux常用語法</title>
-    <url>/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>開始整理大學時期研究的筆記</p>
-<p>也替自己的學習做一點紀錄</p>
-<p>放個Linux吉祥物做開頭吧</p>
-<p><img src="/images/Linux_icon.png"></p>
-<p>Linux作業系統有發行很多種版本</p>
-<p>例如：CentOS、Ubuntu…等都算是Linux的一種</p>
-<p>但終端機用的指令通常都大同小異</p>
-<p>也藉由這文章做個整理</p>
-<span id="more"></span>
-
-<h1 id="Linux語法"><a href="#Linux語法" class="headerlink" title="Linux語法"></a>Linux語法</h1><p>以下依照功能用途來區分常用指令</p>
-<h2 id="系統操作"><a href="#系統操作" class="headerlink" title="系統操作"></a>系統操作</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th>用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>lsb_release</td>
-<td>查看目前ubuntu版本</td>
-<td>lsb_release -a</td>
-</tr>
-<tr>
-<td>dpkg</td>
-<td>列出安裝套件</td>
-<td>dpkg -l  grep php</td>
-</tr>
-<tr>
-<td>route</td>
-<td>查看路由表</td>
-<td>route -n</td>
-</tr>
-</tbody></table>
-<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ls</td>
-<td>查看目前所在位置的所有檔案</td>
-<td align="left">ls</td>
-</tr>
-<tr>
-<td>mkdir</td>
-<td>建立新資料夾</td>
-<td align="left">mkdir html</td>
-</tr>
-<tr>
-<td>cd</td>
-<td>移動到該資料夾下</td>
-<td align="left">cd html</td>
-</tr>
-<tr>
-<td>passwd</td>
-<td>使用者更改自己帳號的密碼</td>
-<td align="left">Passwd</td>
-</tr>
-<tr>
-<td>apt update</td>
-<td>更新系統</td>
-<td align="left">sudo apt update</td>
-</tr>
-<tr>
-<td>apt upgrade</td>
-<td>更新系統現有套件</td>
-<td align="left">sudo apt upgrade</td>
-</tr>
-<tr>
-<td>apt dist-upgrade</td>
-<td>更新系統套件相依性</td>
-<td align="left">sudo apt dist-upgrade</td>
-</tr>
-<tr>
-<td>shutdown</td>
-<td>系統關機(-c 取消關機 -r重新開機)</td>
-<td align="left">sudo shutdown -h now</td>
-</tr>
-</tbody></table>
-<h2 id="檔案處理"><a href="#檔案處理" class="headerlink" title="檔案處理"></a>檔案處理</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>nano(vi)</td>
-<td>編輯器新增或編輯檔案(nano或vi 看使用者習慣)</td>
-<td align="left">nano  index.html</td>
-</tr>
-<tr>
-<td>mv</td>
-<td>檔案改名或移動到特定位置</td>
-<td align="left">mv index.html newIndex.html</td>
-</tr>
-<tr>
-<td>find</td>
-<td>尋找檔案(可在檔案名稱變化：?單字元、*多字元)</td>
-<td align="left">find / -name newIndex.*</td>
-</tr>
-<tr>
-<td>cp</td>
-<td>複製檔案</td>
-<td align="left">cp newIndex.html index.txt</td>
-</tr>
-</tbody></table>
-<p>這邊說明檔案權限的區分規則</p>
-<p>主要有三個用戶  User(個人) / Group(群組) / Other(其他) 順序排列</p>
-<p><code>r :  可讀權限, 數字是 4</code></p>
-<p><code>w : 寫入權限, 數字是 2</code></p>
-<p><code>x :  執行權限, 數字是 1</code></p>
-<p><code>-:  刪除權限, 數字是 0</code></p>
-<p><strong>通常會是三個一組，採加法可得出數字</strong></p>
-<p><code>7 = 4 (讀) + 2 (寫) + 1 (執行)</code></p>
-<p><code>5 = 4 (讀) + 1 (執行)</code></p>
-<p><code>4 = 4 (讀)</code></p>
-<p>舉個例子</p>
-<p>要使 index.html 個人可以讀寫執、群組讀寫、其他讀：</p>
-<p>chmod rwx,rx,r index.html    </p>
-<p>也等於</p>
-<p>chmod 754 index.html</p>
-<h2 id="使用者管理"><a href="#使用者管理" class="headerlink" title="使用者管理"></a>使用者管理</h2><table>
-<thead>
-<tr>
-<th>指令</th>
-<th>說明</th>
-<th align="left">用法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>cat</td>
-<td>預覽檔案全部內容並印出</td>
-<td align="left">cat index.html</td>
-</tr>
-<tr>
-<td>/etc/group</td>
-<td>目前系統存在的群組</td>
-<td align="left">cat /etc/group</td>
-</tr>
-<tr>
-<td>groups</td>
-<td>查看帳號群組</td>
-<td align="left">groups</td>
-</tr>
-<tr>
-<td>groupadd</td>
-<td>新增群組(G_ID:不重複的五位數 G_NAME:群組名稱)</td>
-<td align="left">groupadd -g G_ID G_Name</td>
-</tr>
-<tr>
-<td>/etc/passwd</td>
-<td>目前系統存在的帳號</td>
-<td align="left">cat /etc/passwd</td>
-</tr>
-<tr>
-<td>useradd</td>
-<td>新增使用者帳號(U_ID:不重複的數字 G:加入的群組 -m:建立目錄 U_N:使用者帳號）</td>
-<td align="left">useradd -u U_ID -g G -m U_N</td>
-</tr>
-<tr>
-<td>userdel</td>
-<td>刪除使用者帳號(-r:連家目錄一起刪除)</td>
-<td align="left">userdel -r U_N</td>
-</tr>
-<tr>
-<td>su</td>
-<td>管理帳號與使用者帳號切換</td>
-<td align="left">su -l U_N</td>
-</tr>
-</tbody></table>
-]]></content>
-      <categories>
-        <category>技術筆記</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -596,6 +452,71 @@ systemctl status mongod.service
       </tags>
   </entry>
   <entry>
+    <title>PHP 陣列操作的 10 個實用技巧</title>
+    <url>/2024/12/23/PHP%20%E9%99%A3%E5%88%97%E6%93%8D%E4%BD%9C%E7%9A%84%2010%20%E5%80%8B%E5%AF%A6%E7%94%A8%E6%8A%80%E5%B7%A7/</url>
+    <content><![CDATA[<p>整理了些 PHP開發 在 工作或解題上可能會用到的實用函數，</p>
+<p>依需求可大致區分為以下類別，</p>
+<span id="more"></span>
+
+<h2 id="是否存在特定資料"><a href="#是否存在特定資料" class="headerlink" title="是否存在特定資料"></a>是否存在特定資料</h2><p>二維陣列 使用 <strong>array_key_exists()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="number">0</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">1</span>];</span><br><span class="line"><span class="variable">$check</span> = array_key_exists(<span class="string">&quot;zh&quot;</span>,<span class="variable">$example</span>);</span><br><span class="line">-&gt; 存在 <span class="literal">true</span> , 反之 <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>一維陣列 使用 <strong>in_array()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>];</span><br><span class="line"><span class="variable">$check</span> = in_array(<span class="string">&quot;zh&quot;</span>,<span class="variable">$example</span>,<span class="literal">true</span>);</span><br><span class="line">-&gt; 存在 <span class="literal">true</span> , 反之 <span class="literal">false</span></span><br><span class="line">-&gt;加上第三參數(選填)會加上 變數型態 判斷</span><br></pre></td></tr></table></figure>
+
+<h2 id="提取特定欄位資料"><a href="#提取特定欄位資料" class="headerlink" title="提取特定欄位資料"></a>提取特定欄位資料</h2><p>使用 <strong>array_column()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [</span><br><span class="line">		<span class="string">&quot;zh&quot;</span>=&gt;[</span><br><span class="line">			<span class="string">&quot;id&quot;</span> =&gt; <span class="number">1</span>,</span><br><span class="line">			<span class="string">&quot;name&quot;</span>=&gt;<span class="string">&quot;中文&quot;</span>,</span><br><span class="line">			<span class="string">&quot;code_count&quot;</span>=&gt;<span class="number">10</span>,</span><br><span class="line">		],</span><br><span class="line">		<span class="string">&quot;en&quot;</span>=&gt;[</span><br><span class="line">			<span class="string">&quot;id&quot;</span> =&gt; <span class="number">2</span>,</span><br><span class="line">			<span class="string">&quot;name&quot;</span>=&gt;<span class="string">&quot;英文&quot;</span>,</span><br><span class="line">			<span class="string">&quot;code_count&quot;</span>=&gt;<span class="number">25</span>,</span><br><span class="line">		],</span><br><span class="line">	];</span><br><span class="line"><span class="variable">$result</span> = array_column(<span class="variable">$example</span> ,<span class="string">&quot;code_count&quot;</span>);</span><br><span class="line">-&gt; 轉換成 <span class="variable">$result</span> = [<span class="number">10</span>,<span class="number">25</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_column(<span class="variable">$example</span> ,<span class="string">&quot;code_count&quot;</span>,<span class="string">&quot;id&quot;</span>);</span><br><span class="line">-&gt; 設置 id欄位當索引 轉換成 <span class="variable">$result</span> = [ [<span class="number">1</span>]=&gt;<span class="number">10</span>, [<span class="number">2</span>]=&gt;<span class="number">25</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="索引跟資料翻轉顯示"><a href="#索引跟資料翻轉顯示" class="headerlink" title="索引跟資料翻轉顯示"></a>索引跟資料翻轉顯示</h2><p>使用 <strong>array_flip()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>];</span><br><span class="line"><span class="variable">$result</span> = array_flip(<span class="variable">$example</span>);</span><br><span class="line">-&gt; 轉換成 <span class="variable">$result</span> = [ [<span class="string">&quot;zh&quot;</span>]=&gt;<span class="number">0</span>, [<span class="string">&quot;en&quot;</span>]=&gt;<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">3</span>];</span><br><span class="line"><span class="variable">$result</span> = array_flip(<span class="variable">$example</span>);</span><br><span class="line">-&gt; 存在相同value取後，轉換成 <span class="variable">$result</span> = [ [<span class="number">2</span>]=&gt;<span class="string">&quot;cn&quot;</span>, [<span class="number">3</span>]=&gt;<span class="string">&quot;en&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="計算資料存在數量"><a href="#計算資料存在數量" class="headerlink" title="計算資料存在數量"></a>計算資料存在數量</h2><p>使用 <strong>array_count_values()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>,<span class="number">2</span>,<span class="string">&quot;en&quot;</span>,<span class="number">3</span>,<span class="string">&quot;cn&quot;</span>];</span><br><span class="line"><span class="variable">$result</span> = array_count_values(<span class="keyword">array</span>);</span><br><span class="line">-&gt; 轉換成 <span class="variable">$result</span> = [ </span><br><span class="line">			[<span class="string">&quot;zh&quot;</span>]=&gt; <span class="number">1</span>, </span><br><span class="line">			[<span class="number">2</span>]=&gt; <span class="number">2</span>,</span><br><span class="line">			[<span class="string">&quot;cn&quot;</span>]=&gt; <span class="number">2</span>,</span><br><span class="line">			[<span class="string">&quot;en&quot;</span>]=&gt; <span class="number">1</span>,</span><br><span class="line">			[<span class="number">3</span>]=&gt; <span class="number">1</span>,</span><br><span class="line">	]</span><br></pre></td></tr></table></figure>
+
+<h2 id="填充多個預設值"><a href="#填充多個預設值" class="headerlink" title="填充多個預設值"></a>填充多個預設值</h2><p>使用 <strong>array_fill()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="variable">$exmaple</span> = array_fill(<span class="number">0</span>, <span class="number">5</span>, <span class="string">&quot;fill&quot;</span>);</span><br><span class="line">-&gt; 從 <span class="number">0</span> 開始產生 <span class="number">5</span> 個值， <span class="variable">$result</span> = [<span class="string">&quot;fill&quot;</span>,<span class="string">&quot;fill&quot;</span>,<span class="string">&quot;fill&quot;</span>,<span class="string">&quot;fill&quot;</span>,<span class="string">&quot;fill&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="特定位置移除-拼接數值"><a href="#特定位置移除-拼接數值" class="headerlink" title="特定位置移除/拼接數值"></a><strong>特定位置移除/拼接數值</strong></h2><p>名稱上容易混淆的就放一起講</p>
+<p>**array_splice(拼接)**，移除陣列特定位置數值 並用 其他數值 取代</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">array_splice(陣列,偏移,移除長度(選填),取代數值(選填))</span><br><span class="line"></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,<span class="number">2</span>);</span><br><span class="line">-&gt; 不存在移除長度時 偏移= 取得個數 ， <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line">-&gt; 從 位置<span class="number">2</span> 的開始移除 <span class="number">1</span> 個數值， <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;vn&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,-<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line">-&gt; 從 倒數位置<span class="number">2</span> 的開始移除 <span class="number">2</span> 個數值， <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,<span class="number">2</span>,count(<span class="variable">$example</span>),<span class="string">&quot;remove&quot;</span>);</span><br><span class="line">-&gt; 從 位置<span class="number">2</span> 的開始移除數值(超過可用數=全砍)並替換字串  <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;remove&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,<span class="number">2</span>,count(<span class="variable">$example</span>),[<span class="string">&quot;remove&quot;</span>,<span class="string">&quot;remove2&quot;</span>]);</span><br><span class="line">-&gt; 從 位置<span class="number">2</span> 的開始移除數值並替換字串  <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;remove&quot;</span>,<span class="string">&quot;remove2&quot;</span>] </span><br></pre></td></tr></table></figure>
+
+<p>**array_slice(移除)**，切除陣列特定位置數值</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line">array_slice(陣列,偏移,移除長度(選填),是否保留原本陣列key(選填))</span><br><span class="line"></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_slice(<span class="variable">$example</span>,<span class="number">2</span>);</span><br><span class="line">-&gt; 不存在移除長度時 偏移= 位置<span class="number">0</span> 開始的移除個數， <span class="variable">$result</span> = [<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_slice(<span class="variable">$example</span>,-<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line">-&gt; 在 倒數第<span class="number">2</span>位置 切除 <span class="number">1</span> 個數值， <span class="variable">$result</span> = [<span class="string">&quot;cn&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_slice(<span class="variable">$example</span>, <span class="number">0</span>,-<span class="number">2</span>);</span><br><span class="line">-&gt; 在 位置<span class="number">0</span> 開始，切除倒數 <span class="number">2</span> 個數值， <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_slice(<span class="variable">$example</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="literal">true</span>);</span><br><span class="line">-&gt; 在 第<span class="number">2</span>位置 切除 <span class="number">2</span> 個數值，保留原先索引， <span class="variable">$result</span> = [[<span class="number">2</span>]=&gt;<span class="string">&quot;cn&quot;</span>,[<span class="number">3</span>]=&gt;<span class="string">&quot;vn&quot;</span>] </span><br></pre></td></tr></table></figure>
+
+<h2 id="物件資料轉陣列"><a href="#物件資料轉陣列" class="headerlink" title="物件資料轉陣列"></a>物件資料轉陣列</h2><p>使用 <strong>json_decode()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">		&quot;id&quot;:&quot;1&quot;,</span></span><br><span class="line"><span class="string">		&quot;name&quot;:&quot;English&quot;,</span></span><br><span class="line"><span class="string">		&quot;status&quot;:&quot;1&quot;</span></span><br><span class="line"><span class="string">	&#125;&#x27;</span>;</span><br><span class="line"><span class="variable">$result</span> = json_decode(<span class="variable">$example</span>,<span class="literal">true</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> = [<span class="string">&quot;id&quot;</span>=&gt;<span class="string">&quot;1&quot;</span>,<span class="string">&quot;name&quot;</span>=&gt;<span class="string">&quot;English&quot;</span>,<span class="string">&quot;status&quot;</span>=&gt;<span class="string">&quot;1&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// json_encode($arr) 陣列轉物件資料</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="合併多個陣列資料"><a href="#合併多個陣列資料" class="headerlink" title="合併多個陣列資料"></a>合併多個陣列資料</h2><p>只有兩個，使用 <strong>array_combine()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"><span class="variable">$example_2</span> = [<span class="string">&quot;1&quot;</span>,<span class="number">2</span>,<span class="number">3.5</span>,<span class="literal">true</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_combine(<span class="variable">$example</span>,<span class="variable">$example_2</span>);</span><br><span class="line">-&gt; 前陣列當key後陣列當value  <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="string">&quot;1&quot;</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>=&gt;<span class="number">3.5</span>,<span class="string">&quot;vn&quot;</span>=&gt;<span class="literal">true</span>]</span><br></pre></td></tr></table></figure>
+
+<p>多個陣列，使用 <strong>array_merge()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="string">&quot;tw&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"><span class="variable">$example_2</span> = [<span class="string">&quot;1&quot;</span>,<span class="number">2</span>,<span class="number">3.5</span>,<span class="literal">true</span>,<span class="string">&quot;name&quot;</span>=&gt;<span class="string">&quot;中文&quot;</span>];</span><br><span class="line"><span class="variable">$example_3</span> = [<span class="number">6</span>];</span><br><span class="line"><span class="variable">$result</span> = array_merge(<span class="variable">$example</span>,<span class="variable">$example_2</span>,<span class="variable">$example_3</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> = [</span><br><span class="line">		[<span class="string">&quot;zh&quot;</span>] =&gt;<span class="string">&quot;tw&quot;</span>,</span><br><span class="line">		   [<span class="number">0</span>] =&gt; <span class="string">&quot;en&quot;</span>,</span><br><span class="line">		   [<span class="number">1</span>] =&gt; <span class="string">&quot;cn&quot;</span>,</span><br><span class="line">		   [<span class="number">2</span>] =&gt; <span class="string">&quot;vn&quot;</span>,</span><br><span class="line">		   [<span class="number">3</span>] =&gt; <span class="string">&quot;1&quot;</span>,</span><br><span class="line">		   [<span class="number">4</span>] =&gt; <span class="number">2</span>,</span><br><span class="line">		   [<span class="number">5</span>] =&gt; <span class="number">3.5</span>, </span><br><span class="line">		   [<span class="number">6</span>] =&gt; <span class="literal">true</span>,</span><br><span class="line">	[<span class="string">&quot;name&quot;</span>] =&gt; <span class="string">&quot;中文&quot;</span>,</span><br><span class="line">		   [<span class="number">7</span>] =&gt; <span class="number">6</span></span><br><span class="line">	]</span><br></pre></td></tr></table></figure>
+
+<h2 id="取得索引或資料的數值"><a href="#取得索引或資料的數值" class="headerlink" title="取得索引或資料的數值"></a>取得索引或資料的數值</h2><p>要取得 資料，使用 <strong>array_values()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="string">&quot;tw&quot;</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>=&gt;<span class="number">3.3</span>,<span class="string">&quot;vn&quot;</span>=&gt;<span class="literal">false</span>];</span><br><span class="line"><span class="variable">$result</span> = array_values(<span class="variable">$example</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> = [<span class="string">&quot;tw&quot;</span>,<span class="number">2</span>,<span class="number">3.3</span>,<span class="literal">false</span>]</span><br></pre></td></tr></table></figure>
+
+<p>要取得 索引，使用 <strong>array_keys()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="string">&quot;tw&quot;</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>=&gt;<span class="number">3.3</span>,<span class="string">&quot;vn&quot;</span>=&gt;<span class="literal">false</span>];</span><br><span class="line"><span class="variable">$result</span> = array_keys(<span class="variable">$example</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>,<span class="string">&quot;en&quot;</span>];</span><br><span class="line"><span class="variable">$result</span> = array_keys(<span class="variable">$example</span>,<span class="string">&quot;en&quot;</span>);</span><br><span class="line">-&gt; 一維陣列使用返回陣列位置 <span class="variable">$result</span> =[<span class="number">1</span>,<span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="處理多次資料功能循環"><a href="#處理多次資料功能循環" class="headerlink" title="處理多次資料功能循環"></a>處理多次資料功能循環</h2><p>多個陣列，使用 <strong>array_map()</strong></p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 沒宣告函數功能</span></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"><span class="variable">$example_2</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line"><span class="variable">$result</span> = array_map(<span class="literal">null</span>,<span class="variable">$example</span>,<span class="variable">$example_2</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> =[</span><br><span class="line">		[<span class="number">0</span>]=&gt; [</span><br><span class="line">			[<span class="number">0</span>]=&gt;<span class="string">&quot;zh&quot;</span>, </span><br><span class="line">			[<span class="number">1</span>]=&gt; <span class="number">1</span> </span><br><span class="line">	     ],</span><br><span class="line">		 [<span class="number">1</span>]=&gt;[ </span><br><span class="line">			[<span class="number">0</span>]=&gt;<span class="string">&quot;en&quot;</span>,</span><br><span class="line">			[<span class="number">1</span>]=&gt; <span class="number">2</span> </span><br><span class="line">		 ], </span><br><span class="line">		 [<span class="number">2</span>]=&gt; [ </span><br><span class="line">			[<span class="number">0</span>]=&gt; <span class="string">&quot;cn&quot;</span>, </span><br><span class="line">			[<span class="number">1</span>]=&gt; <span class="number">3</span> </span><br><span class="line">		 ], </span><br><span class="line">		 [<span class="number">3</span>]=&gt; [ </span><br><span class="line">			[<span class="number">0</span>]=&gt; <span class="string">&quot;vn&quot;</span>, </span><br><span class="line">			[<span class="number">1</span>]=&gt; <span class="number">4</span> </span><br><span class="line">		 ]</span><br><span class="line">	]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有宣告函數功能</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">strick</span>(<span class="params"><span class="variable">$n</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (<span class="variable">$n</span> .<span class="string">&quot; ^ &quot;</span>. <span class="variable">$n</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"><span class="variable">$result</span> = array_map(<span class="string">&quot;strick&quot;</span>,<span class="variable">$example</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> =[<span class="string">&quot;zh ^ zh&quot;</span>,<span class="string">&quot;en ^ en&quot;</span>,<span class="string">&quot;cn ^ cn&quot;</span>,<span class="string">&quot;vn ^ vn&quot;</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>陣列相關的函數還有很多，這邊筆者只是先列出較常使用的提供參考。</p>
+<h2 id="處理後端資料轉陣列-JQuery"><a href="#處理後端資料轉陣列-JQuery" class="headerlink" title="處理後端資料轉陣列(JQuery)"></a>處理後端資料轉陣列(JQuery)</h2><p>這邊不算 PHP的語法，是筆者在過往專案中有使用的部分，</p>
+<p>後端通常情況下回傳資料都會是 json 格式，前端轉陣列使用上的參考。</p>
+<figure class="highlight jsx"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> response =&#123;</span><br><span class="line">	<span class="string">&quot;type&quot;</span>:<span class="string">&quot;success&quot;</span>,</span><br><span class="line">	<span class="string">&quot;data&quot;</span>: </span><br><span class="line">		<span class="string">&quot;1&quot;</span>:&#123;</span><br><span class="line">			<span class="string">&quot;id&quot;</span>: <span class="number">1</span>,</span><br><span class="line">			<span class="string">&quot;code&quot;</span>: <span class="string">&quot;zh_tw&quot;</span>,</span><br><span class="line">			<span class="string">&quot;count&quot;</span>: <span class="number">25</span> </span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> data_result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.values() <span class="comment">//傳入物件，直接轉陣列</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.values(response.data).forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">	data_result.push(item[<span class="string">&#x27;code&#x27;</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">-&gt; data_result = [<span class="string">&quot;zh_tw&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys()  <span class="comment">//傳入物件，將其 key 值轉陣列</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys(response.data).forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">	data_result.push(item);</span><br><span class="line">&#125;);</span><br><span class="line">-&gt; data_result = [<span class="string">&quot;1&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.entries() <span class="comment">//傳入物件，將 key 與 value 轉陣列</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.entries(response.data).forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">	data_result.push(item);</span><br><span class="line">&#125;);</span><br><span class="line">-&gt; data_result = [ [<span class="string">&quot;1&quot;</span>, &#123; <span class="string">&quot;id&quot;</span>: <span class="number">1</span>, <span class="string">&quot;code&quot;</span>: <span class="string">&quot;zh_tw&quot;</span>, <span class="string">&quot;count&quot;</span>: <span class="number">25</span> &#125;]];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="資料參考來源"><a href="#資料參考來源" class="headerlink" title="資料參考來源"></a>資料參考來源</h2><p><a href="https://www.php.net/docs.php">PHP: Hypertext Preprocessor</a></p>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python地址轉換地圖經緯度</title>
     <url>/2021/08/23/Python%E5%9C%B0%E5%9D%80%E8%BD%89%E6%8F%9B%E5%9C%B0%E5%9C%96%E7%B6%93%E7%B7%AF%E5%BA%A6/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在實作地圖的時候多少會遇到資料只有地址的情況</p>
@@ -855,6 +776,317 @@ find_element_by_css_selector
       </tags>
   </entry>
   <entry>
+    <title>Linux常用語法</title>
+    <url>/2021/12/22/Linux%E5%B8%B8%E7%94%A8%E8%AA%9E%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>開始整理大學時期研究的筆記</p>
+<p>也替自己的學習做一點紀錄</p>
+<p>放個Linux吉祥物做開頭吧</p>
+<p><img src="/images/Linux_icon.png"></p>
+<p>Linux作業系統有發行很多種版本</p>
+<p>例如：CentOS、Ubuntu…等都算是Linux的一種</p>
+<p>但終端機用的指令通常都大同小異</p>
+<p>也藉由這文章做個整理</p>
+<span id="more"></span>
+
+<h1 id="Linux語法"><a href="#Linux語法" class="headerlink" title="Linux語法"></a>Linux語法</h1><p>以下依照功能用途來區分常用指令</p>
+<h2 id="系統操作"><a href="#系統操作" class="headerlink" title="系統操作"></a>系統操作</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>lsb_release</td>
+<td>查看目前ubuntu版本</td>
+<td>lsb_release -a</td>
+</tr>
+<tr>
+<td>dpkg</td>
+<td>列出安裝套件</td>
+<td>dpkg -l  grep php</td>
+</tr>
+<tr>
+<td>route</td>
+<td>查看路由表</td>
+<td>route -n</td>
+</tr>
+</tbody></table>
+<h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+<th align="left">用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ls</td>
+<td>查看目前所在位置的所有檔案</td>
+<td align="left">ls</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>建立新資料夾</td>
+<td align="left">mkdir html</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>移動到該資料夾下</td>
+<td align="left">cd html</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>使用者更改自己帳號的密碼</td>
+<td align="left">Passwd</td>
+</tr>
+<tr>
+<td>apt update</td>
+<td>更新系統</td>
+<td align="left">sudo apt update</td>
+</tr>
+<tr>
+<td>apt upgrade</td>
+<td>更新系統現有套件</td>
+<td align="left">sudo apt upgrade</td>
+</tr>
+<tr>
+<td>apt dist-upgrade</td>
+<td>更新系統套件相依性</td>
+<td align="left">sudo apt dist-upgrade</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>系統關機(-c 取消關機 -r重新開機)</td>
+<td align="left">sudo shutdown -h now</td>
+</tr>
+</tbody></table>
+<h2 id="檔案處理"><a href="#檔案處理" class="headerlink" title="檔案處理"></a>檔案處理</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+<th align="left">用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nano(vi)</td>
+<td>編輯器新增或編輯檔案(nano或vi 看使用者習慣)</td>
+<td align="left">nano  index.html</td>
+</tr>
+<tr>
+<td>mv</td>
+<td>檔案改名或移動到特定位置</td>
+<td align="left">mv index.html newIndex.html</td>
+</tr>
+<tr>
+<td>find</td>
+<td>尋找檔案(可在檔案名稱變化：?單字元、*多字元)</td>
+<td align="left">find / -name newIndex.*</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>複製檔案</td>
+<td align="left">cp newIndex.html index.txt</td>
+</tr>
+</tbody></table>
+<p>這邊說明檔案權限的區分規則</p>
+<p>主要有三個用戶  User(個人) / Group(群組) / Other(其他) 順序排列</p>
+<p><code>r :  可讀權限, 數字是 4</code></p>
+<p><code>w : 寫入權限, 數字是 2</code></p>
+<p><code>x :  執行權限, 數字是 1</code></p>
+<p><code>-:  刪除權限, 數字是 0</code></p>
+<p><strong>通常會是三個一組，採加法可得出數字</strong></p>
+<p><code>7 = 4 (讀) + 2 (寫) + 1 (執行)</code></p>
+<p><code>5 = 4 (讀) + 1 (執行)</code></p>
+<p><code>4 = 4 (讀)</code></p>
+<p>舉個例子</p>
+<p>要使 index.html 個人可以讀寫執、群組讀寫、其他讀：</p>
+<p>chmod rwx,rx,r index.html    </p>
+<p>也等於</p>
+<p>chmod 754 index.html</p>
+<h2 id="使用者管理"><a href="#使用者管理" class="headerlink" title="使用者管理"></a>使用者管理</h2><table>
+<thead>
+<tr>
+<th>指令</th>
+<th>說明</th>
+<th align="left">用法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cat</td>
+<td>預覽檔案全部內容並印出</td>
+<td align="left">cat index.html</td>
+</tr>
+<tr>
+<td>/etc/group</td>
+<td>目前系統存在的群組</td>
+<td align="left">cat /etc/group</td>
+</tr>
+<tr>
+<td>groups</td>
+<td>查看帳號群組</td>
+<td align="left">groups</td>
+</tr>
+<tr>
+<td>groupadd</td>
+<td>新增群組(G_ID:不重複的五位數 G_NAME:群組名稱)</td>
+<td align="left">groupadd -g G_ID G_Name</td>
+</tr>
+<tr>
+<td>/etc/passwd</td>
+<td>目前系統存在的帳號</td>
+<td align="left">cat /etc/passwd</td>
+</tr>
+<tr>
+<td>useradd</td>
+<td>新增使用者帳號(U_ID:不重複的數字 G:加入的群組 -m:建立目錄 U_N:使用者帳號）</td>
+<td align="left">useradd -u U_ID -g G -m U_N</td>
+</tr>
+<tr>
+<td>userdel</td>
+<td>刪除使用者帳號(-r:連家目錄一起刪除)</td>
+<td align="left">userdel -r U_N</td>
+</tr>
+<tr>
+<td>su</td>
+<td>管理帳號與使用者帳號切換</td>
+<td align="left">su -l U_N</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>藍芽室內定位的可行性</title>
+    <url>/2022/01/12/%E8%97%8D%E8%8A%BD%E5%AE%A4%E5%85%A7%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大學專題有思考過類似的問題，並有實際去嘗試過才想寫這主題。</p>
+<p>因為室內定位真的是一門很廣的學問，何況藍芽的訊號干擾太多了，實作起來能說是困難重重…</p>
+<span id="more"></span>
+
+
+<h1 id="專題簡介"><a href="#專題簡介" class="headerlink" title="專題簡介"></a>專題簡介</h1><p>大學專題的作品名稱是 『 行動導覽系統 』，</p>
+<p>跟另外兩名大學同學一組，</p>
+<p>我主要負責報告文件整理及統整其他技術研究等，</p>
+<p>看過各種關於藍牙室內定位的論文或研究，</p>
+<p>看到最後好像也沒有一個很完美的做法…</p>
+<p>這邊放上當初做的海報擷取來說明主要功能<br><img src="https://i.imgur.com/9pIPg8F.png"></p>
+<p>就是透過手機程式來定位到在特定位置的展物並顯示出展物資訊</p>
+<p>聽起來好像很簡單但做了才發現問題很多…</p>
+<ul>
+<li>訊號精準度若偏差太大定位點會偏離</li>
+<li>藍芽訊號太容易受干擾</li>
+<li>距離不同收到的訊號強度也不同</li>
+<li>放太近訊號會互相干擾</li>
+<li>展覽場地不同要配置幾個才夠定位</li>
+</ul>
+<p>以下就用專題中遇到的不同技術困難點做分段說明。</p>
+<h1 id="定位設備-Beacon"><a href="#定位設備-Beacon" class="headerlink" title="定位設備 - Beacon"></a>定位設備 - Beacon</h1><p>當初實驗室剛好手邊有這個 - 智石科技的Ｍax Beacon<br><img src="https://i.imgur.com/f4TlFY8.jpg" alt="Beacon"><br>設備規格如下圖所示<br><img src="https://i.imgur.com/U5vc8Mg.png"></p>
+<p>防水防塵防震動，<br>提供App 可以搜尋調整Beacon訊號的強弱及推播頻率和看電池電量等功能。</p>
+<p>每個 Beacon 都有獨立的一個編號(如：47044)</p>
+<p>為什麼要採用這個，主要原因如下：</p>
+<ol>
+<li>單一設備便宜(約4.500元 / 個)</li>
+<li>配置簡單(與無線訊號台AP比較)</li>
+<li>藍芽已被廣大運用在各類產品</li>
+<li>實驗室剛好有</li>
+</ol>
+<p>Beacon可以發送訊號給手機接收，不同距離的訊號強度也不同</p>
+<p><strong>用這些不同的訊號強度來判斷使用者目前在場地的哪個地方</strong></p>
+<h2 id="設備狀態"><a href="#設備狀態" class="headerlink" title="設備狀態"></a>設備狀態</h2><p>這些編號跟訊號強弱有關係，若壞掉的訊號就異常需排除在外</p>
+<p>我們第一步做的就是從一堆 Beacon 中排除訊號異常的部分</p>
+<p>廠商提供的訊號正常範圍為 -50 ~ -90 dBm(一公尺)</p>
+<p>但又不能把他們放太近測試，<strong>藍芽訊號非常容易受干擾</strong></p>
+<p>於是就分別量測不同編號的訊號強度，如下圖所示，</p>
+<p><img src="https://i.imgur.com/orXyRnn.png" alt="編號訊號強度比較"></p>
+<p>這資料是依 1m 不同推播頻率的Beacon來做比較，</p>
+<p>使用 APP 調整編號的 TXPOWER(會影響訊號推播強度)，</p>
+<p><strong>依這個數據將與其他人訊號有差異的裝置排除不使用</strong>。</p>
+<h2 id="設備推播範圍"><a href="#設備推播範圍" class="headerlink" title="設備推播範圍"></a>設備推播範圍</h2><p>基本上 Beacon 的訊號可以超過 3 m 沒問題，</p>
+<p>但室內並不需要那麼廣的推播範圍，</p>
+<p>而前面也提到 TXPOWER 會影響訊號強度，</p>
+<p>於是我們以 1 m 不同 TXPOWER 來看訊號變化，如圖所示，</p>
+<p><img src="https://i.imgur.com/iVrncd0.png" alt="不同推播訊號強度"></p>
+<p>可以看到 <strong>4dBm 是訊號強度最強的時候，越往下調整越弱</strong>。</p>
+<h2 id="設備維持時間"><a href="#設備維持時間" class="headerlink" title="設備維持時間"></a>設備維持時間</h2><p>對於Beacon能維持正常狀態多少時間也有花時間測試，</p>
+<p>具體狀況如下圖所示，以正常推播頻率放置超過半年，</p>
+<p>4dBm是 TXPOWER 最強訊號強度的情況，</p>
+<p><img src="https://i.imgur.com/GlU4VcD.png" alt="Beacon電池狀況"></p>
+<p><strong>基本上跟三號電池的衰減曲線差不多符合，在續航力上不太需要擔心</strong>。</p>
+<h1 id="Bluetooth-藍芽"><a href="#Bluetooth-藍芽" class="headerlink" title="Bluetooth 藍芽"></a>Bluetooth 藍芽</h1><p>作為室內定位的主技術，也有很長發展歷史…有興趣的就自己去研究吧</p>
+<p>採用的是藍芽4.0後出現的 低功耗藍牙BLE 技術，比較如下圖，</p>
+<p><img src="https://i.imgur.com/jJu1J48.png" alt="與傳統藍芽比較"></p>
+<p>在找資料的時候發現藍芽是非常容易受干擾的東西，</p>
+<p>什麼都會對訊號造成干擾，通常稱為多重訊號干擾，如下圖所示，</p>
+<p><img src="https://i.imgur.com/FOhpGW1.jpg" alt="藍芽干擾"></p>
+<p>那參考別人的論文後發現他們有有遇過類似的問題，</p>
+<p>此時他們提出的解決方法是 - 訊號濾波，</p>
+<p>將收到的訊號做一次過濾，也就是把過高或過低的訊號值移除，</p>
+<p>濾波器也有很多種，像是均值濾波器跟卡爾曼濾波器等等</p>
+<p>但均值濾波器在處理上反應時間較久，不適合用在即時處理的應用上，</p>
+<p>所以我們採用的是卡爾曼濾波器，這裡就不贅述它的原理了，</p>
+<p>經過濾波器處理後，訊號強度確實有變規律一點。</p>
+<h2 id="定位方法"><a href="#定位方法" class="headerlink" title="定位方法"></a>定位方法</h2><p>室內定位也有很多方法被使用，定位的根據不同方法也不同，</p>
+<p>我們這邊是採用 <strong>RSSI 接收強度定位法</strong>，</p>
+<p>接收不同的訊號強度轉換成距離後透過三角定位法求出接收器的位置</p>
+<p>稱為 RSSI 三點定位法也稱三角定位法。</p>
+<p>但距離跟訊號強度的關係不明顯就會使定位不精準，</p>
+<p>所以我們採用的是另一種稱為<strong>指紋定位法</strong>的方法，如圖所示，</p>
+<p><img src="https://i.imgur.com/m0hfTBX.png" alt="指紋定位法"></p>
+<p>用大量搜集不同區塊所收得的訊號強度當成區域特徵後儲存於資料庫，</p>
+<p>需要定位時則透過當下收到的特徵去比對資料庫中較符合的區塊回傳。</p>
+<h2 id="定位場域"><a href="#定位場域" class="headerlink" title="定位場域"></a>定位場域</h2><p>最一開始我們是用實驗室當場域，</p>
+<p>呈現一個長方形，<del>然後訊號干擾超嚴重</del>，</p>
+<p>後來選用學校的一間教室，平面圖如下，</p>
+<p><img src="https://i.imgur.com/EnI61MP.png" alt="教室平面圖"></p>
+<p>因為前面選用的定位方法，把這地方切成數區塊如下圖所示，</p>
+<p><img src="https://i.imgur.com/GRHvAos.jpg" alt="切割教室圖"></p>
+<p>大致上的想法是走到哪個地方那區塊就會發亮，</p>
+<p>表示使用者現在走到這個區塊內了，可以顯示區塊的資訊。</p>
+<h2 id="場域配置數量"><a href="#場域配置數量" class="headerlink" title="場域配置數量"></a>場域配置數量</h2><p>決定好場地後再來就是要配置幾顆 Beacon 才夠用了，</p>
+<p>這時我看到成功大學有一篇論文在研究訊號特徵法，</p>
+<p>就模仿他的方法來做我們的預估配置狀況，如下圖所示，</p>
+<p>考慮過若配置3顆的情況，<br><img src="https://i.imgur.com/x2CpETR.png" alt="理論3顆配置"><br>或是配置4顆的情況，<br><img src="https://i.imgur.com/blrZVJ6.png" alt="理論4顆配置"></p>
+<p>以顏色來分辨訊號強度，我的訊號強度顏色如下圖所示，</p>
+<p><img src="https://i.imgur.com/XgwjlSe.png" alt="訊號強度顏色"></p>
+<p>因為場地不大所以配置數量 4 顆就算多了，再往上會互相干擾…</p>
+<p>那我們選用 3 顆的配置方法，</p>
+<p>並開始去搜集這區塊的訊號強度到資料庫中。</p>
+<h1 id="實作成果"><a href="#實作成果" class="headerlink" title="實作成果"></a>實作成果</h1><p>最後讓負責手機程式的同學開發後的成果如下圖，<br><img src="https://i.imgur.com/7ciy3bv.png" alt="App畫面-定位區塊"></p>
+<p>假設場地上有各種畫作，若剛好Ａ4 區域有東西顯示，會如下圖所示，<br><img src="https://i.imgur.com/QTJwvEF.png" alt="App畫面-導覽畫面"></p>
+<p>但有時候會定位在別的區塊上也是個問題，</p>
+<p>定位精準度經過我們處理還是不高…</p>
+<p>離實際要應用在導覽場域還有很大一段距離。</p>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p><del><strong>專題千萬不要做藍芽室內定位</strong></del></p>
+<p>如果時間很多又想挑戰新領域的人可以嘗試，</p>
+<p>但其中要花費的時間絕對遠超你的預期，</p>
+<p>我很肯定你們大多數時間都在處理和調整非程式的因素</p>
+<p>作為大學的畢業專題來說，</p>
+<p>說真的超出一般大學生能處理的東西了，</p>
+<p>考慮和影響的東西太多，什麼配置方法什麼地點都要自己決定，</p>
+<p>技術成果不算完美，從裡面學到了不少實驗方法與解決問題的想法，</p>
+<p>也感謝配合指導教授和我任性實驗要求的組員們，</p>
+<p>提供給之後想做 <strong>藍芽室內定位</strong> 的人參考。</p>
+<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><p>這邊就提供當初寫報告有參考的論文，如圖所示，</p>
+<p><img src="https://i.imgur.com/BHn5d52.png" alt="參考論文"></p>
+<p>這些論文也給當初在研究的我們不少啟發，</p>
+<p>有興趣的人也可以去看看！</p>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>藍芽</tag>
+        <tag>室內定位</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>來用Apache架設簡單WebServer吧</title>
     <url>/2021/12/29/%E4%BE%86%E4%BD%BF%E7%94%A8Apache%E6%9E%B6%E8%A8%AD%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%EF%BC%B7ebServer%E5%90%A7/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文安裝環境為 <strong>Ubuntu16.04</strong></p>
@@ -987,129 +1219,6 @@ find_element_by_css_selector
       </tags>
   </entry>
   <entry>
-    <title>藍芽室內定位的可行性</title>
-    <url>/2022/01/12/%E8%97%8D%E8%8A%BD%E5%AE%A4%E5%85%A7%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大學專題有思考過類似的問題，並有實際去嘗試過才想寫這主題。</p>
-<p>因為室內定位真的是一門很廣的學問，何況藍芽的訊號干擾太多了，實作起來能說是困難重重…</p>
-<span id="more"></span>
-
-
-<h1 id="專題簡介"><a href="#專題簡介" class="headerlink" title="專題簡介"></a>專題簡介</h1><p>大學專題的作品名稱是 『 行動導覽系統 』，</p>
-<p>跟另外兩名大學同學一組，</p>
-<p>我主要負責報告文件整理及統整其他技術研究等，</p>
-<p>看過各種關於藍牙室內定位的論文或研究，</p>
-<p>看到最後好像也沒有一個很完美的做法…</p>
-<p>這邊放上當初做的海報擷取來說明主要功能<br><img src="https://i.imgur.com/9pIPg8F.png"></p>
-<p>就是透過手機程式來定位到在特定位置的展物並顯示出展物資訊</p>
-<p>聽起來好像很簡單但做了才發現問題很多…</p>
-<ul>
-<li>訊號精準度若偏差太大定位點會偏離</li>
-<li>藍芽訊號太容易受干擾</li>
-<li>距離不同收到的訊號強度也不同</li>
-<li>放太近訊號會互相干擾</li>
-<li>展覽場地不同要配置幾個才夠定位</li>
-</ul>
-<p>以下就用專題中遇到的不同技術困難點做分段說明。</p>
-<h1 id="定位設備-Beacon"><a href="#定位設備-Beacon" class="headerlink" title="定位設備 - Beacon"></a>定位設備 - Beacon</h1><p>當初實驗室剛好手邊有這個 - 智石科技的Ｍax Beacon<br><img src="https://i.imgur.com/f4TlFY8.jpg" alt="Beacon"><br>設備規格如下圖所示<br><img src="https://i.imgur.com/U5vc8Mg.png"></p>
-<p>防水防塵防震動，<br>提供App 可以搜尋調整Beacon訊號的強弱及推播頻率和看電池電量等功能。</p>
-<p>每個 Beacon 都有獨立的一個編號(如：47044)</p>
-<p>為什麼要採用這個，主要原因如下：</p>
-<ol>
-<li>單一設備便宜(約4.500元 / 個)</li>
-<li>配置簡單(與無線訊號台AP比較)</li>
-<li>藍芽已被廣大運用在各類產品</li>
-<li>實驗室剛好有</li>
-</ol>
-<p>Beacon可以發送訊號給手機接收，不同距離的訊號強度也不同</p>
-<p><strong>用這些不同的訊號強度來判斷使用者目前在場地的哪個地方</strong></p>
-<h2 id="設備狀態"><a href="#設備狀態" class="headerlink" title="設備狀態"></a>設備狀態</h2><p>這些編號跟訊號強弱有關係，若壞掉的訊號就異常需排除在外</p>
-<p>我們第一步做的就是從一堆 Beacon 中排除訊號異常的部分</p>
-<p>廠商提供的訊號正常範圍為 -50 ~ -90 dBm(一公尺)</p>
-<p>但又不能把他們放太近測試，<strong>藍芽訊號非常容易受干擾</strong></p>
-<p>於是就分別量測不同編號的訊號強度，如下圖所示，</p>
-<p><img src="https://i.imgur.com/orXyRnn.png" alt="編號訊號強度比較"></p>
-<p>這資料是依 1m 不同推播頻率的Beacon來做比較，</p>
-<p>使用 APP 調整編號的 TXPOWER(會影響訊號推播強度)，</p>
-<p><strong>依這個數據將與其他人訊號有差異的裝置排除不使用</strong>。</p>
-<h2 id="設備推播範圍"><a href="#設備推播範圍" class="headerlink" title="設備推播範圍"></a>設備推播範圍</h2><p>基本上 Beacon 的訊號可以超過 3 m 沒問題，</p>
-<p>但室內並不需要那麼廣的推播範圍，</p>
-<p>而前面也提到 TXPOWER 會影響訊號強度，</p>
-<p>於是我們以 1 m 不同 TXPOWER 來看訊號變化，如圖所示，</p>
-<p><img src="https://i.imgur.com/iVrncd0.png" alt="不同推播訊號強度"></p>
-<p>可以看到 <strong>4dBm 是訊號強度最強的時候，越往下調整越弱</strong>。</p>
-<h2 id="設備維持時間"><a href="#設備維持時間" class="headerlink" title="設備維持時間"></a>設備維持時間</h2><p>對於Beacon能維持正常狀態多少時間也有花時間測試，</p>
-<p>具體狀況如下圖所示，以正常推播頻率放置超過半年，</p>
-<p>4dBm是 TXPOWER 最強訊號強度的情況，</p>
-<p><img src="https://i.imgur.com/GlU4VcD.png" alt="Beacon電池狀況"></p>
-<p><strong>基本上跟三號電池的衰減曲線差不多符合，在續航力上不太需要擔心</strong>。</p>
-<h1 id="Bluetooth-藍芽"><a href="#Bluetooth-藍芽" class="headerlink" title="Bluetooth 藍芽"></a>Bluetooth 藍芽</h1><p>作為室內定位的主技術，也有很長發展歷史…有興趣的就自己去研究吧</p>
-<p>採用的是藍芽4.0後出現的 低功耗藍牙BLE 技術，比較如下圖，</p>
-<p><img src="https://i.imgur.com/jJu1J48.png" alt="與傳統藍芽比較"></p>
-<p>在找資料的時候發現藍芽是非常容易受干擾的東西，</p>
-<p>什麼都會對訊號造成干擾，通常稱為多重訊號干擾，如下圖所示，</p>
-<p><img src="https://i.imgur.com/FOhpGW1.jpg" alt="藍芽干擾"></p>
-<p>那參考別人的論文後發現他們有有遇過類似的問題，</p>
-<p>此時他們提出的解決方法是 - 訊號濾波，</p>
-<p>將收到的訊號做一次過濾，也就是把過高或過低的訊號值移除，</p>
-<p>濾波器也有很多種，像是均值濾波器跟卡爾曼濾波器等等</p>
-<p>但均值濾波器在處理上反應時間較久，不適合用在即時處理的應用上，</p>
-<p>所以我們採用的是卡爾曼濾波器，這裡就不贅述它的原理了，</p>
-<p>經過濾波器處理後，訊號強度確實有變規律一點。</p>
-<h2 id="定位方法"><a href="#定位方法" class="headerlink" title="定位方法"></a>定位方法</h2><p>室內定位也有很多方法被使用，定位的根據不同方法也不同，</p>
-<p>我們這邊是採用 <strong>RSSI 接收強度定位法</strong>，</p>
-<p>接收不同的訊號強度轉換成距離後透過三角定位法求出接收器的位置</p>
-<p>稱為 RSSI 三點定位法也稱三角定位法。</p>
-<p>但距離跟訊號強度的關係不明顯就會使定位不精準，</p>
-<p>所以我們採用的是另一種稱為<strong>指紋定位法</strong>的方法，如圖所示，</p>
-<p><img src="https://i.imgur.com/m0hfTBX.png" alt="指紋定位法"></p>
-<p>用大量搜集不同區塊所收得的訊號強度當成區域特徵後儲存於資料庫，</p>
-<p>需要定位時則透過當下收到的特徵去比對資料庫中較符合的區塊回傳。</p>
-<h2 id="定位場域"><a href="#定位場域" class="headerlink" title="定位場域"></a>定位場域</h2><p>最一開始我們是用實驗室當場域，</p>
-<p>呈現一個長方形，<del>然後訊號干擾超嚴重</del>，</p>
-<p>後來選用學校的一間教室，平面圖如下，</p>
-<p><img src="https://i.imgur.com/EnI61MP.png" alt="教室平面圖"></p>
-<p>因為前面選用的定位方法，把這地方切成數區塊如下圖所示，</p>
-<p><img src="https://i.imgur.com/GRHvAos.jpg" alt="切割教室圖"></p>
-<p>大致上的想法是走到哪個地方那區塊就會發亮，</p>
-<p>表示使用者現在走到這個區塊內了，可以顯示區塊的資訊。</p>
-<h2 id="場域配置數量"><a href="#場域配置數量" class="headerlink" title="場域配置數量"></a>場域配置數量</h2><p>決定好場地後再來就是要配置幾顆 Beacon 才夠用了，</p>
-<p>這時我看到成功大學有一篇論文在研究訊號特徵法，</p>
-<p>就模仿他的方法來做我們的預估配置狀況，如下圖所示，</p>
-<p>考慮過若配置3顆的情況，<br><img src="https://i.imgur.com/x2CpETR.png" alt="理論3顆配置"><br>或是配置4顆的情況，<br><img src="https://i.imgur.com/blrZVJ6.png" alt="理論4顆配置"></p>
-<p>以顏色來分辨訊號強度，我的訊號強度顏色如下圖所示，</p>
-<p><img src="https://i.imgur.com/XgwjlSe.png" alt="訊號強度顏色"></p>
-<p>因為場地不大所以配置數量 4 顆就算多了，再往上會互相干擾…</p>
-<p>那我們選用 3 顆的配置方法，</p>
-<p>並開始去搜集這區塊的訊號強度到資料庫中。</p>
-<h1 id="實作成果"><a href="#實作成果" class="headerlink" title="實作成果"></a>實作成果</h1><p>最後讓負責手機程式的同學開發後的成果如下圖，<br><img src="https://i.imgur.com/7ciy3bv.png" alt="App畫面-定位區塊"></p>
-<p>假設場地上有各種畫作，若剛好Ａ4 區域有東西顯示，會如下圖所示，<br><img src="https://i.imgur.com/QTJwvEF.png" alt="App畫面-導覽畫面"></p>
-<p>但有時候會定位在別的區塊上也是個問題，</p>
-<p>定位精準度經過我們處理還是不高…</p>
-<p>離實際要應用在導覽場域還有很大一段距離。</p>
-<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p><del><strong>專題千萬不要做藍芽室內定位</strong></del></p>
-<p>如果時間很多又想挑戰新領域的人可以嘗試，</p>
-<p>但其中要花費的時間絕對遠超你的預期，</p>
-<p>我很肯定你們大多數時間都在處理和調整非程式的因素</p>
-<p>作為大學的畢業專題來說，</p>
-<p>說真的超出一般大學生能處理的東西了，</p>
-<p>考慮和影響的東西太多，什麼配置方法什麼地點都要自己決定，</p>
-<p>技術成果不算完美，從裡面學到了不少實驗方法與解決問題的想法，</p>
-<p>也感謝配合指導教授和我任性實驗要求的組員們，</p>
-<p>提供給之後想做 <strong>藍芽室內定位</strong> 的人參考。</p>
-<h1 id="參考文獻"><a href="#參考文獻" class="headerlink" title="參考文獻"></a>參考文獻</h1><p>這邊就提供當初寫報告有參考的論文，如圖所示，</p>
-<p><img src="https://i.imgur.com/BHn5d52.png" alt="參考論文"></p>
-<p>這些論文也給當初在研究的我們不少啟發，</p>
-<p>有興趣的人也可以去看看！</p>
-]]></content>
-      <categories>
-        <category>技術筆記</category>
-      </categories>
-      <tags>
-        <tag>藍芽</tag>
-        <tag>室內定位</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>記憶翻牌JAVA小遊戲</title>
     <url>/2021/12/14/%E8%A8%98%E6%86%B6%E7%BF%BB%E7%89%8CJAVA%E5%B0%8F%E9%81%8A%E6%88%B2/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大學時期做的JAVA小遊戲</p>
@@ -1138,50 +1247,6 @@ find_element_by_css_selector
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>1146. Snapshot Array PHP解題</title>
-    <url>/2023/06/11/1146-Snapshot%20Array/</url>
-    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Implement a SnapshotArray that supports the following interface:</p>
-<ul>
-<li>SnapshotArray(int length) initializes an array-like data structure with the given length. Initially, each element equals 0.</li>
-<li>void set(index, val) sets the element at the given index to be equal to val.</li>
-<li>int snap() takes a snapshot of the array and returns the snap_id: the total number of times we called snap() minus 1.</li>
-<li>int get(index, snap_id) returns the value at the given index, at the time we took the snapshot with the given snap_id</li>
-</ul>
-<span id="more"></span>
-
-<p>Input / Output(測試資料輸入/輸出):</p>
-<pre><code>Input: [&quot;SnapshotArray&quot;,&quot;set&quot;,&quot;snap&quot;,&quot;set&quot;,&quot;get&quot;]
-[[3],[0,5],[],[0,6],[0,0]]
-Output: [null,null,0,null,5]
-Explanation: 
-SnapshotArray snapshotArr = new SnapshotArray(3); // set the length to be 3
-snapshotArr.set(0,5);  // Set array[0] = 5
-snapshotArr.snap();  // Take a snapshot, return snap_id = 0
-snapshotArr.set(0,6);
-snapshotArr.get(0,0);  // Get the value of array[0] with snap_id = 0, return 5
-</code></pre>
-<p>Constraints(參數限制):</p>
-<ul>
-<li>1 &lt;= length &lt;= 5 * 104</li>
-<li>0 &lt;= index &lt; length</li>
-<li>0 &lt;= val &lt;= 109</li>
-<li>0 &lt;= snap_id &lt; (the total number of times we call snap())<br>  At most 5 * 104 calls will be made to set, snap, and get.</li>
-</ul>
-<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>要做出一個可以快照目前陣列內容的功能，以下就個別功能說明</p>
-<h2 id="SnapshotArray-int-length"><a href="#SnapshotArray-int-length" class="headerlink" title="SnapshotArray(int length)"></a>SnapshotArray(int length)</h2><p>初始化陣列，length 會等於 陣列總長度，初始陣列為全部 0。</p>
-<h2 id="set-index-val"><a href="#set-index-val" class="headerlink" title="set(index, val)"></a>set(index, val)</h2><p>依照輸入的 val 來設置 陣列[index] 的數值</p>
-<h2 id="snap"><a href="#snap" class="headerlink" title="snap()"></a>snap()</h2><p>對目前資料陣列進行快照動作，回傳數值為 目前快照次數 - 1;</p>
-<h2 id="get-index-snap-id"><a href="#get-index-snap-id" class="headerlink" title="get(index, snap_id)"></a>get(index, snap_id)</h2><p>取得目前在 snap_id 下該陣列[index] 的數值</p>
-<p>此題目的測試範圍不小，且有記憶體限制，記錄太多東西執行上就會超時，<br>那節省記憶體的陣列做法是將資料存成二維陣列，資料除了設置的數值外多存一個快照ID，取資料的時候會用到(快照ID=snap_id)，此時將對應的陣列[index]傳進去，利用二分搜尋法查詢 符合條件的snap_id數值就能找到資料了！</p>
-<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SnapshotArray</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $length</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$length</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;snap_c = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="variable">$length</span>;<span class="variable">$i</span>++)&#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$i</span>][] = [<span class="number">0</span>,<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $val</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> NULL</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">set</span>(<span class="params"><span class="variable">$index</span>, <span class="variable">$val</span></span>) </span>&#123; </span><br><span class="line">        <span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$index</span>][] = [<span class="keyword">$this</span>-&gt;snap_c,<span class="variable">$val</span>];  </span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">snap</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;snap_c++;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $index</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Integer $snap_id</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Integer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params"><span class="variable">$index</span>, <span class="variable">$snap_id</span></span>) </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;getData(<span class="keyword">$this</span>-&gt;snap_array[<span class="variable">$index</span>],<span class="variable">$snap_id</span>)[<span class="number">1</span>];</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"><span class="variable">$arr</span>,<span class="variable">$target</span></span>)</span>&#123;</span><br><span class="line">        <span class="variable">$max</span> = count(<span class="variable">$arr</span>);</span><br><span class="line">        <span class="variable">$min</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(<span class="variable">$min</span> &lt; <span class="variable">$max</span>)&#123;</span><br><span class="line">            <span class="variable">$mid</span> = <span class="variable">$min</span> + floor( (<span class="variable">$max</span> - <span class="variable">$min</span> ) /<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span>(<span class="variable">$arr</span>[<span class="variable">$mid</span>][<span class="number">0</span>] &lt;= <span class="variable">$target</span>)&#123;</span><br><span class="line">                <span class="variable">$min</span> = <span class="variable">$mid</span> + <span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="variable">$max</span> = <span class="variable">$mid</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$arr</span>[<span class="variable">$min</span>-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>解題紀錄</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
       </tags>
   </entry>
 </search>

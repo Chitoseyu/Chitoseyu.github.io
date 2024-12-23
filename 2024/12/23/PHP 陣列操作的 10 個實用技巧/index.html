@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/coding.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/coding.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/coding.png">
+  <link rel="mask-icon" href="/images/coding.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+<meta name="hexo-config" content="{&quot;hostname&quot;:&quot;chitoseyu.github.io&quot;,&quot;root&quot;:&quot;/&quot;,&quot;images&quot;:&quot;/images&quot;,&quot;scheme&quot;:&quot;Pisces&quot;,&quot;version&quot;:&quot;8.3.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;right&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:false,&quot;bookmark&quot;:{&quot;enable&quot;:false,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:{&quot;enable&quot;:true,&quot;caption&quot;:false},&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:false,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:false,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜尋...&quot;,&quot;empty&quot;:&quot;我們無法找到任何有關 ${query} 的搜索結果&quot;,&quot;hits_time&quot;:&quot;${hits} 找到 ${time} 個結果&quot;,&quot;hits&quot;:&quot;找到 ${hits} 個結果&quot;},&quot;path&quot;:&quot;/search.xml&quot;,&quot;localsearch&quot;:{&quot;enable&quot;:true,&quot;trigger&quot;:&quot;auto&quot;,&quot;top_n_per_article&quot;:1,&quot;unescape&quot;:false,&quot;preload&quot;:false}}">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F10W092PP3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-F10W092PP3');
+</script><meta name="description" content="整理了些 PHP開發 在 工作或解題上可能會用到的實用函數， 依需求可大致區分為以下類別，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP 陣列操作的 10 個實用技巧">
+<meta property="og:url" content="https://chitoseyu.github.io/2024/12/23/PHP%20%E9%99%A3%E5%88%97%E6%93%8D%E4%BD%9C%E7%9A%84%2010%20%E5%80%8B%E5%AF%A6%E7%94%A8%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="Ren&#39;s Coding Note">
+<meta property="og:description" content="整理了些 PHP開發 在 工作或解題上可能會用到的實用函數， 依需求可大致區分為以下類別，">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-12-23T06:20:00.000Z">
+<meta property="article:modified_time" content="2024-12-23T06:20:00.000Z">
+<meta property="article:author" content="Ren">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="Array">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://chitoseyu.github.io/2024/12/23/PHP%20%E9%99%A3%E5%88%97%E6%93%8D%E4%BD%9C%E7%9A%84%2010%20%E5%80%8B%E5%AF%A6%E7%94%A8%E6%8A%80%E5%B7%A7/">
+
+
+
+<meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-TW&quot;}">
+<meta name="hexo-config-calendar" content="">
+<script data-pjax src="/js/load-config.js"></script>
+  <title>PHP 陣列操作的 10 個實用技巧 | Ren's Coding Note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F10W092PP3"></script>
+    <script data-pjax>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-F10W092PP3');
+      }
+    </script>
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Ren's Coding Note</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">什麼都在嘗試的網頁工程之路...</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜尋..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E7%89%B9%E5%AE%9A%E8%B3%87%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">是否存在特定資料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%8F%96%E7%89%B9%E5%AE%9A%E6%AC%84%E4%BD%8D%E8%B3%87%E6%96%99"><span class="nav-number">2.</span> <span class="nav-text">提取特定欄位資料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%B7%9F%E8%B3%87%E6%96%99%E7%BF%BB%E8%BD%89%E9%A1%AF%E7%A4%BA"><span class="nav-number">3.</span> <span class="nav-text">索引跟資料翻轉顯示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A8%88%E7%AE%97%E8%B3%87%E6%96%99%E5%AD%98%E5%9C%A8%E6%95%B8%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">計算資料存在數量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A1%AB%E5%85%85%E5%A4%9A%E5%80%8B%E9%A0%90%E8%A8%AD%E5%80%BC"><span class="nav-number">5.</span> <span class="nav-text">填充多個預設值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E5%AE%9A%E4%BD%8D%E7%BD%AE%E7%A7%BB%E9%99%A4-%E6%8B%BC%E6%8E%A5%E6%95%B8%E5%80%BC"><span class="nav-number">6.</span> <span class="nav-text">特定位置移除&#x2F;拼接數值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E8%B3%87%E6%96%99%E8%BD%89%E9%99%A3%E5%88%97"><span class="nav-number">7.</span> <span class="nav-text">物件資料轉陣列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%88%E4%BD%B5%E5%A4%9A%E5%80%8B%E9%99%A3%E5%88%97%E8%B3%87%E6%96%99"><span class="nav-number">8.</span> <span class="nav-text">合併多個陣列資料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E7%B4%A2%E5%BC%95%E6%88%96%E8%B3%87%E6%96%99%E7%9A%84%E6%95%B8%E5%80%BC"><span class="nav-number">9.</span> <span class="nav-text">取得索引或資料的數值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%95%E7%90%86%E5%A4%9A%E6%AC%A1%E8%B3%87%E6%96%99%E5%8A%9F%E8%83%BD%E5%BE%AA%E7%92%B0"><span class="nav-number">10.</span> <span class="nav-text">處理多次資料功能循環</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%95%E7%90%86%E5%BE%8C%E7%AB%AF%E8%B3%87%E6%96%99%E8%BD%89%E9%99%A3%E5%88%97-JQuery"><span class="nav-number">11.</span> <span class="nav-text">處理後端資料轉陣列(JQuery)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">12.</span> <span class="nav-text">資料參考來源</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ren"
+      src="/images/Chitose.png">
+  <p class="site-author-name" itemprop="name">Ren</p>
+  <div class="site-description" itemprop="description">You have to believe in yourself .</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Chitoseyu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Chitoseyu" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+  <div class="links-of-blogroll-title">
+      
+      <i class="fa fa-clock fa-" aria-hidden="true" style="margin: 1rem 0.25rem 0.5rem 0"></i>
+      近期文章
+  </div>
+  <ul class="links-of-blogroll-list">
+      <li>
+          <a href="/2024/12/23/PHP%20%E9%99%A3%E5%88%97%E6%93%8D%E4%BD%9C%E7%9A%84%2010%20%E5%80%8B%E5%AF%A6%E7%94%A8%E6%8A%80%E5%B7%A7/" title="PHP 陣列操作的 10 個實用技巧" target="_blank">PHP 陣列操作的 10 個實用技巧</a>
+      </li>
+      <li>
+          <a href="/2023/06/11/1146-Snapshot%20Array/" title="1146. Snapshot Array PHP解題" target="_blank">1146. Snapshot Array PHP解題</a>
+      </li>
+      <li>
+          <a href="/2022/01/12/%E8%97%8D%E8%8A%BD%E5%AE%A4%E5%85%A7%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%8F%AF%E8%A1%8C%E6%80%A7/" title="藍芽室內定位的可行性" target="_blank">藍芽室內定位的可行性</a>
+      </li>
+      <li>
+          <a href="/2021/12/29/%E4%BE%86%E4%BD%BF%E7%94%A8Apache%E6%9E%B6%E8%A8%AD%E4%B8%80%E5%80%8B%E7%B0%A1%E5%96%AE%EF%BC%B7ebServer%E5%90%A7/" title="來用Apache架設簡單WebServer吧" target="_blank">來用Apache架設簡單WebServer吧</a>
+      </li>
+      <li>
+          <a href="/2021/12/24/Raspbain%E5%AF%A6%E4%BD%9C%E7%AD%86%E8%A8%98/" title="Raspbain實作筆記" target="_blank">Raspbain實作筆記</a>
+      </li>
+  </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://chitoseyu.github.io/2024/12/23/PHP%20%E9%99%A3%E5%88%97%E6%93%8D%E4%BD%9C%E7%9A%84%2010%20%E5%80%8B%E5%AF%A6%E7%94%A8%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/Chitose.png">
+      <meta itemprop="name" content="Ren">
+      <meta itemprop="description" content="You have to believe in yourself .">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ren's Coding Note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PHP 陣列操作的 10 個實用技巧
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新於</span>
+        <time title="修改時間：2024-12-23 14:20:00" itemprop="dateModified" datetime="2024-12-23T14:20:00+08:00">2024-12-23</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">技術筆記</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>整理了些 PHP開發 在 工作或解題上可能會用到的實用函數，</p>
+<p>依需求可大致區分為以下類別，</p>
+<span id="more"></span>
+
+<h2 id="是否存在特定資料"><a href="#是否存在特定資料" class="headerlink" title="是否存在特定資料"></a>是否存在特定資料</h2><p>二維陣列 使用 <strong>array_key_exists()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="number">0</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">1</span>];</span><br><span class="line"><span class="variable">$check</span> = array_key_exists(<span class="string">&quot;zh&quot;</span>,<span class="variable">$example</span>);</span><br><span class="line">-&gt; 存在 <span class="literal">true</span> , 反之 <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>一維陣列 使用 <strong>in_array()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>];</span><br><span class="line"><span class="variable">$check</span> = in_array(<span class="string">&quot;zh&quot;</span>,<span class="variable">$example</span>,<span class="literal">true</span>);</span><br><span class="line">-&gt; 存在 <span class="literal">true</span> , 反之 <span class="literal">false</span></span><br><span class="line">-&gt;加上第三參數(選填)會加上 變數型態 判斷</span><br></pre></td></tr></table></figure>
+
+<h2 id="提取特定欄位資料"><a href="#提取特定欄位資料" class="headerlink" title="提取特定欄位資料"></a>提取特定欄位資料</h2><p>使用 <strong>array_column()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [</span><br><span class="line">		<span class="string">&quot;zh&quot;</span>=&gt;[</span><br><span class="line">			<span class="string">&quot;id&quot;</span> =&gt; <span class="number">1</span>,</span><br><span class="line">			<span class="string">&quot;name&quot;</span>=&gt;<span class="string">&quot;中文&quot;</span>,</span><br><span class="line">			<span class="string">&quot;code_count&quot;</span>=&gt;<span class="number">10</span>,</span><br><span class="line">		],</span><br><span class="line">		<span class="string">&quot;en&quot;</span>=&gt;[</span><br><span class="line">			<span class="string">&quot;id&quot;</span> =&gt; <span class="number">2</span>,</span><br><span class="line">			<span class="string">&quot;name&quot;</span>=&gt;<span class="string">&quot;英文&quot;</span>,</span><br><span class="line">			<span class="string">&quot;code_count&quot;</span>=&gt;<span class="number">25</span>,</span><br><span class="line">		],</span><br><span class="line">	];</span><br><span class="line"><span class="variable">$result</span> = array_column(<span class="variable">$example</span> ,<span class="string">&quot;code_count&quot;</span>);</span><br><span class="line">-&gt; 轉換成 <span class="variable">$result</span> = [<span class="number">10</span>,<span class="number">25</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_column(<span class="variable">$example</span> ,<span class="string">&quot;code_count&quot;</span>,<span class="string">&quot;id&quot;</span>);</span><br><span class="line">-&gt; 設置 id欄位當索引 轉換成 <span class="variable">$result</span> = [ [<span class="number">1</span>]=&gt;<span class="number">10</span>, [<span class="number">2</span>]=&gt;<span class="number">25</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="索引跟資料翻轉顯示"><a href="#索引跟資料翻轉顯示" class="headerlink" title="索引跟資料翻轉顯示"></a>索引跟資料翻轉顯示</h2><p>使用 <strong>array_flip()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>];</span><br><span class="line"><span class="variable">$result</span> = array_flip(<span class="variable">$example</span>);</span><br><span class="line">-&gt; 轉換成 <span class="variable">$result</span> = [ [<span class="string">&quot;zh&quot;</span>]=&gt;<span class="number">0</span>, [<span class="string">&quot;en&quot;</span>]=&gt;<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">3</span>];</span><br><span class="line"><span class="variable">$result</span> = array_flip(<span class="variable">$example</span>);</span><br><span class="line">-&gt; 存在相同value取後，轉換成 <span class="variable">$result</span> = [ [<span class="number">2</span>]=&gt;<span class="string">&quot;cn&quot;</span>, [<span class="number">3</span>]=&gt;<span class="string">&quot;en&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="計算資料存在數量"><a href="#計算資料存在數量" class="headerlink" title="計算資料存在數量"></a>計算資料存在數量</h2><p>使用 <strong>array_count_values()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>,<span class="number">2</span>,<span class="string">&quot;en&quot;</span>,<span class="number">3</span>,<span class="string">&quot;cn&quot;</span>];</span><br><span class="line"><span class="variable">$result</span> = array_count_values(<span class="keyword">array</span>);</span><br><span class="line">-&gt; 轉換成 <span class="variable">$result</span> = [ </span><br><span class="line">			[<span class="string">&quot;zh&quot;</span>]=&gt; <span class="number">1</span>, </span><br><span class="line">			[<span class="number">2</span>]=&gt; <span class="number">2</span>,</span><br><span class="line">			[<span class="string">&quot;cn&quot;</span>]=&gt; <span class="number">2</span>,</span><br><span class="line">			[<span class="string">&quot;en&quot;</span>]=&gt; <span class="number">1</span>,</span><br><span class="line">			[<span class="number">3</span>]=&gt; <span class="number">1</span>,</span><br><span class="line">	]</span><br></pre></td></tr></table></figure>
+
+<h2 id="填充多個預設值"><a href="#填充多個預設值" class="headerlink" title="填充多個預設值"></a>填充多個預設值</h2><p>使用 <strong>array_fill()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="variable">$exmaple</span> = array_fill(<span class="number">0</span>, <span class="number">5</span>, <span class="string">&quot;fill&quot;</span>);</span><br><span class="line">-&gt; 從 <span class="number">0</span> 開始產生 <span class="number">5</span> 個值， <span class="variable">$result</span> = [<span class="string">&quot;fill&quot;</span>,<span class="string">&quot;fill&quot;</span>,<span class="string">&quot;fill&quot;</span>,<span class="string">&quot;fill&quot;</span>,<span class="string">&quot;fill&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="特定位置移除-拼接數值"><a href="#特定位置移除-拼接數值" class="headerlink" title="特定位置移除/拼接數值"></a><strong>特定位置移除/拼接數值</strong></h2><p>名稱上容易混淆的就放一起講</p>
+<p>**array_splice(拼接)**，移除陣列特定位置數值 並用 其他數值 取代</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">array_splice(陣列,偏移,移除長度(選填),取代數值(選填))</span><br><span class="line"></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,<span class="number">2</span>);</span><br><span class="line">-&gt; 不存在移除長度時 偏移= 取得個數 ， <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line">-&gt; 從 位置<span class="number">2</span> 的開始移除 <span class="number">1</span> 個數值， <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;vn&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,-<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line">-&gt; 從 倒數位置<span class="number">2</span> 的開始移除 <span class="number">2</span> 個數值， <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,<span class="number">2</span>,count(<span class="variable">$example</span>),<span class="string">&quot;remove&quot;</span>);</span><br><span class="line">-&gt; 從 位置<span class="number">2</span> 的開始移除數值(超過可用數=全砍)並替換字串  <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;remove&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_splice(<span class="variable">$example</span>,<span class="number">2</span>,count(<span class="variable">$example</span>),[<span class="string">&quot;remove&quot;</span>,<span class="string">&quot;remove2&quot;</span>]);</span><br><span class="line">-&gt; 從 位置<span class="number">2</span> 的開始移除數值並替換字串  <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;remove&quot;</span>,<span class="string">&quot;remove2&quot;</span>] </span><br></pre></td></tr></table></figure>
+
+<p>**array_slice(移除)**，切除陣列特定位置數值</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">array_slice(陣列,偏移,移除長度(選填),是否保留原本陣列key(選填))</span><br><span class="line"></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_slice(<span class="variable">$example</span>,<span class="number">2</span>);</span><br><span class="line">-&gt; 不存在移除長度時 偏移= 位置<span class="number">0</span> 開始的移除個數， <span class="variable">$result</span> = [<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_slice(<span class="variable">$example</span>,-<span class="number">2</span>,<span class="number">1</span>);</span><br><span class="line">-&gt; 在 倒數第<span class="number">2</span>位置 切除 <span class="number">1</span> 個數值， <span class="variable">$result</span> = [<span class="string">&quot;cn&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_slice(<span class="variable">$example</span>, <span class="number">0</span>,-<span class="number">2</span>);</span><br><span class="line">-&gt; 在 位置<span class="number">0</span> 開始，切除倒數 <span class="number">2</span> 個數值， <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>] </span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_slice(<span class="variable">$example</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="literal">true</span>);</span><br><span class="line">-&gt; 在 第<span class="number">2</span>位置 切除 <span class="number">2</span> 個數值，保留原先索引， <span class="variable">$result</span> = [[<span class="number">2</span>]=&gt;<span class="string">&quot;cn&quot;</span>,[<span class="number">3</span>]=&gt;<span class="string">&quot;vn&quot;</span>] </span><br></pre></td></tr></table></figure>
+
+<h2 id="物件資料轉陣列"><a href="#物件資料轉陣列" class="headerlink" title="物件資料轉陣列"></a>物件資料轉陣列</h2><p>使用 <strong>json_decode()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = <span class="string">&#x27;&#123;</span></span><br><span class="line"><span class="string">		&quot;id&quot;:&quot;1&quot;,</span></span><br><span class="line"><span class="string">		&quot;name&quot;:&quot;English&quot;,</span></span><br><span class="line"><span class="string">		&quot;status&quot;:&quot;1&quot;</span></span><br><span class="line"><span class="string">	&#125;&#x27;</span>;</span><br><span class="line"><span class="variable">$result</span> = json_decode(<span class="variable">$example</span>,<span class="literal">true</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> = [<span class="string">&quot;id&quot;</span>=&gt;<span class="string">&quot;1&quot;</span>,<span class="string">&quot;name&quot;</span>=&gt;<span class="string">&quot;English&quot;</span>,<span class="string">&quot;status&quot;</span>=&gt;<span class="string">&quot;1&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// json_encode($arr) 陣列轉物件資料</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="合併多個陣列資料"><a href="#合併多個陣列資料" class="headerlink" title="合併多個陣列資料"></a>合併多個陣列資料</h2><p>只有兩個，使用 <strong>array_combine()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"><span class="variable">$example_2</span> = [<span class="string">&quot;1&quot;</span>,<span class="number">2</span>,<span class="number">3.5</span>,<span class="literal">true</span>];</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = array_combine(<span class="variable">$example</span>,<span class="variable">$example_2</span>);</span><br><span class="line">-&gt; 前陣列當key後陣列當value  <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="string">&quot;1&quot;</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>=&gt;<span class="number">3.5</span>,<span class="string">&quot;vn&quot;</span>=&gt;<span class="literal">true</span>]</span><br></pre></td></tr></table></figure>
+
+<p>多個陣列，使用 <strong>array_merge()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="string">&quot;tw&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"><span class="variable">$example_2</span> = [<span class="string">&quot;1&quot;</span>,<span class="number">2</span>,<span class="number">3.5</span>,<span class="literal">true</span>,<span class="string">&quot;name&quot;</span>=&gt;<span class="string">&quot;中文&quot;</span>];</span><br><span class="line"><span class="variable">$example_3</span> = [<span class="number">6</span>];</span><br><span class="line"><span class="variable">$result</span> = array_merge(<span class="variable">$example</span>,<span class="variable">$example_2</span>,<span class="variable">$example_3</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> = [</span><br><span class="line">		[<span class="string">&quot;zh&quot;</span>] =&gt;<span class="string">&quot;tw&quot;</span>,</span><br><span class="line">		   [<span class="number">0</span>] =&gt; <span class="string">&quot;en&quot;</span>,</span><br><span class="line">		   [<span class="number">1</span>] =&gt; <span class="string">&quot;cn&quot;</span>,</span><br><span class="line">		   [<span class="number">2</span>] =&gt; <span class="string">&quot;vn&quot;</span>,</span><br><span class="line">		   [<span class="number">3</span>] =&gt; <span class="string">&quot;1&quot;</span>,</span><br><span class="line">		   [<span class="number">4</span>] =&gt; <span class="number">2</span>,</span><br><span class="line">		   [<span class="number">5</span>] =&gt; <span class="number">3.5</span>, </span><br><span class="line">		   [<span class="number">6</span>] =&gt; <span class="literal">true</span>,</span><br><span class="line">	[<span class="string">&quot;name&quot;</span>] =&gt; <span class="string">&quot;中文&quot;</span>,</span><br><span class="line">		   [<span class="number">7</span>] =&gt; <span class="number">6</span></span><br><span class="line">	]</span><br></pre></td></tr></table></figure>
+
+<h2 id="取得索引或資料的數值"><a href="#取得索引或資料的數值" class="headerlink" title="取得索引或資料的數值"></a>取得索引或資料的數值</h2><p>要取得 資料，使用 <strong>array_values()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="string">&quot;tw&quot;</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>=&gt;<span class="number">3.3</span>,<span class="string">&quot;vn&quot;</span>=&gt;<span class="literal">false</span>];</span><br><span class="line"><span class="variable">$result</span> = array_values(<span class="variable">$example</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> = [<span class="string">&quot;tw&quot;</span>,<span class="number">2</span>,<span class="number">3.3</span>,<span class="literal">false</span>]</span><br></pre></td></tr></table></figure>
+
+<p>要取得 索引，使用 <strong>array_keys()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>=&gt;<span class="string">&quot;tw&quot;</span>,<span class="string">&quot;en&quot;</span>=&gt;<span class="number">2</span>,<span class="string">&quot;cn&quot;</span>=&gt;<span class="number">3.3</span>,<span class="string">&quot;vn&quot;</span>=&gt;<span class="literal">false</span>];</span><br><span class="line"><span class="variable">$result</span> = array_keys(<span class="variable">$example</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>,<span class="string">&quot;en&quot;</span>];</span><br><span class="line"><span class="variable">$result</span> = array_keys(<span class="variable">$example</span>,<span class="string">&quot;en&quot;</span>);</span><br><span class="line">-&gt; 一維陣列使用返回陣列位置 <span class="variable">$result</span> =[<span class="number">1</span>,<span class="number">4</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="處理多次資料功能循環"><a href="#處理多次資料功能循環" class="headerlink" title="處理多次資料功能循環"></a>處理多次資料功能循環</h2><p>多個陣列，使用 <strong>array_map()</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 沒宣告函數功能</span></span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"><span class="variable">$example_2</span> = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line"><span class="variable">$result</span> = array_map(<span class="literal">null</span>,<span class="variable">$example</span>,<span class="variable">$example_2</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> =[</span><br><span class="line">		[<span class="number">0</span>]=&gt; [</span><br><span class="line">			[<span class="number">0</span>]=&gt;<span class="string">&quot;zh&quot;</span>, </span><br><span class="line">			[<span class="number">1</span>]=&gt; <span class="number">1</span> </span><br><span class="line">	     ],</span><br><span class="line">		 [<span class="number">1</span>]=&gt;[ </span><br><span class="line">			[<span class="number">0</span>]=&gt;<span class="string">&quot;en&quot;</span>,</span><br><span class="line">			[<span class="number">1</span>]=&gt; <span class="number">2</span> </span><br><span class="line">		 ], </span><br><span class="line">		 [<span class="number">2</span>]=&gt; [ </span><br><span class="line">			[<span class="number">0</span>]=&gt; <span class="string">&quot;cn&quot;</span>, </span><br><span class="line">			[<span class="number">1</span>]=&gt; <span class="number">3</span> </span><br><span class="line">		 ], </span><br><span class="line">		 [<span class="number">3</span>]=&gt; [ </span><br><span class="line">			[<span class="number">0</span>]=&gt; <span class="string">&quot;vn&quot;</span>, </span><br><span class="line">			[<span class="number">1</span>]=&gt; <span class="number">4</span> </span><br><span class="line">		 ]</span><br><span class="line">	]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 有宣告函數功能</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">strick</span>(<span class="params"><span class="variable">$n</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (<span class="variable">$n</span> .<span class="string">&quot; ^ &quot;</span>. <span class="variable">$n</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$example</span> = [<span class="string">&quot;zh&quot;</span>,<span class="string">&quot;en&quot;</span>,<span class="string">&quot;cn&quot;</span>,<span class="string">&quot;vn&quot;</span>];</span><br><span class="line"><span class="variable">$result</span> = array_map(<span class="string">&quot;strick&quot;</span>,<span class="variable">$example</span>);</span><br><span class="line">-&gt; <span class="variable">$result</span> =[<span class="string">&quot;zh ^ zh&quot;</span>,<span class="string">&quot;en ^ en&quot;</span>,<span class="string">&quot;cn ^ cn&quot;</span>,<span class="string">&quot;vn ^ vn&quot;</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>陣列相關的函數還有很多，這邊筆者只是先列出較常使用的提供參考。</p>
+<h2 id="處理後端資料轉陣列-JQuery"><a href="#處理後端資料轉陣列-JQuery" class="headerlink" title="處理後端資料轉陣列(JQuery)"></a>處理後端資料轉陣列(JQuery)</h2><p>這邊不算 PHP的語法，是筆者在過往專案中有使用的部分，</p>
+<p>後端通常情況下回傳資料都會是 json 格式，前端轉陣列使用上的參考。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> response =&#123;</span><br><span class="line">	<span class="string">&quot;type&quot;</span>:<span class="string">&quot;success&quot;</span>,</span><br><span class="line">	<span class="string">&quot;data&quot;</span>: </span><br><span class="line">		<span class="string">&quot;1&quot;</span>:&#123;</span><br><span class="line">			<span class="string">&quot;id&quot;</span>: <span class="number">1</span>,</span><br><span class="line">			<span class="string">&quot;code&quot;</span>: <span class="string">&quot;zh_tw&quot;</span>,</span><br><span class="line">			<span class="string">&quot;count&quot;</span>: <span class="number">25</span> </span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> data_result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.values() <span class="comment">//傳入物件，直接轉陣列</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.values(response.data).forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">	data_result.push(item[<span class="string">&#x27;code&#x27;</span>]);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">-&gt; data_result = [<span class="string">&quot;zh_tw&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys()  <span class="comment">//傳入物件，將其 key 值轉陣列</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.keys(response.data).forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">	data_result.push(item);</span><br><span class="line">&#125;);</span><br><span class="line">-&gt; data_result = [<span class="string">&quot;1&quot;</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.entries() <span class="comment">//傳入物件，將 key 與 value 轉陣列</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.entries(response.data).forEach(<span class="function">(<span class="params">item</span>)=&gt;</span>&#123;</span><br><span class="line">	data_result.push(item);</span><br><span class="line">&#125;);</span><br><span class="line">-&gt; data_result = [ [<span class="string">&quot;1&quot;</span>, &#123; <span class="string">&quot;id&quot;</span>: <span class="number">1</span>, <span class="string">&quot;code&quot;</span>: <span class="string">&quot;zh_tw&quot;</span>, <span class="string">&quot;count&quot;</span>: <span class="number">25</span> &#125;]];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="資料參考來源"><a href="#資料參考來源" class="headerlink" title="資料參考來源"></a>資料參考來源</h2><p><a target="_blank" rel="noopener" href="https://www.php.net/docs.php">PHP: Hypertext Preprocessor</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PHP/" rel="tag"># PHP</a>
+              <a href="/tags/Array/" rel="tag"># Array</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/11/1146-Snapshot%20Array/" rel="prev" title="1146. Snapshot Array PHP解題">
+                  <i class="fa fa-chevron-left"></i> 1146. Snapshot Array PHP解題
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+<script src="https://utteranc.es/client.js"
+        repo="Chitoseyu / Chitoseyu.github.io"
+        issue-term="pathname"
+        theme="github-dark-orange"
+        crossorigin="anonymous"
+        async>
+</script>
+    <div class="comments utterances-container"></div><script src="/js/comments.js"></script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fas fa-dove"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ren</span>
+</div>
+<div class="busuanzi-count">
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+    <div class="pjax">
+
+
+<script>
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "Chitoseyu/Chitoseyu.github.io");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "github-dark-orange");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
+});
+</script>
+
+    </div>
+</body>
+</html>
