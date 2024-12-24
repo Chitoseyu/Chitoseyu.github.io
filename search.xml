@@ -1,51 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>155. Min Stack javascript解題</title>
-    <url>/2021/11/08/155-Min-Stack-javascript/</url>
-    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
-<p>Implement the MinStack class:</p>
-<ul>
-<li>MinStack() initializes the stack object.</li>
-<li>void push(int val) pushes the element val onto the stack.</li>
-<li>void pop() removes the element on the top of the stack.</li>
-<li>int top() gets the top element of the stack.</li>
-<li>int getMin() retrieves the minimum element in the stack.</li>
-</ul>
-<span id="more"></span>
-
-<p>Input / Output(測試資料輸入/輸出):</p>
-<pre><code>MinStack minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-minStack.getMin(); // return -3
-minStack.pop();
-minStack.top();    // return 0
-minStack.getMin(); // return -2
-</code></pre>
-<p>Constraints(參數限制):</p>
-<ul>
-<li>-231 &lt;= val &lt;= 231 - 1</li>
-<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
-<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
-</ul>
-<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
-<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
-<p>所以 min 最底層永遠是最小值</p>
-<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
-<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
-<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>解題紀錄</category>
-      </categories>
-      <tags>
-        <tag>LeetCode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>1146. Snapshot Array PHP解題</title>
     <url>/2023/06/11/1146-Snapshot%20Array/</url>
     <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Implement a SnapshotArray that supports the following interface:</p>
@@ -275,117 +230,6 @@ snapshotArr.get(0,0);  // Get the value of array[0] with snap_id = 0, return 5
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown語法筆記</title>
-    <url>/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/</url>
-    <content><![CDATA[<p>整理一些比較常用的語法紀錄</p>
-<hr>
-<h1 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h1><p><strong>#當標題使用，越少字越大，最多6個</strong></p>
-<pre><code>## 第二段 (H2)
-### 第三段(H3)
-</code></pre>
-<p>效果如下</p>
-<h2 id="第二段-H2"><a href="#第二段-H2" class="headerlink" title="第二段 (H2)"></a>第二段 (H2)</h2><h3 id="第三段-H3"><a href="#第三段-H3" class="headerlink" title="第三段(H3)"></a>第三段(H3)</h3><span id="more"></span>
-
-
-<h1 id="刪除線"><a href="#刪除線" class="headerlink" title="刪除線"></a>刪除線</h1><p><strong>句子前後都加 ~~ 會有刪除線效果</strong></p>
-<pre><code>~~我是刪除線~~
-</code></pre>
-<p>效果如下</p>
-<p><del>我是刪除線</del></p>
-<h1 id="常用文字效果"><a href="#常用文字效果" class="headerlink" title="常用文字效果"></a>常用文字效果</h1><h2 id="粗體"><a href="#粗體" class="headerlink" title="粗體"></a>粗體</h2><pre><code>**Bold**  or __Bold__
-</code></pre>
-<p>效果如下</p>
-<p><strong>Bold</strong></p>
-<h2 id="斜體"><a href="#斜體" class="headerlink" title="斜體"></a>斜體</h2><pre><code>*Italic*  or _Italic_
-</code></pre>
-<p>效果如下</p>
-<p><em>Italic</em></p>
-<h2 id="字體顏色"><a href="#字體顏色" class="headerlink" title="字體顏色"></a>字體顏色</h2><p>這部分可以直接套用HTML語法，顏色可以參考<a href="https://www.ifreesite.com/color/">網頁色碼表</a></p>
-<pre><code>* &lt;font color = &quot;#FF0000&quot;&gt;紅色文字&lt;/font&gt;
-* &lt;font color = &quot;00A600&quot;&gt;綠色文字&lt;/font&gt;
-* &lt;font color = &quot;#0000C6&quot;&gt;藍色文字&lt;/font&gt;
-</code></pre>
-<p>效果如下 </p>
-<ul>
-<li><font color = "#FF0000">紅色文字</font></li>
-<li><font color = "00A600">綠色文字</font></li>
-<li><font color = "#0000C6">藍色文字</font></li>
-</ul>
-<h2 id="特殊符號"><a href="#特殊符號" class="headerlink" title="特殊符號"></a>特殊符號</h2><p>**如果需要打特殊符號但跟前面的有重複到，記得在符號前加上反斜線 \ ，特殊符號如下 **</p>
-<pre><code>*
-!
-+
--
-[]
-&#123;&#125;
-#
-!
-</code></pre>
-<h2 id="區塊引言"><a href="#區塊引言" class="headerlink" title="區塊引言"></a>區塊引言</h2><p>** 在每行前面 加上 &gt; 或是在區塊的第一行加上 &gt; **</p>
-<pre><code>&gt; 哈哈
-&gt; 區塊引言
-&gt; &gt; 多加就會換行
-</code></pre>
-<p>效果如下</p>
-<blockquote>
-<p>哈哈<br>區塊引言</p>
-<blockquote>
-<p>多加就會換行</p>
-</blockquote>
-</blockquote>
-<h2 id="分隔線"><a href="#分隔線" class="headerlink" title="分隔線"></a>分隔線</h2><p><strong>分隔線的部分就很自由了，只要有三個以上的 * or _ or - 都會出來，不管中間有沒有空格</strong> </p>
-<pre><code>***
-_ _ _ _ _
-------------
-</code></pre>
-<p>效果如下</p>
-<hr>
-<h1 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h1><p><strong>前面一個 * or + or - 當一般清單(就是沒有1.、2.、3.、…etc)</strong></p>
-<pre><code>* 第一個
- * 第二個
-* 第三個
-</code></pre>
-<p>效果如下</p>
-<ul>
-<li>第一個</li>
-<li>第二個</li>
-<li>第三個</li>
-</ul>
-<p><strong>想要有序清單就正常打</strong></p>
-<pre><code>1. 第一個
-2. 第二個
-</code></pre>
-<p>效果如下   </p>
-<ol>
-<li>第一個</li>
-<li>第二個</li>
-</ol>
-<h1 id="文字大區塊"><a href="#文字大區塊" class="headerlink" title="文字大區塊"></a>文字大區塊</h1><p><strong>要用大區塊將文字包起來可以按四個空白或是一個Tab</strong></p>
-<pre><code>echo &quot;Hello World!&quot;
-</code></pre>
-<h1 id="文字小區塊"><a href="#文字小區塊" class="headerlink" title="文字小區塊"></a>文字小區塊</h1><p><strong>要用小區塊將文字包起來前後都加上 ` 反引號</strong></p>
-<p><code>echo &quot;Hello World!&quot;</code></p>
-<h1 id="程式碼區塊"><a href="#程式碼區塊" class="headerlink" title="程式碼區塊"></a>程式碼區塊</h1><p><strong>程式碼區塊在開頭結尾加上```可以顯示</strong></p>
-<p>要加上Highlight  以JS為例就是 js 或 javascript 在前面的 ``` 加上 js 或 javascript 就有囉</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">&quot;歡迎光臨&quot;</span>) </span><br></pre></td></tr></table></figure>
-<h1 id="超連結"><a href="#超連結" class="headerlink" title="超連結"></a>超連結</h1><p><strong>需要超連結的格式</strong></p>
-<p><code>[要顯示的名稱](網址)</code></p>
-<h1 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h1><p><code>![若圖片顯示不出來的文字](圖片連結位置或網址)</code></p>
-<p>效果如下，用原生的沒辦法設定大小，可以改用HTML的　img　標籤來設定</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;圖片網誌或存放路徑&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="HTML的img做出來的效果"><a href="#HTML的img做出來的效果" class="headerlink" title="HTML的img做出來的效果"></a>HTML的img做出來的效果</h2><img src="https://i.imgur.com/8Kwd2ko.jpg"  width="300" height="300">
-
-<h2 id="Markdown做出來的效果"><a href="#Markdown做出來的效果" class="headerlink" title="Markdown做出來的效果"></a>Markdown做出來的效果</h2><p><img src="https://i.imgur.com/8Kwd2ko.jpg" alt="沒錯原生圖檔就這麼大"></p>
-<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://markdown.tw/">Markdown語法說明</a></p>
-]]></content>
-      <categories>
-        <category>技術筆記</category>
-      </categories>
-      <tags>
-        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -637,6 +481,193 @@ systemctl status mongod.service
       <tags>
         <tag>MongoDB</tag>
         <tag>NoSQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PHP 的堆結構：SplMaxHeap vs SplMinHeap 使用指南</title>
+    <url>/2024/12/24/PHP%20%E7%9A%84%E5%A0%86%E7%B5%90%E6%A7%8B%EF%BC%9ASplMaxHeap%20vs%20SplMinHeap%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<p>在資料處理上常常會需要取得資料的最大值，但每次都用陣列一次一次找難免費時費力，</p>
+<p>在 Leetcode 解題過程中發現 PHP 有對應程式庫能解決此問題，</p>
+<p>便想藉這次機會整理相關使用方式順便釐清一遍自己的思路。</p>
+<span id="more"></span>
+
+<h2 id="基礎概念"><a href="#基礎概念" class="headerlink" title="基礎概念"></a>基礎概念</h2><p>Heap，堆積，是一種二元樹狀的資料結構，其中又可分為 最大堆(MaxHeap) 和 最小堆(MinHeap)，</p>
+<p>最大堆(MaxHeap) ：根節點(root)始終為最大數值，子節點永遠小於父節點</p>
+<p>最小堆(MinHeap)：根節點(root)始終為最小數值，子節點永遠大於父節點</p>
+<p>強大的PHP有實作這兩種Heap的函數功能，</p>
+<p>MaxHeap / MinHeap 除了最後結果是 最大值 / 最小值外 其餘函數 皆 相同，</p>
+<p>以下以 MaxHeap 功能分類做整理。</p>
+<h2 id="函數功能"><a href="#函數功能" class="headerlink" title="函數功能"></a>函數功能</h2><p>列出實作上會使用的功能參考，</p>
+<h3 id="初始宣告"><a href="#初始宣告" class="headerlink" title="初始宣告"></a>初始宣告</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$max_heap</span> = <span class="keyword">new</span> <span class="built_in">SplMaxHeap</span>();</span><br></pre></td></tr></table></figure>
+
+<h3 id="插入資料：insert"><a href="#插入資料：insert" class="headerlink" title="插入資料：insert()"></a>插入資料：insert()</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">2</span>);</span><br><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">4</span>);</span><br><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="計算資料數：count"><a href="#計算資料數：count" class="headerlink" title="計算資料數：count()"></a>計算資料數：count()</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$now_count</span> = <span class="variable">$max_heap</span>-&gt;count();</span><br><span class="line"><span class="comment">// $now_count = 3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="取得所在位置：current"><a href="#取得所在位置：current" class="headerlink" title="取得所在位置：current()"></a>取得所在位置：current()</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;rewind(); <span class="comment">// 初始化指標，返回最上層</span></span><br><span class="line"><span class="variable">$now_position</span> = <span class="variable">$max_heap</span>-&gt;current(); <span class="comment">// 回傳 6</span></span><br><span class="line">-&gt; 少了呼叫指標步驟會回傳 <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="取最大值：top"><a href="#取最大值：top" class="headerlink" title="取最大值：top()"></a>取最大值：top()</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$curr_max</span> = <span class="variable">$max_heap</span>-&gt;top(); <span class="comment">// 回傳 6</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="取最大值並移除：extract"><a href="#取最大值並移除：extract" class="headerlink" title="取最大值並移除：extract()"></a>取最大值並移除：extract()</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$curr_max</span> = <span class="variable">$max_heap</span>-&gt;extract(); <span class="comment">// 回傳 6 並 移除資料</span></span><br><span class="line">-&gt; 若 Heap 中沒資料呼叫會返回錯誤</span><br></pre></td></tr></table></figure>
+
+<h3 id="判斷資料存在：isEmpty"><a href="#判斷資料存在：isEmpty" class="headerlink" title="判斷資料存在：isEmpty()"></a>判斷資料存在：isEmpty()</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$curr_status</span> = <span class="variable">$max_heap</span>-&gt;isEmpty(); <span class="comment">// 不為空 返回 false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="移動資料指針：next"><a href="#移動資料指針：next" class="headerlink" title="移動資料指針：next()"></a>移動資料指針：next()</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;next();</span><br><span class="line"><span class="variable">$now_position</span> = <span class="variable">$max_heap</span>-&gt;current(); <span class="comment">// 回傳 4</span></span><br></pre></td></tr></table></figure>
+
+<p>能熟練掌握以上方法，那 SplMaxHeap 操作上就不會有太大問題了！</p>
+<p>剩下就是需判斷專案何時該使用此功能的情況了。</p>
+<h2 id="應用場景"><a href="#應用場景" class="headerlink" title="應用場景"></a>應用場景</h2><h3 id="各類排行榜"><a href="#各類排行榜" class="headerlink" title="各類排行榜"></a>各類排行榜</h3><p>每次插入資料 Heap 都會自動變更最大值，能更快速取得數組的排序。</p>
+<p>以下就常見的取得最大值方式做 效能比較</p>
+<table>
+<thead>
+<tr>
+<th><strong>功能</strong></th>
+<th><strong>時間複雜度</strong></th>
+<th><strong>空間複雜度</strong></th>
+<th><strong>應用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>max()</strong></td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>取得當下資料最大值做法</td>
+</tr>
+<tr>
+<td><strong>sort()</strong></td>
+<td>O(n log n)</td>
+<td>O(n)</td>
+<td>需排序資料陣列才會採用</td>
+</tr>
+<tr>
+<td><strong>SplMaxHeap</strong></td>
+<td>O(n log n)</td>
+<td>O(n)</td>
+<td>頻繁取得最大值效能較佳</td>
+</tr>
+</tbody></table>
+<p>筆者有在 Leetcode 題目看過不少適用此方法的案例，</p>
+<p>實務上反而沒什麼用到，畢竟是比較偏效能優化上的方法，</p>
+<p>期許未來接觸到的專案能有使用到的機會吧！</p>
+<h2 id="資料參考來源"><a href="#資料參考來源" class="headerlink" title="資料參考來源"></a>資料參考來源</h2><p><a href="https://www.php.net/docs.php">PHP: Hypertext Preprocessor</a></p>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>PHP</tag>
+        <tag>Heap</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown語法筆記</title>
+    <url>/2021/04/07/Markdown%E8%AA%9E%E6%B3%95%E7%AD%86%E8%A8%98/</url>
+    <content><![CDATA[<p>整理一些比較常用的語法紀錄</p>
+<hr>
+<h1 id="標題"><a href="#標題" class="headerlink" title="標題"></a>標題</h1><p><strong>#當標題使用，越少字越大，最多6個</strong></p>
+<pre><code>## 第二段 (H2)
+### 第三段(H3)
+</code></pre>
+<p>效果如下</p>
+<h2 id="第二段-H2"><a href="#第二段-H2" class="headerlink" title="第二段 (H2)"></a>第二段 (H2)</h2><h3 id="第三段-H3"><a href="#第三段-H3" class="headerlink" title="第三段(H3)"></a>第三段(H3)</h3><span id="more"></span>
+
+
+<h1 id="刪除線"><a href="#刪除線" class="headerlink" title="刪除線"></a>刪除線</h1><p><strong>句子前後都加 ~~ 會有刪除線效果</strong></p>
+<pre><code>~~我是刪除線~~
+</code></pre>
+<p>效果如下</p>
+<p><del>我是刪除線</del></p>
+<h1 id="常用文字效果"><a href="#常用文字效果" class="headerlink" title="常用文字效果"></a>常用文字效果</h1><h2 id="粗體"><a href="#粗體" class="headerlink" title="粗體"></a>粗體</h2><pre><code>**Bold**  or __Bold__
+</code></pre>
+<p>效果如下</p>
+<p><strong>Bold</strong></p>
+<h2 id="斜體"><a href="#斜體" class="headerlink" title="斜體"></a>斜體</h2><pre><code>*Italic*  or _Italic_
+</code></pre>
+<p>效果如下</p>
+<p><em>Italic</em></p>
+<h2 id="字體顏色"><a href="#字體顏色" class="headerlink" title="字體顏色"></a>字體顏色</h2><p>這部分可以直接套用HTML語法，顏色可以參考<a href="https://www.ifreesite.com/color/">網頁色碼表</a></p>
+<pre><code>* &lt;font color = &quot;#FF0000&quot;&gt;紅色文字&lt;/font&gt;
+* &lt;font color = &quot;00A600&quot;&gt;綠色文字&lt;/font&gt;
+* &lt;font color = &quot;#0000C6&quot;&gt;藍色文字&lt;/font&gt;
+</code></pre>
+<p>效果如下 </p>
+<ul>
+<li><font color = "#FF0000">紅色文字</font></li>
+<li><font color = "00A600">綠色文字</font></li>
+<li><font color = "#0000C6">藍色文字</font></li>
+</ul>
+<h2 id="特殊符號"><a href="#特殊符號" class="headerlink" title="特殊符號"></a>特殊符號</h2><p>**如果需要打特殊符號但跟前面的有重複到，記得在符號前加上反斜線 \ ，特殊符號如下 **</p>
+<pre><code>*
+!
++
+-
+[]
+&#123;&#125;
+#
+!
+</code></pre>
+<h2 id="區塊引言"><a href="#區塊引言" class="headerlink" title="區塊引言"></a>區塊引言</h2><p>** 在每行前面 加上 &gt; 或是在區塊的第一行加上 &gt; **</p>
+<pre><code>&gt; 哈哈
+&gt; 區塊引言
+&gt; &gt; 多加就會換行
+</code></pre>
+<p>效果如下</p>
+<blockquote>
+<p>哈哈<br>區塊引言</p>
+<blockquote>
+<p>多加就會換行</p>
+</blockquote>
+</blockquote>
+<h2 id="分隔線"><a href="#分隔線" class="headerlink" title="分隔線"></a>分隔線</h2><p><strong>分隔線的部分就很自由了，只要有三個以上的 * or _ or - 都會出來，不管中間有沒有空格</strong> </p>
+<pre><code>***
+_ _ _ _ _
+------------
+</code></pre>
+<p>效果如下</p>
+<hr>
+<h1 id="清單"><a href="#清單" class="headerlink" title="清單"></a>清單</h1><p><strong>前面一個 * or + or - 當一般清單(就是沒有1.、2.、3.、…etc)</strong></p>
+<pre><code>* 第一個
+ * 第二個
+* 第三個
+</code></pre>
+<p>效果如下</p>
+<ul>
+<li>第一個</li>
+<li>第二個</li>
+<li>第三個</li>
+</ul>
+<p><strong>想要有序清單就正常打</strong></p>
+<pre><code>1. 第一個
+2. 第二個
+</code></pre>
+<p>效果如下   </p>
+<ol>
+<li>第一個</li>
+<li>第二個</li>
+</ol>
+<h1 id="文字大區塊"><a href="#文字大區塊" class="headerlink" title="文字大區塊"></a>文字大區塊</h1><p><strong>要用大區塊將文字包起來可以按四個空白或是一個Tab</strong></p>
+<pre><code>echo &quot;Hello World!&quot;
+</code></pre>
+<h1 id="文字小區塊"><a href="#文字小區塊" class="headerlink" title="文字小區塊"></a>文字小區塊</h1><p><strong>要用小區塊將文字包起來前後都加上 ` 反引號</strong></p>
+<p><code>echo &quot;Hello World!&quot;</code></p>
+<h1 id="程式碼區塊"><a href="#程式碼區塊" class="headerlink" title="程式碼區塊"></a>程式碼區塊</h1><p><strong>程式碼區塊在開頭結尾加上```可以顯示</strong></p>
+<p>要加上Highlight  以JS為例就是 js 或 javascript 在前面的 ``` 加上 js 或 javascript 就有囉</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">&quot;歡迎光臨&quot;</span>) </span><br></pre></td></tr></table></figure>
+<h1 id="超連結"><a href="#超連結" class="headerlink" title="超連結"></a>超連結</h1><p><strong>需要超連結的格式</strong></p>
+<p><code>[要顯示的名稱](網址)</code></p>
+<h1 id="圖片"><a href="#圖片" class="headerlink" title="圖片"></a>圖片</h1><p><code>![若圖片顯示不出來的文字](圖片連結位置或網址)</code></p>
+<p>效果如下，用原生的沒辦法設定大小，可以改用HTML的　img　標籤來設定</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;圖片網誌或存放路徑&quot;</span>  <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="HTML的img做出來的效果"><a href="#HTML的img做出來的效果" class="headerlink" title="HTML的img做出來的效果"></a>HTML的img做出來的效果</h2><img src="https://i.imgur.com/8Kwd2ko.jpg"  width="300" height="300">
+
+<h2 id="Markdown做出來的效果"><a href="#Markdown做出來的效果" class="headerlink" title="Markdown做出來的效果"></a>Markdown做出來的效果</h2><p><img src="https://i.imgur.com/8Kwd2ko.jpg" alt="沒錯原生圖檔就這麼大"></p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://markdown.tw/">Markdown語法說明</a></p>
+]]></content>
+      <categories>
+        <category>技術筆記</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -1247,6 +1278,51 @@ find_element_by_css_selector
       </categories>
       <tags>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>155. Min Stack javascript解題</title>
+    <url>/2021/11/08/155-Min-Stack-javascript/</url>
+    <content><![CDATA[<h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
+<p>Implement the MinStack class:</p>
+<ul>
+<li>MinStack() initializes the stack object.</li>
+<li>void push(int val) pushes the element val onto the stack.</li>
+<li>void pop() removes the element on the top of the stack.</li>
+<li>int top() gets the top element of the stack.</li>
+<li>int getMin() retrieves the minimum element in the stack.</li>
+</ul>
+<span id="more"></span>
+
+<p>Input / Output(測試資料輸入/輸出):</p>
+<pre><code>MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+</code></pre>
+<p>Constraints(參數限制):</p>
+<ul>
+<li>-231 &lt;= val &lt;= 231 - 1</li>
+<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
+<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
+</ul>
+<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
+<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
+<p>所以 min 最底層永遠是最小值</p>
+<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
+<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
+<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>解題紀錄</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
 </search>

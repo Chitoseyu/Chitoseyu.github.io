@@ -28,28 +28,29 @@
   gtag('js', new Date());
 
   gtag('config', 'G-F10W092PP3');
-</script><meta name="description" content="題目說明Design a stack that supports push, pop, top, and retrieving the minimum element in constant time. Implement the MinStack class:  MinStack() initializes the stack object. void push(int val) pushes">
+</script><meta name="description" content="在資料處理上常常會需要取得資料的最大值，但每次都用陣列一次一次找難免費時費力， 在 Leetcode 解題過程中發現 PHP 有對應程式庫能解決此問題， 便想藉這次機會整理相關使用方式順便釐清一遍自己的思路。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="155. Min Stack javascript解題">
-<meta property="og:url" content="https://chitoseyu.github.io/2021/11/08/155-Min-Stack-javascript/index.html">
+<meta property="og:title" content="PHP 的堆結構：SplMaxHeap vs SplMinHeap 使用指南">
+<meta property="og:url" content="https://chitoseyu.github.io/2024/12/24/PHP%20%E7%9A%84%E5%A0%86%E7%B5%90%E6%A7%8B%EF%BC%9ASplMaxHeap%20vs%20SplMinHeap%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="Ren&#39;s Coding Note">
-<meta property="og:description" content="題目說明Design a stack that supports push, pop, top, and retrieving the minimum element in constant time. Implement the MinStack class:  MinStack() initializes the stack object. void push(int val) pushes">
+<meta property="og:description" content="在資料處理上常常會需要取得資料的最大值，但每次都用陣列一次一次找難免費時費力， 在 Leetcode 解題過程中發現 PHP 有對應程式庫能解決此問題， 便想藉這次機會整理相關使用方式順便釐清一遍自己的思路。">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2021-11-08T13:24:37.000Z">
-<meta property="article:modified_time" content="2021-11-08T13:24:37.000Z">
+<meta property="article:published_time" content="2024-12-24T06:20:00.000Z">
+<meta property="article:modified_time" content="2024-12-24T06:20:00.000Z">
 <meta property="article:author" content="Ren">
-<meta property="article:tag" content="LeetCode">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="Heap">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://chitoseyu.github.io/2021/11/08/155-Min-Stack-javascript/">
+<link rel="canonical" href="https://chitoseyu.github.io/2024/12/24/PHP%20%E7%9A%84%E5%A0%86%E7%B5%90%E6%A7%8B%EF%BC%9ASplMaxHeap%20vs%20SplMinHeap%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-TW&quot;}">
 <meta name="hexo-config-calendar" content="">
 <script data-pjax src="/js/load-config.js"></script>
-  <title>155. Min Stack javascript解題 | Ren's Coding Note</title>
+  <title>PHP 的堆結構：SplMaxHeap vs SplMinHeap 使用指南 | Ren's Coding Note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F10W092PP3"></script>
     <script data-pjax>
@@ -164,7 +165,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%8C%E7%9B%AE%E8%AA%AA%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">題目說明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A1%8C%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">解題思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#push"><span class="nav-number">2.1.</span> <span class="nav-text">push()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pop"><span class="nav-number">2.2.</span> <span class="nav-text">pop()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">3.</span> <span class="nav-text">程式碼</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基礎概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B8%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">函數功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%AE%A3%E5%91%8A"><span class="nav-number">2.1.</span> <span class="nav-text">初始宣告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E8%B3%87%E6%96%99%EF%BC%9Ainsert"><span class="nav-number">2.2.</span> <span class="nav-text">插入資料：insert()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%88%E7%AE%97%E8%B3%87%E6%96%99%E6%95%B8%EF%BC%9Acount"><span class="nav-number">2.3.</span> <span class="nav-text">計算資料數：count()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E6%89%80%E5%9C%A8%E4%BD%8D%E7%BD%AE%EF%BC%9Acurrent"><span class="nav-number">2.4.</span> <span class="nav-text">取得所在位置：current()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC%EF%BC%9Atop"><span class="nav-number">2.5.</span> <span class="nav-text">取最大值：top()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC%E4%B8%A6%E7%A7%BB%E9%99%A4%EF%BC%9Aextract"><span class="nav-number">2.6.</span> <span class="nav-text">取最大值並移除：extract()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%B7%E8%B3%87%E6%96%99%E5%AD%98%E5%9C%A8%EF%BC%9AisEmpty"><span class="nav-number">2.7.</span> <span class="nav-text">判斷資料存在：isEmpty()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8B%95%E8%B3%87%E6%96%99%E6%8C%87%E9%87%9D%EF%BC%9Anext"><span class="nav-number">2.8.</span> <span class="nav-text">移動資料指針：next()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%87%89%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">應用場景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E9%A1%9E%E6%8E%92%E8%A1%8C%E6%A6%9C"><span class="nav-number">3.1.</span> <span class="nav-text">各類排行榜</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">資料參考來源</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -262,7 +263,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://chitoseyu.github.io/2021/11/08/155-Min-Stack-javascript/">
+    <link itemprop="mainEntityOfPage" href="https://chitoseyu.github.io/2024/12/24/PHP%20%E7%9A%84%E5%A0%86%E7%B5%90%E6%A7%8B%EF%BC%9ASplMaxHeap%20vs%20SplMinHeap%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/Chitose.png">
@@ -275,7 +276,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          155. Min Stack javascript解題
+          PHP 的堆結構：SplMaxHeap vs SplMinHeap 使用指南
         </h1>
 
         <div class="post-meta-container">
@@ -285,7 +286,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2021-11-08 21:24:37" itemprop="dateModified" datetime="2021-11-08T21:24:37+08:00">2021-11-08</time>
+        <time title="修改時間：2024-12-24 14:20:00" itemprop="dateModified" datetime="2024-12-24T14:20:00+08:00">2024-12-24</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -293,7 +294,7 @@
       </span>
       <span class="post-meta-item-text">分類於</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%A7%A3%E9%A1%8C%E7%B4%80%E9%8C%84/" itemprop="url" rel="index"><span itemprop="name">解題紀錄</span></a>
+          <a href="/categories/%E6%8A%80%E8%A1%93%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">技術筆記</span></a>
         </span>
     </span>
 
@@ -314,40 +315,70 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="題目說明"><a href="#題目說明" class="headerlink" title="題目說明"></a>題目說明</h1><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
-<p>Implement the MinStack class:</p>
-<ul>
-<li>MinStack() initializes the stack object.</li>
-<li>void push(int val) pushes the element val onto the stack.</li>
-<li>void pop() removes the element on the top of the stack.</li>
-<li>int top() gets the top element of the stack.</li>
-<li>int getMin() retrieves the minimum element in the stack.</li>
-</ul>
+        <p>在資料處理上常常會需要取得資料的最大值，但每次都用陣列一次一次找難免費時費力，</p>
+<p>在 Leetcode 解題過程中發現 PHP 有對應程式庫能解決此問題，</p>
+<p>便想藉這次機會整理相關使用方式順便釐清一遍自己的思路。</p>
 <span id="more"></span>
 
-<p>Input / Output(測試資料輸入/輸出):</p>
-<pre><code>MinStack minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-minStack.getMin(); // return -3
-minStack.pop();
-minStack.top();    // return 0
-minStack.getMin(); // return -2
-</code></pre>
-<p>Constraints(參數限制):</p>
-<ul>
-<li>-231 &lt;= val &lt;= 231 - 1</li>
-<li>Methods pop, top and getMin operations will always be called on non-empty stacks.</li>
-<li>At most 3 * 104 calls will be made to push, pop, top, and getMin.</li>
-</ul>
-<h1 id="解題思路"><a href="#解題思路" class="headerlink" title="解題思路"></a>解題思路</h1><p>在Leetcode算Easy的題目，複習Stack堆疊先進後出的觀念，以下以實作上較特別的功能函數做說明</p>
-<h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>每次推之前都檢查推的值是否比 min 存的值還小，有就存進去</p>
-<p>所以 min 最底層永遠是最小值</p>
-<h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>每次移除最後一個值之前都檢查移除的值是否與 min 存的值相等，有就順便移除掉</p>
-<p>最後一個值 =&gt; 最早 push 進堆疊的數值 =&gt;  維持 min 裡面最後一項永遠最小</p>
-<h1 id="程式碼"><a href="#程式碼" class="headerlink" title="程式碼"></a>程式碼</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MinStack = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;  </span><br><span class="line">    <span class="built_in">this</span>.stack = [];</span><br><span class="line">    <span class="built_in">this</span>.min = [];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.push = <span class="function"><span class="keyword">function</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">this</span>.min.length === <span class="number">0</span> || val &lt;= <span class="built_in">this</span>.getMin())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.push(val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.push(val);</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">MinStack.prototype.pop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(<span class="built_in">this</span>.getMin()  === <span class="built_in">this</span>.top())&#123;</span><br><span class="line">        <span class="built_in">this</span>.min.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.stack.pop();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.top = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span>  <span class="built_in">this</span>.stack[ <span class="built_in">this</span>.stack.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MinStack.prototype.getMin = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  <span class="built_in">this</span>.min[ <span class="built_in">this</span>.min.length-<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="基礎概念"><a href="#基礎概念" class="headerlink" title="基礎概念"></a>基礎概念</h2><p>Heap，堆積，是一種二元樹狀的資料結構，其中又可分為 最大堆(MaxHeap) 和 最小堆(MinHeap)，</p>
+<p>最大堆(MaxHeap) ：根節點(root)始終為最大數值，子節點永遠小於父節點</p>
+<p>最小堆(MinHeap)：根節點(root)始終為最小數值，子節點永遠大於父節點</p>
+<p>強大的PHP有實作這兩種Heap的函數功能，</p>
+<p>MaxHeap / MinHeap 除了最後結果是 最大值 / 最小值外 其餘函數 皆 相同，</p>
+<p>以下以 MaxHeap 功能分類做整理。</p>
+<h2 id="函數功能"><a href="#函數功能" class="headerlink" title="函數功能"></a>函數功能</h2><p>列出實作上會使用的功能參考，</p>
+<h3 id="初始宣告"><a href="#初始宣告" class="headerlink" title="初始宣告"></a>初始宣告</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$max_heap</span> = <span class="keyword">new</span> <span class="built_in">SplMaxHeap</span>();</span><br></pre></td></tr></table></figure>
 
+<h3 id="插入資料：insert"><a href="#插入資料：insert" class="headerlink" title="插入資料：insert()"></a>插入資料：insert()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">2</span>);</span><br><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">4</span>);</span><br><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="計算資料數：count"><a href="#計算資料數：count" class="headerlink" title="計算資料數：count()"></a>計算資料數：count()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$now_count</span> = <span class="variable">$max_heap</span>-&gt;count();</span><br><span class="line"><span class="comment">// $now_count = 3</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="取得所在位置：current"><a href="#取得所在位置：current" class="headerlink" title="取得所在位置：current()"></a>取得所在位置：current()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;rewind(); <span class="comment">// 初始化指標，返回最上層</span></span><br><span class="line"><span class="variable">$now_position</span> = <span class="variable">$max_heap</span>-&gt;current(); <span class="comment">// 回傳 6</span></span><br><span class="line">-&gt; 少了呼叫指標步驟會回傳 <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="取最大值：top"><a href="#取最大值：top" class="headerlink" title="取最大值：top()"></a>取最大值：top()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$curr_max</span> = <span class="variable">$max_heap</span>-&gt;top(); <span class="comment">// 回傳 6</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="取最大值並移除：extract"><a href="#取最大值並移除：extract" class="headerlink" title="取最大值並移除：extract()"></a>取最大值並移除：extract()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$curr_max</span> = <span class="variable">$max_heap</span>-&gt;extract(); <span class="comment">// 回傳 6 並 移除資料</span></span><br><span class="line">-&gt; 若 Heap 中沒資料呼叫會返回錯誤</span><br></pre></td></tr></table></figure>
+
+<h3 id="判斷資料存在：isEmpty"><a href="#判斷資料存在：isEmpty" class="headerlink" title="判斷資料存在：isEmpty()"></a>判斷資料存在：isEmpty()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$curr_status</span> = <span class="variable">$max_heap</span>-&gt;isEmpty(); <span class="comment">// 不為空 返回 false</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="移動資料指針：next"><a href="#移動資料指針：next" class="headerlink" title="移動資料指針：next()"></a>移動資料指針：next()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;next();</span><br><span class="line"><span class="variable">$now_position</span> = <span class="variable">$max_heap</span>-&gt;current(); <span class="comment">// 回傳 4</span></span><br></pre></td></tr></table></figure>
+
+<p>能熟練掌握以上方法，那 SplMaxHeap 操作上就不會有太大問題了！</p>
+<p>剩下就是需判斷專案何時該使用此功能的情況了。</p>
+<h2 id="應用場景"><a href="#應用場景" class="headerlink" title="應用場景"></a>應用場景</h2><h3 id="各類排行榜"><a href="#各類排行榜" class="headerlink" title="各類排行榜"></a>各類排行榜</h3><p>每次插入資料 Heap 都會自動變更最大值，能更快速取得數組的排序。</p>
+<p>以下就常見的取得最大值方式做 效能比較</p>
+<table>
+<thead>
+<tr>
+<th><strong>功能</strong></th>
+<th><strong>時間複雜度</strong></th>
+<th><strong>空間複雜度</strong></th>
+<th><strong>應用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>max()</strong></td>
+<td>O(n)</td>
+<td>O(1)</td>
+<td>取得當下資料最大值做法</td>
+</tr>
+<tr>
+<td><strong>sort()</strong></td>
+<td>O(n log n)</td>
+<td>O(n)</td>
+<td>需排序資料陣列才會採用</td>
+</tr>
+<tr>
+<td><strong>SplMaxHeap</strong></td>
+<td>O(n log n)</td>
+<td>O(n)</td>
+<td>頻繁取得最大值效能較佳</td>
+</tr>
+</tbody></table>
+<p>筆者有在 Leetcode 題目看過不少適用此方法的案例，</p>
+<p>實務上反而沒什麼用到，畢竟是比較偏效能優化上的方法，</p>
+<p>期許未來接觸到的專案能有使用到的機會吧！</p>
+<h2 id="資料參考來源"><a href="#資料參考來源" class="headerlink" title="資料參考來源"></a>資料參考來源</h2><p><a target="_blank" rel="noopener" href="https://www.php.net/docs.php">PHP: Hypertext Preprocessor</a></p>
 
     </div>
 
@@ -357,21 +388,19 @@ minStack.getMin(); // return -2
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/LeetCode/" rel="tag"># LeetCode</a>
+              <a href="/tags/PHP/" rel="tag"># PHP</a>
+              <a href="/tags/Heap/" rel="tag"># Heap</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/08/23/Python%E5%9C%B0%E5%9D%80%E8%BD%89%E6%8F%9B%E5%9C%B0%E5%9C%96%E7%B6%93%E7%B7%AF%E5%BA%A6/" rel="prev" title="Python地址轉換地圖經緯度">
-                  <i class="fa fa-chevron-left"></i> Python地址轉換地圖經緯度
+                <a href="/2024/12/23/PHP%20%E9%99%A3%E5%88%97%E6%93%8D%E4%BD%9C%E7%9A%84%2010%20%E5%80%8B%E5%AF%A6%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="prev" title="PHP 陣列操作的 10 個實用技巧">
+                  <i class="fa fa-chevron-left"></i> PHP 陣列操作的 10 個實用技巧
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/14/%E8%A8%98%E6%86%B6%E7%BF%BB%E7%89%8CJAVA%E5%B0%8F%E9%81%8A%E6%88%B2/" rel="next" title="記憶翻牌JAVA小遊戲">
-                  記憶翻牌JAVA小遊戲 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
