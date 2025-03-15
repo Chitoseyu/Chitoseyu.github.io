@@ -28,29 +28,28 @@
   gtag('js', new Date());
 
   gtag('config', 'G-F10W092PP3');
-</script><meta name="description" content="在資料處理上常常會需要取得資料的最大值，但每次都用陣列一次一次找難免費時費力， 在 Leetcode 解題過程中發現 PHP 有對應程式庫能解決此問題， 便想藉這次機會整理相關使用方式順便釐清一遍自己的思路。">
+</script><meta name="description" content="前言筆者在 Laravel 開發 API 應用時， 有遇到 Route 無法正常解析，導致網頁導向請求一直失敗的情況。 那時候真的是摸不清問題在哪，於是便有了整理此篇文章的想法， 這篇文章將針對 路由無法正常運作 問題，提供 3 個排查步驟，希望能幫到同樣有困難的人。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PHP 的堆結構：SplMaxHeap vs SplMinHeap 使用指南">
-<meta property="og:url" content="https://chitoseyu.github.io/2024/12/24/PHP%20%E7%9A%84%E5%A0%86%E7%B5%90%E6%A7%8B%EF%BC%9ASplMaxHeap%20vs%20SplMinHeap%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:title" content="Laravel Route 解析頁面錯誤？三步驟快速排查！">
+<meta property="og:url" content="https://chitoseyu.github.io/2025/03/15/Laravel%20Route%20%E7%84%A1%E6%B3%95%E8%A7%A3%E6%9E%90%E9%A0%81%E9%9D%A2%EF%BC%9F%E9%80%99%203%20%E6%8B%9B%E5%B9%AB%E4%BD%A0%E5%BF%AB%E9%80%9F%E6%8E%92%E6%9F%A5%EF%BC%81/index.html">
 <meta property="og:site_name" content="Ren&#39;s Coding Note">
-<meta property="og:description" content="在資料處理上常常會需要取得資料的最大值，但每次都用陣列一次一次找難免費時費力， 在 Leetcode 解題過程中發現 PHP 有對應程式庫能解決此問題， 便想藉這次機會整理相關使用方式順便釐清一遍自己的思路。">
+<meta property="og:description" content="前言筆者在 Laravel 開發 API 應用時， 有遇到 Route 無法正常解析，導致網頁導向請求一直失敗的情況。 那時候真的是摸不清問題在哪，於是便有了整理此篇文章的想法， 這篇文章將針對 路由無法正常運作 問題，提供 3 個排查步驟，希望能幫到同樣有困難的人。">
 <meta property="og:locale" content="zh_TW">
-<meta property="article:published_time" content="2024-12-24T06:20:00.000Z">
-<meta property="article:modified_time" content="2024-12-24T06:20:00.000Z">
+<meta property="article:published_time" content="2025-03-15T07:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-15T07:00:00.000Z">
 <meta property="article:author" content="Ren">
-<meta property="article:tag" content="PHP">
-<meta property="article:tag" content="Heap">
+<meta property="article:tag" content="Laravel">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://chitoseyu.github.io/2024/12/24/PHP%20%E7%9A%84%E5%A0%86%E7%B5%90%E6%A7%8B%EF%BC%9ASplMaxHeap%20vs%20SplMinHeap%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+<link rel="canonical" href="https://chitoseyu.github.io/2025/03/15/Laravel%20Route%20%E7%84%A1%E6%B3%95%E8%A7%A3%E6%9E%90%E9%A0%81%E9%9D%A2%EF%BC%9F%E9%80%99%203%20%E6%8B%9B%E5%B9%AB%E4%BD%A0%E5%BF%AB%E9%80%9F%E6%8E%92%E6%9F%A5%EF%BC%81/">
 
 
 
 <meta name="hexo-config-page" content="{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-TW&quot;}">
 <meta name="hexo-config-calendar" content="">
 <script data-pjax src="/js/load-config.js"></script>
-  <title>PHP 的堆結構：SplMaxHeap vs SplMinHeap 使用指南 | Ren's Coding Note</title>
+  <title>Laravel Route 解析頁面錯誤？三步驟快速排查！ | Ren's Coding Note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-F10W092PP3"></script>
     <script data-pjax>
@@ -165,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8E%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基礎概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B8%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">函數功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%AE%A3%E5%91%8A"><span class="nav-number">2.1.</span> <span class="nav-text">初始宣告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E8%B3%87%E6%96%99%EF%BC%9Ainsert"><span class="nav-number">2.2.</span> <span class="nav-text">插入資料：insert()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%88%E7%AE%97%E8%B3%87%E6%96%99%E6%95%B8%EF%BC%9Acount"><span class="nav-number">2.3.</span> <span class="nav-text">計算資料數：count()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E5%BE%97%E6%89%80%E5%9C%A8%E4%BD%8D%E7%BD%AE%EF%BC%9Acurrent"><span class="nav-number">2.4.</span> <span class="nav-text">取得所在位置：current()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC%EF%BC%9Atop"><span class="nav-number">2.5.</span> <span class="nav-text">取最大值：top()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC%E4%B8%A6%E7%A7%BB%E9%99%A4%EF%BC%9Aextract"><span class="nav-number">2.6.</span> <span class="nav-text">取最大值並移除：extract()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%B7%E8%B3%87%E6%96%99%E5%AD%98%E5%9C%A8%EF%BC%9AisEmpty"><span class="nav-number">2.7.</span> <span class="nav-text">判斷資料存在：isEmpty()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A7%BB%E5%8B%95%E8%B3%87%E6%96%99%E6%8C%87%E9%87%9D%EF%BC%9Anext"><span class="nav-number">2.8.</span> <span class="nav-text">移動資料指針：next()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%87%89%E7%94%A8%E5%A0%B4%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">應用場景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E9%A1%9E%E6%8E%92%E8%A1%8C%E6%A6%9C"><span class="nav-number">3.1.</span> <span class="nav-text">各類排行榜</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%96%99%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">資料參考來源</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E6%AD%A5%E9%A9%9F"><span class="nav-number">2.</span> <span class="nav-text">排查步驟</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5-api-php-%E6%98%AF%E5%90%A6%E8%83%BD%E5%A4%A0%E8%A7%A3%E6%9E%90%E8%AB%8B%E6%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">檢查 api.php 是否能夠解析請求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5-RouteServiceProvider-php-%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A2%BA%E8%BC%89%E5%85%A5-API-%E8%B7%AF%E7%94%B1"><span class="nav-number">2.2.</span> <span class="nav-text">檢查 RouteServiceProvider.php 是否正確載入 API 路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AA%A2%E6%9F%A5-htaccess-%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A2%BA%E5%B0%8E%E5%90%91%E8%AB%8B%E6%B1%82"><span class="nav-number">2.3.</span> <span class="nav-text">檢查 .htaccess 是否正確導向請求</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B5%90%E8%AB%96"><span class="nav-number">3.</span> <span class="nav-text">結論</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -263,7 +262,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://chitoseyu.github.io/2024/12/24/PHP%20%E7%9A%84%E5%A0%86%E7%B5%90%E6%A7%8B%EF%BC%9ASplMaxHeap%20vs%20SplMinHeap%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">
+    <link itemprop="mainEntityOfPage" href="https://chitoseyu.github.io/2025/03/15/Laravel%20Route%20%E7%84%A1%E6%B3%95%E8%A7%A3%E6%9E%90%E9%A0%81%E9%9D%A2%EF%BC%9F%E9%80%99%203%20%E6%8B%9B%E5%B9%AB%E4%BD%A0%E5%BF%AB%E9%80%9F%E6%8E%92%E6%9F%A5%EF%BC%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/Chitose.png">
@@ -276,7 +275,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          PHP 的堆結構：SplMaxHeap vs SplMinHeap 使用指南
+          Laravel Route 解析頁面錯誤？三步驟快速排查！
         </h1>
 
         <div class="post-meta-container">
@@ -286,7 +285,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新於</span>
-        <time title="修改時間：2024-12-24 14:20:00" itemprop="dateModified" datetime="2024-12-24T14:20:00+08:00">2024-12-24</time>
+        <time title="修改時間：2025-03-15 15:00:00" itemprop="dateModified" datetime="2025-03-15T15:00:00+08:00">2025-03-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -315,70 +314,58 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>在資料處理上常常會需要取得資料的最大值，但每次都用陣列一次一次找難免費時費力，</p>
-<p>在 Leetcode 解題過程中發現 PHP 有對應程式庫能解決此問題，</p>
-<p>便想藉這次機會整理相關使用方式順便釐清一遍自己的思路。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>筆者在 Laravel 開發 API 應用時，</p>
+<p>有遇到 <strong>Route 無法正常解析</strong>，導致網頁導向請求一直失敗的情況。</p>
+<p>那時候真的是摸不清問題在哪，於是便有了整理此篇文章的想法，</p>
+<p>這篇文章將針對 <strong>路由無法正常運作</strong> 問題，提供 3 個排查步驟，希望能幫到同樣有困難的人。</p>
 <span id="more"></span>
 
-<h2 id="基礎概念"><a href="#基礎概念" class="headerlink" title="基礎概念"></a>基礎概念</h2><p>Heap，堆積，是一種二元樹狀的資料結構，其中又可分為 最大堆(MaxHeap) 和 最小堆(MinHeap)，</p>
-<p>最大堆(MaxHeap) ：根節點(root)始終為最大數值，子節點永遠小於父節點</p>
-<p>最小堆(MinHeap)：根節點(root)始終為最小數值，子節點永遠大於父節點</p>
-<p>強大的PHP有實作這兩種Heap的函數功能，</p>
-<p>MaxHeap / MinHeap 除了最後結果是 最大值 / 最小值外 其餘函數 皆 相同，</p>
-<p>以下以 MaxHeap 功能分類做整理。</p>
-<h2 id="函數功能"><a href="#函數功能" class="headerlink" title="函數功能"></a>函數功能</h2><p>列出實作上會使用的功能參考，</p>
-<h3 id="初始宣告"><a href="#初始宣告" class="headerlink" title="初始宣告"></a>初始宣告</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$max_heap</span> = <span class="keyword">new</span> <span class="built_in">SplMaxHeap</span>();</span><br></pre></td></tr></table></figure>
+<h1 id="排查步驟"><a href="#排查步驟" class="headerlink" title="排查步驟"></a>排查步驟</h1><p>以可能發生的問題做進一步檢查，可分成以下項目</p>
+<h2 id="檢查-api-php-是否能夠解析請求"><a href="#檢查-api-php-是否能夠解析請求" class="headerlink" title="檢查 api.php 是否能夠解析請求"></a><strong>檢查 <code>api.php</code> 是否能夠解析請求</strong></h2><p>首先確認 API 路由 (<code>routes/api.php</code>) 是否正確被 Laravel 載入，<br>可以使用 Artisan 指令列出所有已註冊的路由：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan route:list --except-hidden</span><br></pre></td></tr></table></figure>
 
-<h3 id="插入資料：insert"><a href="#插入資料：insert" class="headerlink" title="插入資料：insert()"></a>插入資料：insert()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">2</span>);</span><br><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">4</span>);</span><br><span class="line"><span class="variable">$max_heap</span>-&gt;insert(<span class="number">6</span>);</span><br></pre></td></tr></table></figure>
+<p>這個指令會列出所有可用的 API 路由，如果 API 路由沒有出現在列表中，可能有以下的問題：</p>
+<ul>
+<li><p><strong>未定義正確的 API 路由</strong></p>
+<p>  請確保 <code>routes/api.php</code> 檔案內有適當的路由。例如：    </p>
+  <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Route</span>;</span><br><span class="line"></span><br><span class="line">Route::get(<span class="string">&#x27;/test&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> response()-&gt;json([<span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;API 路由正常運作&#x27;</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>請求 URL 是否包含 <code>/api</code> 前綴？</strong> </p>
+<p>  Laravel 預設會將 <code>api.php</code> 內的路由加上 <code>/api</code> 前綴，例如：    </p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">正確：GET http://yourdomain.com/api/test</span><br><span class="line">錯誤：GET http://yourdomain.com/test</span><br></pre></td></tr></table></figure>
+<p>  如果不希望有 <code>/api</code>，可以修改 <code>RouteServiceProvider.php</code></p>
+</li>
+</ul>
+<h2 id="檢查-RouteServiceProvider-php-是否正確載入-API-路由"><a href="#檢查-RouteServiceProvider-php-是否正確載入-API-路由" class="headerlink" title="檢查 RouteServiceProvider.php 是否正確載入 API 路由"></a><strong>檢查 <code>RouteServiceProvider.php</code> 是否正確載入 API 路由</strong></h2><p>Laravel 的 <code>RouteServiceProvider</code> 負責載入所有的路由檔案，</p>
+<p>其中 <code>mapApiRoutes()</code> 方法應該確保 <code>api.php</code> 正確載入。</p>
+<p>請開啟 <code>app/Providers/RouteServiceProvider.php</code>，找到 <code>mapApiRoutes()</code> 方法，確認內容如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">mapApiRoutes</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Route::middleware(<span class="string">&#x27;api&#x27;</span>)</span><br><span class="line">        -&gt;prefix(<span class="string">&#x27;api&#x27;</span>)</span><br><span class="line">        -&gt;group(base_path(<span class="string">&#x27;routes/api.php&#x27;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>確認 <code>prefix(&#39;api&#39;)</code> 是否正確設定</strong></li>
+<li><strong>檢查 <code>middleware(&#39;api&#39;)</code> 是否存在</strong></li>
+<li><strong>確認 <code>group(base_path(&#39;routes/api.php&#39;))</code> 指向正確路徑</strong></li>
+</ul>
+<p>如果有做任何修改，請執行以下指令清除快取並重新載入路由：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">php artisan route:clear</span><br><span class="line">php artisan cache:clear</span><br><span class="line">php artisan config:clear</span><br></pre></td></tr></table></figure>
 
-<h3 id="計算資料數：count"><a href="#計算資料數：count" class="headerlink" title="計算資料數：count()"></a>計算資料數：count()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$now_count</span> = <span class="variable">$max_heap</span>-&gt;count();</span><br><span class="line"><span class="comment">// $now_count = 3</span></span><br></pre></td></tr></table></figure>
+<h2 id="檢查-htaccess-是否正確導向請求"><a href="#檢查-htaccess-是否正確導向請求" class="headerlink" title="檢查 .htaccess 是否正確導向請求"></a><strong>檢查 <code>.htaccess</code> 是否正確導向請求</strong></h2><p>如果使用的是 Apache 伺服器，Laravel 需要 <code>.htaccess</code> 來將所有請求導向 <code>public/index.php</code>。</p>
+<p>確認 <code>public/.htaccess</code> 檔案是否存在，內容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;IfModule mod_rewrite.c&gt;</span><br><span class="line">    RewriteEngine On</span><br><span class="line">    RewriteRule ^(.*)$ public/$1 [L]</span><br><span class="line">&lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
 
-<h3 id="取得所在位置：current"><a href="#取得所在位置：current" class="headerlink" title="取得所在位置：current()"></a>取得所在位置：current()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;rewind(); <span class="comment">// 初始化指標，返回最上層</span></span><br><span class="line"><span class="variable">$now_position</span> = <span class="variable">$max_heap</span>-&gt;current(); <span class="comment">// 回傳 6</span></span><br><span class="line">-&gt; 少了呼叫指標步驟會回傳 <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
+<p>如果 <code>.htaccess</code> 不存在，可能導致 <strong>Laravel 無法正確解析路由</strong>，可以手動新增並填入上述內容。</p>
+<p>此外也要確保 Apache 伺服器的 <strong>mod_rewrite</strong> 模組已啟用，</p>
+<p>可使用以下指令檢查：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apachectl -M | grep rewrite</span><br></pre></td></tr></table></figure>
 
-<h3 id="取最大值：top"><a href="#取最大值：top" class="headerlink" title="取最大值：top()"></a>取最大值：top()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$curr_max</span> = <span class="variable">$max_heap</span>-&gt;top(); <span class="comment">// 回傳 6</span></span><br></pre></td></tr></table></figure>
+<p>如果未啟用，<br>可以在 Apache 設定 (<code>/etc/apache2/apache2.conf</code> 或 <code>/etc/httpd/conf/httpd.conf</code>) 中新增：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module modules/mod_rewrite.so</span><br></pre></td></tr></table></figure>
 
-<h3 id="取最大值並移除：extract"><a href="#取最大值並移除：extract" class="headerlink" title="取最大值並移除：extract()"></a>取最大值並移除：extract()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$curr_max</span> = <span class="variable">$max_heap</span>-&gt;extract(); <span class="comment">// 回傳 6 並 移除資料</span></span><br><span class="line">-&gt; 若 Heap 中沒資料呼叫會返回錯誤</span><br></pre></td></tr></table></figure>
+<p>並重新啟動 Apache：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart apache2</span><br><span class="line">sudo systemctl restart httpd</span><br></pre></td></tr></table></figure>
 
-<h3 id="判斷資料存在：isEmpty"><a href="#判斷資料存在：isEmpty" class="headerlink" title="判斷資料存在：isEmpty()"></a>判斷資料存在：isEmpty()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$curr_status</span> = <span class="variable">$max_heap</span>-&gt;isEmpty(); <span class="comment">// 不為空 返回 false</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="移動資料指針：next"><a href="#移動資料指針：next" class="headerlink" title="移動資料指針：next()"></a>移動資料指針：next()</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$max_heap</span>-&gt;next();</span><br><span class="line"><span class="variable">$now_position</span> = <span class="variable">$max_heap</span>-&gt;current(); <span class="comment">// 回傳 4</span></span><br></pre></td></tr></table></figure>
-
-<p>能熟練掌握以上方法，那 SplMaxHeap 操作上就不會有太大問題了！</p>
-<p>剩下就是需判斷專案何時該使用此功能的情況了。</p>
-<h2 id="應用場景"><a href="#應用場景" class="headerlink" title="應用場景"></a>應用場景</h2><h3 id="各類排行榜"><a href="#各類排行榜" class="headerlink" title="各類排行榜"></a>各類排行榜</h3><p>每次插入資料 Heap 都會自動變更最大值，能更快速取得數組的排序。</p>
-<p>以下就常見的取得最大值方式做 效能比較</p>
-<table>
-<thead>
-<tr>
-<th><strong>功能</strong></th>
-<th><strong>時間複雜度</strong></th>
-<th><strong>空間複雜度</strong></th>
-<th><strong>應用</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>max()</strong></td>
-<td>O(n)</td>
-<td>O(1)</td>
-<td>取得當下資料最大值做法</td>
-</tr>
-<tr>
-<td><strong>sort()</strong></td>
-<td>O(n log n)</td>
-<td>O(n)</td>
-<td>需排序資料陣列才會採用</td>
-</tr>
-<tr>
-<td><strong>SplMaxHeap</strong></td>
-<td>O(n log n)</td>
-<td>O(n)</td>
-<td>頻繁取得最大值效能較佳</td>
-</tr>
-</tbody></table>
-<p>筆者有在 Leetcode 題目看過不少適用此方法的案例，</p>
-<p>實務上反而沒什麼用到，畢竟是比較偏效能優化上的方法，</p>
-<p>期許未來接觸到的專案能有使用到的機會吧！</p>
-<h2 id="資料參考來源"><a href="#資料參考來源" class="headerlink" title="資料參考來源"></a>資料參考來源</h2><p><a target="_blank" rel="noopener" href="https://www.php.net/docs.php">PHP: Hypertext Preprocessor</a></p>
+<h1 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h1><p>當 Laravel API 路由無法解析時，可以透過上述的步驟來排查：</p>
+<p>若有一步步確認問題點，應該能解決 Laravel 路由無法解析的問題！</p>
+<p>如果文章有其他錯誤的地方，也請不吝留言告知 😊</p>
 
     </div>
 
@@ -388,22 +375,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/PHP/" rel="tag"># PHP</a>
-              <a href="/tags/Heap/" rel="tag"># Heap</a>
+              <a href="/tags/Laravel/" rel="tag"># Laravel</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2024/12/23/PHP%20%E9%99%A3%E5%88%97%E6%93%8D%E4%BD%9C%E7%9A%84%2010%20%E5%80%8B%E5%AF%A6%E7%94%A8%E6%8A%80%E5%B7%A7/" rel="prev" title="PHP 陣列操作的 10 個實用技巧">
-                  <i class="fa fa-chevron-left"></i> PHP 陣列操作的 10 個實用技巧
+                <a href="/2025/02/13/%E5%BE%9E%200%20%E5%88%B0%201%EF%BC%9ADiscord%20Bot%20%E9%96%8B%E7%99%BC%E4%B9%8B%E6%97%85/" rel="prev" title="從 0 到 1：Discord Bot 開發之旅">
+                  <i class="fa fa-chevron-left"></i> 從 0 到 1：Discord Bot 開發之旅
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/02/13/%E5%BE%9E%200%20%E5%88%B0%201%EF%BC%9ADiscord%20Bot%20%E9%96%8B%E7%99%BC%E4%B9%8B%E6%97%85/" rel="next" title="從 0 到 1：Discord Bot 開發之旅">
-                  從 0 到 1：Discord Bot 開發之旅 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
