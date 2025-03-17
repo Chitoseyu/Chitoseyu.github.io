@@ -169,6 +169,13 @@
   </url>
   
   <url>
+    <loc>https://chitoseyu.github.io/tags/Linux/</loc>
+    <lastmod>2025-03-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://chitoseyu.github.io/tags/Markdown/</loc>
     <lastmod>2025-03-17</lastmod>
     <changefreq>weekly</changefreq>
@@ -282,13 +289,6 @@
   
   <url>
     <loc>https://chitoseyu.github.io/tags/%E5%AE%A4%E5%85%A7%E5%AE%9A%E4%BD%8D/</loc>
-    <lastmod>2025-03-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://chitoseyu.github.io/tags/Linux/</loc>
     <lastmod>2025-03-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
